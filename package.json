@@ -1,0 +1,25 @@
+{
+  "name": "ToDo-List",
+  "version": "1.0.0",
+  "description": "A ToDo app made with HTML, CSS and vanilla JS.",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fwendeburg/ToDo-List.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fwendeburg/ToDo-List/issues"
+  },
+  "homepage": "https://github.com/fwendeburg/ToDo-List#readme",
+  "devDependencies": {
+    "webpack": "^5.45.1",
+    "webpack-cli": "^4.7.2"
+  }
+}
