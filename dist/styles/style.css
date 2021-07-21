@@ -183,6 +183,111 @@ nav h1 {
     align-items: center;
 }
 
+.modal-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-task-modal {
+    min-width: 590px;
+    min-height: 410px;
+    width: 55vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 5px;
+}
+
+.modal-header h4 {
+    font-size: 20px;
+    padding: 16px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #E4E4E4;
+}
+
+.inputs {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.task-property {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.task-property input,
+.task-property select,
+.task-property textarea {
+    width: 100%;
+}
+
+.new-task-modal-left-panel,
+.new-task-modal-right-panel {
+    width: 50%;
+}
+
+#new-task-description {
+    height: 150px;
+    resize: none;
+}
+
+.modal-footer {
+    width: 100%;
+    height: 61.6px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.cancel-btn {
+    width: 65px;
+    height: 40px;
+    border: 2px solid #6c757d;
+    background-color: transparent;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.cancel-btn:hover {
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+}
+
+.continue-btn {
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    width: 100px;
+    height: 40px;
+    background-color: #3445B4;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.continue-btn:hover {
+    cursor: pointer;
+    background-color: #2e3c97;
+}
+
 footer {
     position: absolute;
     bottom: 0;
@@ -209,4 +314,27 @@ footer a {
 
 .fs-22 { 
     font-size: 22px; 
+}
+
+/*Media Queries*/
+@media (max-width: 610px) {
+    .add-task-modal {
+        height: max-content;
+        min-width: 300px;
+        width: 90vw;
+    }
+
+    .inputs {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .new-task-modal-left-panel,
+    .new-task-modal-right-panel {
+        width: 100%;
+    }
+
+    .new-task-modal-right-panel {
+        margin-bottom: 20px;
+    }
 }
