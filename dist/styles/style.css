@@ -275,7 +275,7 @@ nav h1 {
     margin-right: 20px;
     margin-left: 20px;
     margin-bottom: 15px;
-    width: 100px;
+    width: 110px;
     height: 40px;
     background-color: #3445B4;
     border: none;
@@ -286,6 +286,28 @@ nav h1 {
 .continue-btn:hover {
     cursor: pointer;
     background-color: #2e3c97;
+}
+
+.add-project-modal {
+    min-width: 290px;
+    min-height: max-content;
+    width: 30vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.project-property {
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.project-property input {
+    width: 100%;
 }
 
 footer {
@@ -336,5 +358,9 @@ footer a {
 
     .new-task-modal-right-panel {
         margin-bottom: 20px;
+    }
+
+    .project-property {
+        width: auto;
     }
 }
