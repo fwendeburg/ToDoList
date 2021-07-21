@@ -135,13 +135,36 @@ nav h1 {
     border-bottom: 1px solid #E4E4E4;
 }
 
+.task:hover label {
+    cursor: pointer;
+}
+
+.task:hover .task-low-priority,
+.task:hover .task-mid-priority,
+.task:hover .task-high-priority {
+    cursor: default;
+}
+
 .task label {
     margin-left: 5px;
     font-weight: 600;
 }
 
+.task-high-priority {
+    color: red;
+}
+
+.task-mid-priority {
+    color: #f49c18;
+}
+
+.task-low-priority {
+    color: rgb(0, 202, 0);
+}
+
 .delete-task-btn {
     margin-left: 5px;
+    margin-right: 5px;
 }
 
 .delete-task-btn:hover {
