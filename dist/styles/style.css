@@ -1,0 +1,189 @@
+body {
+    display: flex;
+    flex-direction: row;
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+}
+
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background-color: #3445B4;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav h1 {
+    font-size: 36px;
+    margin-left: 10px;
+}
+
+.left-side-nav > .material-icons {
+    margin-left: 25px;
+}
+
+.left-side-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#add-task-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-right: 25px;
+    font-size: 20px;
+    width: 150px;
+    height: 40px;
+    background-color: rgb(59, 78, 198);
+    border-radius: 10px;
+}
+
+#add-task-btn:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+#sidebar {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    height: calc(100% - 80px);
+    width: 21vw;
+    min-width: 239px;
+    background-color: #E4E4E4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.task-filter {
+    min-height: 35px;
+    height: max-content;
+    width: 80%;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    margin-left: 25px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.task-filter > p {
+    margin-left: 10px;
+}
+
+.task-filter span {
+    margin-left: 10px;
+}
+
+.task-filter:hover {
+    background-color: rgb(204, 204, 204);
+    cursor: pointer;
+}
+
+.selected {
+    background-color: rgb(204, 204, 204);
+}
+
+#all-tasks {
+    margin-top: 30px;
+}
+
+.projects h2{
+    margin-left: 25px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.content {
+    margin-top: 80px;
+    margin-left: max(239px, 21vw);
+    width: calc(100vw - max(239px, 21vw));
+    height: calc(100vh - 113px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.content h3 {
+    margin-top: 30px;
+    margin-left: 50px;
+    margin-bottom: 5px;
+    font-size: 30px;
+}
+
+.task {
+    margin-top: 15px;
+    margin-left: 50px;
+    height: 30px;
+    width: 50vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E4E4E4;
+}
+
+.task label {
+    margin-left: 5px;
+    font-weight: 600;
+}
+
+.delete-task-btn {
+    margin-left: 5px;
+}
+
+.delete-task-btn:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.edit-task-btn:hover {
+    cursor: pointer;
+    color: #f49c18;
+}
+
+.left-panel,
+.right-panel {
+    display: flex;
+    align-items: center;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 33px;
+    background-color: #3445B4;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+footer a {
+    color: white;
+}
+
+/*Material Icons*/
+.fs-36 { 
+    font-size: 36px; 
+}
+
+.fs-22 { 
+    font-size: 22px; 
+}
