@@ -101,6 +101,38 @@ nav h1 {
     background-color: rgb(204, 204, 204);
 }
 
+#add-task-btn-alt {
+    min-height: 35px;
+    height: max-content;
+    width: 90%;
+    background-color: transparent;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    margin-left: 25px;
+    margin-top: 30px;
+    border-radius: 5px;
+    border: 3px solid rgb(204, 204, 204);
+    display: none;
+}
+
+#add-task-btn-alt:hover {
+    background-color: rgb(204, 204, 204);
+    cursor: pointer;
+}
+
+#add-task-btn-alt > p {
+    margin-left: 10px;
+}
+
+#add-task-btn-alt span {
+    margin-left: 10px;
+}
+
+.section-title-mobile {
+    display: none;
+}
+
 #all-tasks {
     margin-top: 30px;
 }
@@ -386,6 +418,10 @@ footer a {
 
 /*Media Queries*/
 @media (max-width: 750px) {
+    body {
+        flex-direction: column;
+    }
+
     .burger-menu {
         display: block;
         align-self: center;
@@ -445,12 +481,41 @@ footer a {
         transition: all 100ms ease-in-out;
     }
 
+    .right-side-nav {
+        display: flex;
+        flex-direction: row;
+    }
+
     #add-task-btn {
-        display: none;
+        margin-right: 30px;
     }
 
     #sidebar {
-        display: none;
+        position: relative;
+        width: 100%;
+    }
+
+    #add-task-btn-alt {
+        display: flex;
+    }
+
+    .section-title-mobile {
+        display: block;
+        margin-left: 25px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
+
+    #all-tasks {
+        margin-top: 10px;
+    }
+
+    .task-filter {
+        width: calc(100% - 50px);
+    }
+
+    .add-project-btn {
+        margin-bottom: 30px;
     }
 
     .content {
@@ -460,6 +525,16 @@ footer a {
 
     .task {
         width: calc(100vw - 100px);
+    }
+
+    footer {
+        position: relative;
+    }
+}
+
+@media (max-width: 530px) {
+    #add-task-btn {
+        display: none;
     }
 }
 
