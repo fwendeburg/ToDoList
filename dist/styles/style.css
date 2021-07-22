@@ -52,6 +52,10 @@ nav h1 {
     transform: scale(1.05);
 }
 
+.burger-menu {
+    display: none;
+}
+
 #sidebar {
     position: absolute;
     top: 80px;
@@ -126,7 +130,8 @@ nav h1 {
 .task {
     margin-top: 15px;
     margin-left: 50px;
-    height: 30px;
+    min-height: 30px;
+    height: max-content;
     width: 50vw;
     display: flex;
     flex-direction: row;
@@ -339,6 +344,101 @@ footer a {
 }
 
 /*Media Queries*/
+@media (max-width: 750px) {
+    .burger-menu {
+        display: block;
+        align-self: center;
+        margin-right: 25px;
+        height: 40px;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .burger-btn {
+        align-self: center;
+        height: 6px;
+        width: 40px;
+        background-color: white;
+    }
+
+    .burger-btn::after,
+    .burger-btn::before {
+        content: '';
+        position: absolute;
+        height: 6px;
+        width: 40px;
+        background-color: white;
+        transition: all 100ms ease-in-out;
+    }
+
+    .burger-btn::after {
+        transform: translateY(12px);
+    }
+
+    .burger-btn::before {
+        transform: translateY(-12px);
+    }
+
+    /* Burger-Menu Animation */
+    .mobile-menu.show-menu {
+        display: grid;
+        height: calc(100vh - 100px);
+        width: 100vw;
+        background-color: #3445b4;
+        display: grid;
+        justify-content: space-evenly;
+    }
+
+    .burger-menu.open .burger-btn {
+        background: transparent;
+    }
+
+    .burger-menu.open .burger-btn::before {
+        transform: rotate(45deg);
+        transition: all 100ms ease-in-out;
+    }
+
+    .burger-menu.open .burger-btn::after {
+        transform: rotate(-45deg);
+        transition: all 100ms ease-in-out;
+    }
+
+    #add-task-btn {
+        display: none;
+    }
+
+    #sidebar {
+        display: none;
+    }
+
+    .content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .task {
+        width: calc(100vw - 100px);
+    }
+}
+
+@media (max-width: 350px) {
+    .burger-menu {
+        height: 30px;
+        width: 30px;
+    }
+
+    .burger-btn {
+        width: 30px;
+    }
+
+    .burger-btn::after,
+    .burger-btn::before {
+        width: 30px;
+    }
+
+}
+
 @media (max-width: 610px) {
     .add-task-modal {
         margin-top: 10px;
