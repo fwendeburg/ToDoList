@@ -3,6 +3,7 @@ body {
     flex-direction: row;
     font-family: 'Poppins', sans-serif;
     justify-content: center;
+    overflow-y: hidden;
 }
 
 nav {
@@ -104,7 +105,7 @@ nav h1 {
 #add-task-btn-alt {
     min-height: 35px;
     height: max-content;
-    width: 90%;
+    width: calc(100% - 50px);
     background-color: transparent;
     flex-direction: row;
     align-items: center;
@@ -156,6 +157,7 @@ nav h1 {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    overflow-y: scroll;
 }
 
 .content h3 {
@@ -420,6 +422,11 @@ footer a {
 @media (max-width: 750px) {
     body {
         flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .content {
+        overflow: auto;
     }
 
     .burger-menu {
@@ -495,21 +502,6 @@ footer a {
         width: 100%;
     }
 
-    #add-task-btn-alt {
-        display: flex;
-    }
-
-    .section-title-mobile {
-        display: block;
-        margin-left: 25px;
-        margin-top: 20px;
-        margin-bottom: 5px;
-    }
-
-    #all-tasks {
-        margin-top: 10px;
-    }
-
     .task-filter {
         width: calc(100% - 50px);
     }
@@ -535,6 +527,21 @@ footer a {
 @media (max-width: 530px) {
     #add-task-btn {
         display: none;
+    }
+
+    #add-task-btn-alt {
+        display: flex;
+    }
+
+    .section-title-mobile {
+        display: block;
+        margin-left: 25px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
+
+    #all-tasks {
+        margin-top: 10px;
     }
 }
 
