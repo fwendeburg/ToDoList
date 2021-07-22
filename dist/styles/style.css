@@ -49,6 +49,7 @@ nav h1 {
 
 #add-task-btn:hover {
     cursor: pointer;
+    background-color: #2e3c97;
     transform: scale(1.05);
 }
 
@@ -103,6 +104,11 @@ nav h1 {
 #all-tasks {
     margin-top: 30px;
 }
+
+.add-project-btn {
+    border: 3px solid rgb(204, 204, 204);
+}
+
 
 .projects h2{
     margin-left: 25px;
