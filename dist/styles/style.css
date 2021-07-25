@@ -409,6 +409,10 @@ footer a {
     color: white;
 }
 
+.hidden {
+    display: none;
+}
+
 /*Material Icons*/
 .fs-36 { 
     font-size: 36px; 
@@ -500,6 +504,7 @@ footer a {
     #sidebar {
         position: relative;
         width: 100%;
+        display: none;
     }
 
     .task-filter {
