@@ -503,6 +503,10 @@ footer a {
         display: none;
     }
 
+    #sidebar.visible-mobile-nav {
+        display: flex;
+    }
+
     .task-filter {
         width: calc(100% - 50px);
     }

@@ -11,13 +11,12 @@ const burgerMenuAnimation = (function() {
         burgerMenuBtn.addEventListener('click', () => {
             if (!burgerMenuOpen) {
                 burgerMenuOpen = true;
-                sidebar.style.display = 'flex';
             }
             else {
                 burgerMenuOpen = false;
-                sidebar.removeAttribute("style");
             }
         
+            sidebar.classList.toggle('visible-mobile-nav');
             burgerMenuBtn.classList.toggle('open');
         });
     }
