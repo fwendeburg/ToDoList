@@ -141,7 +141,7 @@ nav h1 {
 .add-project-btn {
     min-height: 35px;
     height: max-content;
-    width: 89%;
+    width: 80%;
     background-color: transparent;
     display: flex;
     flex-direction: row;
@@ -536,6 +536,7 @@ footer a {
     }
 
     .add-project-btn {
+        width: calc(100% - 50px);
         margin-bottom: 30px;
     }
 
