@@ -194,13 +194,28 @@ class UI {
                 </div>
 
                 <div class="right-panel">
-                    <span class="material-icons-outlined edit-task-btn">edit</span>
-                    <span class="material-icons delete-task-btn">delete_outline</span>
+                    <span class="material-icons-outlined edit-task-btn" data-taskid ="${id}">edit</span>
+                    <span class="material-icons delete-task-btn" data-taskid ="${id}">delete_outline</span>
                     <span class="material-icons task-${priority.toLowerCase()}-priority">circle</span>
                 </div>
             </div>
         </div>`
         );
+
+        // Do the same for editTaskBtn.
+        const deleteTaskBtns = document.querySelectorAll('.delete-task-btn');
+        let deleteTaskBtn;
+
+        for (let i = 0; i < deleteTaskBtns.length; i++) {
+            if (deleteTaskBtns[i].dataset.taskid == id) {
+                deleteTaskBtn = deleteTaskBtns[i];
+                break;
+            };
+        }
+
+        deleteTaskBtn.addEventListener('click', (e) => {
+            UI.removeTask(e.target.dataset.taskid);
+        })
     }
 
     static addNewProject = (name, id) => {
@@ -292,6 +307,11 @@ class UI {
     }
 
     static #showFilterSelection = (selectedBtn, btnNodeList) => {
+        const projectNameDisplay = document.querySelector('#project-name');
+
+        // The paragraph element is the 3rd children of the btn pressed.
+        const projectName = selectedBtn.childNodes[3];
+
         for (let i = 0; i < btnNodeList.length; i++) {
             if (btnNodeList[i].classList.contains('selected')) {
                 btnNodeList[i].classList.remove('selected');
@@ -299,6 +319,8 @@ class UI {
         }
 
         selectedBtn.classList.add('selected');
+
+        projectNameDisplay.innerText = projectName.innerText;
     }
 
     static addBodyEventListeners = () => {
