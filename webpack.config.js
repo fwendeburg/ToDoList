@@ -2,10 +2,18 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    mode: 'development',
     entry: {
         index: './src/index.js',
-        DOMman: './src/DOMmanipulation.js',
-        animations: './src/animations.js'
+        Storage: './src/Storage.js',
+        ToDo: './src/ToDo.js',
+        Project: './src/Project.js',
+        Task: './src/Task.js',
+        UI: './src/UI.js',
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist',
     },
     plugins: [
         new HtmlWebpackPlugin({

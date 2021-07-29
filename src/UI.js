@@ -1,4 +1,27 @@
-class UI {
+import Project from './Project.js';
+import Task from './Task.js';
+
+export default class UI {
+    static #activateBurgerMenu = () => {
+        const body = document.querySelector('body');
+        const burgerMenuBtn = document.querySelector('.burger-menu');
+        const sidebar = document.querySelector('#sidebar');
+
+        let burgerMenuOpen = false;
+
+        burgerMenuBtn.addEventListener('click', () => {
+            if (!burgerMenuOpen) {
+                burgerMenuOpen = true;
+            }
+            else {
+                burgerMenuOpen = false;
+            }
+        
+            sidebar.classList.toggle('visible-mobile-nav');
+            burgerMenuBtn.classList.toggle('open');
+        });
+    }
+
     static showNewTaskModal = () => {
         const body = document.querySelector('body');
 
@@ -14,24 +37,24 @@ class UI {
                         <div class="task-property">
                             <label>Title</label>
                             <br>
-                            <input type="text">
+                            <input type="text" id="task-name-input">
                         </div>
                         <div class="task-property">
                             <label>Description</label>
                             <br>
-                            <textarea id="new-task-description"></textarea>
+                            <textarea id="task-description-input"></textarea>
                         </div>
                     </div>
                     <div class="new-task-modal-right-panel">
                         <div class="task-property">
                             <label>Due date</label>
                             <br>
-                            <input type="date">
+                            <input type="date" id="task-duedete-input">
                         </div>
                         <div class="task-property">
                             <label>Priority</label>
                             <br>
-                            <select>
+                            <select id="task-priority-input">
                                 <option>Low</option>
                                 <option>Medium</option>
                                 <option>High</option>
@@ -40,7 +63,7 @@ class UI {
                         <div class="task-property">
                             <label>Project</label>
                             <br>
-                            <select>
+                            <select id="task-project-input">
                                 <option>All tasks</option>
                             </select>
                         </div>
@@ -55,7 +78,9 @@ class UI {
         </div>`
         );
 
-        this.addModalEventListeners();
+        const modalType = document.querySelector('.modal-header').childNodes[1].innerText;
+
+        this.addModalEventListeners(modalType);
     }
 
     static showNewProjectModal = () => {
@@ -72,7 +97,7 @@ class UI {
                     <div class="project-property">
                         <label>Title</label>
                         <br>
-                        <input type="text">
+                        <input type="text" id="proj-name-input">
                     </div>
                 </div>
                 
@@ -84,7 +109,11 @@ class UI {
         </div>`
         );
 
-        UI.addModalEventListeners();
+        const continueBtn = document.querySelector('.continue-btn');
+        // The 2nd element is the modal header.
+        const modalType = document.querySelector('.modal-header').childNodes[1].innerText;
+
+        UI.addModalEventListeners(modalType);
     }
 
     static showEditTaskModal = (name, description, dueDate, priority) => {
@@ -222,11 +251,13 @@ class UI {
         const projects = document.getElementsByClassName('project');
 
         projects[projects.length -1].insertAdjacentHTML('afterend', `
-        <div class="task-filter selected project" data-projid="${id}">
+        <div class="task-filter project" data-projid="${id}">
             <span class="material-icons-outlined">description</span>
             <p>${name}</p>
         </div>
         `);
+
+        UI.#updateTaskFiltersEventListeners();
     }
 
     static removeModal = () => {
@@ -282,10 +313,43 @@ class UI {
         }
     }
 
-    static addModalEventListeners = () => {
+    static #handleNewProject() {
+        const newProjectName = document.querySelector('#proj-name-input');
+
+        const newProject = new Project(newProjectName.value);
+
+        UI.addNewProject(newProject.getName(), newProject.getId());
+
+        UI.removeModal();
+    }
+
+    static #handleNewTask() {
+        const newTaskName = document.querySelector('#task-name-input').value;
+        const newTaskDesc = document.querySelector('#task-description-input').value;
+        const newTaskDueDate = document.querySelector('#task-duedete-input').value;
+        const taskPriorityInput = document.querySelector('#task-priority-input');
+        const newTaskPriority = taskPriorityInput.options[taskPriorityInput.selectedIndex].value;
+
+        const newTask = new Task(newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority);
+
+        UI.addNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(), newTask.getId());
+
+        UI.removeModal();
+    }
+
+    static addModalEventListeners = (modalType) => {
         const body = document.querySelector('body');
         const modalWrapper = document.querySelector('.modal-wrapper');
         const cancelBtn = document.querySelector('.cancel-btn');
+        const continueBtn = document.querySelector('.continue-btn');
+
+        if (modalType === 'New task') {
+            console.log("here")
+            continueBtn.addEventListener('click', this.#handleNewTask);
+        }
+        else if (modalType === 'New project') {
+            continueBtn.addEventListener('click', this.#handleNewProject);
+        }
 
         modalWrapper.addEventListener('click', (e) => {
             if(e.target.classList.contains('modal-wrapper')) {
@@ -295,9 +359,9 @@ class UI {
 
         body.addEventListener('keydown', UI.#handleModalEventEsc);
 
-        cancelBtn.addEventListener('click', () => {
-            UI.removeModal();
-        })
+        cancelBtn.addEventListener('click', UI.removeModal);
+
+
     }
 
     static #removeModalEventListeners = () => {
@@ -323,15 +387,20 @@ class UI {
         projectNameDisplay.innerText = projectName.innerText;
     }
 
-    static addBodyEventListeners = () => {
-        const addTaskBtn = document.querySelector('#add-task-btn');
-        const addTaskBtnAlt = document.querySelector('#add-task-btn-alt');
-        const addProjectBtn = document.querySelector('.add-project-btn');
+    static #updateTaskFiltersEventListeners = () => {
         const taskFilters = document.querySelectorAll('.task-filter');
 
         taskFilters.forEach(filter => filter.addEventListener('click', (e) => {
             UI.#showFilterSelection(e.currentTarget, taskFilters);
         }));
+    }
+
+    static addHomepageEventListeners = () => {
+        const addTaskBtn = document.querySelector('#add-task-btn');
+        const addTaskBtnAlt = document.querySelector('#add-task-btn-alt');
+        const addProjectBtn = document.querySelector('.add-project-btn');
+
+        UI.#updateTaskFiltersEventListeners();
 
         addProjectBtn.addEventListener('click', (e) => {
             UI.showNewProjectModal();
@@ -344,5 +413,7 @@ class UI {
         addTaskBtnAlt.addEventListener('click', (e) => {
             UI.showNewTaskModal();
         });
+
+        UI.#activateBurgerMenu();
     }
 }

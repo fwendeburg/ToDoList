@@ -1,20 +1,25 @@
 export default class Project {
     static #nextId = 0;
 
-    constructor() {
+    constructor(name) {
+        this.name = name;
         this.tasks = [];
-        this.id = Task.#nextId++;
+        this.id = Project.#nextId++;
     }
 
     getTasks() {
-        return tasks
+        return this.tasks
     }
 
     addTask(task) {
         this.tasks.push(task);
     }
 
+    getName() {
+        return this.name;
+    }
+
     getId() {
-        return id;
+        return this.id;
     }
 }
