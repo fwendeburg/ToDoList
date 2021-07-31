@@ -51,7 +51,6 @@ nav h1 {
 #add-task-btn:hover {
     cursor: pointer;
     background-color: #2e3c97;
-    transform: scale(1.05);
 }
 
 .burger-menu {
@@ -223,7 +222,7 @@ nav h1 {
     color: red;
 }
 
-.task-mid-priority {
+.task-medium-priority {
     color: #f49c18;
 }
 

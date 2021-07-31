@@ -1,5 +1,7 @@
-import Project from './Project.js';
+import ToDo from './ToDo.js';
 import Task from './Task.js';
+import Project from './Project.js';
+import { parseISO, format } from 'date-fns';
 
 export default class UI {
     static #activateBurgerMenu = () => {
@@ -49,7 +51,7 @@ export default class UI {
                         <div class="task-property">
                             <label>Due date</label>
                             <br>
-                            <input type="date" id="task-duedete-input">
+                            <input type="date" id="task-duedate-input">
                         </div>
                         <div class="task-property">
                             <label>Priority</label>
@@ -77,6 +79,8 @@ export default class UI {
             </div>
         </div>`
         );
+
+        this.#updateProjectList();
 
         const modalType = document.querySelector('.modal-header').childNodes[1].innerText;
 
@@ -116,8 +120,9 @@ export default class UI {
         UI.addModalEventListeners(modalType);
     }
 
-    static showEditTaskModal = (name, description, dueDate, priority) => {
+    static showEditTaskModal = (taskId) => {
         const body = document.querySelector('body');
+        const taskInfo = ToDo.getTaskInfo(taskId);
 
         body.insertAdjacentHTML('beforeend', `
         <div class="modal-wrapper">
@@ -131,27 +136,27 @@ export default class UI {
                         <div class="task-property">
                             <label>Title</label>
                             <br>
-                            <input type="text" value="${name}">
+                            <input type="text" id="task-name-input" value="${taskInfo[0]}">
                         </div>
                         <div class="task-property">
                             <label>Description</label>
                             <br>
-                            <textarea id="new-task-description">${description}</textarea>
+                            <textarea id="task-description-input">${taskInfo[1]}</textarea>
                         </div>
                     </div>
                     <div class="new-task-modal-right-panel">
                         <div class="task-property">
                             <label>Due date</label>
                             <br>
-                            <input type="date" value="${dueDate}">
+                            <input type="date" id="task-duedate-input" value="${format(taskInfo[2], 'yyyy-MM-dd')}">
                         </div>
                         <div class="task-property">
                             <label>Priority</label>
                             <br>
-                            <select>
-                                <option ${(priority === 'Low')? 'selected="selected"' : ''}>Low</option>
-                                <option ${(priority === 'Medium')? 'selected="selected"' : ''}>Medium</option>
-                                <option ${(priority === 'High')? 'selected="selected"' : ''}>High</option>
+                            <select id="task-priority-input">
+                                <option ${(taskInfo[3] === 'Low')? 'selected="selected"' : ''}>Low</option>
+                                <option ${(taskInfo[3] === 'Medium')? 'selected="selected"' : ''}>Medium</option>
+                                <option ${(taskInfo[3] === 'High')? 'selected="selected"' : ''}>High</option>
                             </select>
                         </div>
                     </div>
@@ -159,13 +164,15 @@ export default class UI {
 
                 <div class="modal-footer">
                     <button class="cancel-btn">Close</button>
-                    <button class="continue-btn">Add task</button>
+                    <button class="continue-btn">Save</button>
                 </div>
             </div>
         </div>`
         );
 
-        UI.addModalEventListeners();
+        const modalType = document.querySelector('.modal-header').childNodes[1].innerText;
+
+        UI.addModalEventListeners(modalType, taskId);
     }
 
     static showTaskInfoModal = (name, description, dueDate, priority) => {
@@ -192,7 +199,7 @@ export default class UI {
                     <div class="show-task-modal-right-panel">
                         <div class="task-property">
                             <p class="property-due-date">Due date:</p>
-                            <p>${dueDate}</p>
+                            <p>${format(dueDate, "yyyy/MM/dd")}</p>
                         </div>
                         <div class="task-property">
                             <p class="property-priority">Priority:</p>
@@ -219,19 +226,23 @@ export default class UI {
         <div class="task" data-taskid ="${id}">
                 <div class="left-panel">
                     <input type="checkbox" class="task-finished">
-                    <label>${name} - ${dueDate}</label>
+                    <label>${name} - ${format(dueDate, "yyyy/MM/dd")}</label>
                 </div>
 
                 <div class="right-panel">
                     <span class="material-icons-outlined edit-task-btn" data-taskid ="${id}">edit</span>
                     <span class="material-icons delete-task-btn" data-taskid ="${id}">delete_outline</span>
-                    <span class="material-icons task-${priority.toLowerCase()}-priority">circle</span>
+                    <span id="task-priority" class="material-icons task-${priority.toLowerCase()}-priority">circle</span>
                 </div>
             </div>
         </div>`
         );
 
-        // Do the same for editTaskBtn.
+        this.addEditTaskBtnEL(id);
+        this.addDeleteTaskBtnEL(id);
+    }
+
+    static addDeleteTaskBtnEL(id) {
         const deleteTaskBtns = document.querySelectorAll('.delete-task-btn');
         let deleteTaskBtn;
 
@@ -243,8 +254,56 @@ export default class UI {
         }
 
         deleteTaskBtn.addEventListener('click', (e) => {
-            UI.removeTask(e.target.dataset.taskid);
+            this.removeTask(e.target.dataset.taskid);
+
+            ToDo.deleteTask(e.target.dataset.taskid);
         })
+    }
+
+    static addEditTaskBtnEL(id) {
+        const editTaskBtns = document.querySelectorAll('.edit-task-btn');
+        let editTaskBtn;
+
+        for (let i = 0; i < editTaskBtns.length; i++) {
+            if (editTaskBtns[i].dataset.taskid == id) {
+                editTaskBtn = editTaskBtns[i];
+                break;
+            }
+        }
+
+        editTaskBtn.addEventListener('click', (e) => {
+            this.showEditTaskModal(e.target.dataset.taskid);
+        });
+    }
+
+    static #handleTaskEdit(id) {
+        const newTaskName = document.querySelector('#task-name-input').value;
+        const newTaskDesc = document.querySelector('#task-description-input').value;
+        const newTaskDueDate = parseISO(document.querySelector('#task-duedate-input').value);
+        const taskPriorityInput = document.querySelector('#task-priority-input');
+        const newTaskPriority = taskPriorityInput.options[taskPriorityInput.selectedIndex].value;
+        const taskProjectInput = document.querySelector('#task-project-input');
+
+        ToDo.changeTaskInfo(id, newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority);
+
+        this.#updateTaskEntry(id, newTaskName, newTaskDueDate, newTaskPriority);
+
+        this.removeModal();
+    }
+
+    static #updateTaskEntry(taskId, name, dueDate, priority) {
+        const task = document.querySelector(`[data-taskid='${taskId}']`);
+        const taskPriority = task.querySelector('#task-priority');
+        const taskName = task.querySelector('label');
+
+        taskName.innerText = `${name} - ${format(dueDate, "yyyy/MM/dd")}`;
+
+        // Remove current priority.
+        taskPriority.classList.remove('task-low-priority');
+        taskPriority.classList.remove('task-medium-priority');
+        taskPriority.classList.remove('task-high-priority');
+
+        taskPriority.classList.add(`task-${priority.toLowerCase()}-priority`);
     }
 
     static addNewProject = (name, id) => {
@@ -318,6 +377,8 @@ export default class UI {
 
         const newProject = new Project(newProjectName.value);
 
+        ToDo.addNewProject(newProject);
+
         UI.addNewProject(newProject.getName(), newProject.getId());
 
         UI.removeModal();
@@ -326,29 +387,37 @@ export default class UI {
     static #handleNewTask() {
         const newTaskName = document.querySelector('#task-name-input').value;
         const newTaskDesc = document.querySelector('#task-description-input').value;
-        const newTaskDueDate = document.querySelector('#task-duedete-input').value;
+        const newTaskDueDate = parseISO(document.querySelector('#task-duedate-input').value);
         const taskPriorityInput = document.querySelector('#task-priority-input');
         const newTaskPriority = taskPriorityInput.options[taskPriorityInput.selectedIndex].value;
+        const taskProjectInput = document.querySelector('#task-project-input');
+        const newTaskProject = taskProjectInput.options[taskProjectInput.selectedIndex].value;
 
         const newTask = new Task(newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority);
+
+        ToDo.addNewTask(newTask, newTaskProject);
 
         UI.addNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(), newTask.getId());
 
         UI.removeModal();
     }
 
-    static addModalEventListeners = (modalType) => {
+    static addModalEventListeners = (modalType, taskId = -1) => {
         const body = document.querySelector('body');
         const modalWrapper = document.querySelector('.modal-wrapper');
         const cancelBtn = document.querySelector('.cancel-btn');
         const continueBtn = document.querySelector('.continue-btn');
 
         if (modalType === 'New task') {
-            console.log("here")
             continueBtn.addEventListener('click', this.#handleNewTask);
         }
         else if (modalType === 'New project') {
             continueBtn.addEventListener('click', this.#handleNewProject);
+        }
+        else if (modalType === 'Edit Task') {
+            continueBtn.addEventListener('click', () => {
+                this.#handleTaskEdit(taskId);
+            });
         }
 
         modalWrapper.addEventListener('click', (e) => {
@@ -360,8 +429,6 @@ export default class UI {
         body.addEventListener('keydown', UI.#handleModalEventEsc);
 
         cancelBtn.addEventListener('click', UI.removeModal);
-
-
     }
 
     static #removeModalEventListeners = () => {
@@ -370,7 +437,7 @@ export default class UI {
         body.removeEventListener('keydown', UI.#handleModalEventEsc);
     }
 
-    static #showFilterSelection = (selectedBtn, btnNodeList) => {
+    static #handleFilterSelection = (selectedBtn, btnNodeList) => {
         const projectNameDisplay = document.querySelector('#project-name');
 
         // The paragraph element is the 3rd children of the btn pressed.
@@ -385,13 +452,40 @@ export default class UI {
         selectedBtn.classList.add('selected');
 
         projectNameDisplay.innerText = projectName.innerText;
+
+        this.#getProjectsForFilter(selectedBtn.childNodes[3].innerText);
+    }
+
+    static #getProjectsForFilter = (filter) => {
+        let tasks;
+
+        if (filter === 'All tasks') {
+            // Todo.
+        }
+        else if (filter === 'Today') {
+            tasks = ToDo.getDueTodayTasks();
+        }
+        else if (filter === 'This week') {
+            tasks = ToDo.getDueThisWeekTasks();
+        }
+        else {
+            tasks = ToDo.getProjectTasks(filter);
+        }
+
+        this.clearTasks();        
+
+        if (tasks) {
+            tasks.forEach(task => {
+                this.addNewTask(task.getName(), task.getDueDate(), task.getPriority(), task.getId());
+            });
+        }
     }
 
     static #updateTaskFiltersEventListeners = () => {
         const taskFilters = document.querySelectorAll('.task-filter');
 
         taskFilters.forEach(filter => filter.addEventListener('click', (e) => {
-            UI.#showFilterSelection(e.currentTarget, taskFilters);
+            UI.#handleFilterSelection(e.currentTarget, taskFilters);
         }));
     }
 
@@ -415,5 +509,16 @@ export default class UI {
         });
 
         UI.#activateBurgerMenu();
+    }
+
+    static #updateProjectList() {
+        const taskProjectInput = document.querySelector('#task-project-input');
+        let projectNames = ToDo.getProjectNames();
+
+        for (let i = 0; i < projectNames.length; i++) {
+            taskProjectInput.insertAdjacentHTML('beforeend', `
+            <option>${projectNames[i]}</option>
+            `)
+        }
     }
 }
