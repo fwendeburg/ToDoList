@@ -1,3 +1,5 @@
 import UI from './UI.js';
+import Storage from './Storage.js';
 
-UI.addHomepageEventListeners();
+Storage.initToDo();
+UI.initHomePage();

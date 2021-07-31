@@ -27,6 +27,10 @@ export default class Project {
         this.tasks[taskPos].setAttributes(name, desc, dueDate, priority);
     }
 
+    toggleTaskStatus(taskId) {
+        this.tasks[this.getTaskIndex(taskId)].toggleTaskStatus();
+    }
+
     getTask(taskId) {
         let task = null;
 
@@ -41,6 +45,10 @@ export default class Project {
 
     getTasks() {
         return this.tasks
+    }
+
+    setTasks(tasks) {
+        this.tasks = tasks;
     }
 
     addTask(task) {

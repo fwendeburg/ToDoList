@@ -1,13 +1,35 @@
 import Project from './Project.js';
 import Task from './Task.js';
 import Storage from './Storage.js';
-import { isToday, startOfToday, compareAsc, addDays } from 'date-fns';
+import { isToday, startOfToday, compareAsc, addDays, parseISO } from 'date-fns';
 
 export default class ToDo {
     static #projects = [];
 
     static addNewProject(project) {
         this.#projects.push(project);
+
+        Storage.saveData(this.#projects);
+    }
+
+    static changeTaskStatus(taskId) {
+        let index = this.getProjectOfTask(taskId);
+
+        if (index != -1) {
+            this.#projects[index].toggleTaskStatus(taskId);
+
+            Storage.saveData(this.#projects);
+        }
+    }
+
+    static setProjects(projects) {
+        this.#projects = projects;
+
+        Storage.saveData(this.#projects);
+    }
+
+    static getProjects() {
+        return this.#projects;
     }
 
     static addNewTask(task, project) {
@@ -15,6 +37,8 @@ export default class ToDo {
 
         if (index != -1) {
             this.#projects[index].addTask(task);
+
+            Storage.saveData(this.#projects);
         }
     }
 
@@ -52,7 +76,7 @@ export default class ToDo {
             let projectTasks = this.#projects[i].getTasks();
 
             for (let j = 0; j < projectTasks.length; j++) {
-                if (isToday(projectTasks[j].getDueDate())) {
+                if (isToday(parseISO(projectTasks[j].getDueDate()))) {
                     tasks.push(projectTasks[j]);
                 }
             }
@@ -65,6 +89,7 @@ export default class ToDo {
         for (let i = 0; i < this.#projects.length; i++) {
             if (this.#projects[i].getTaskIndex(taskId) != -1) {
                 this.#projects[i].deleteTask(this.#projects[i].getTaskIndex(taskId));
+                Storage.saveData(this.#projects);
                 break;
             }
         }
@@ -79,6 +104,7 @@ export default class ToDo {
 
             if (taskIndex != -1) {
                 this.#projects[projectIndex].updateTaskInfo(taskIndex, name, desc, dueDate, priority);
+                Storage.saveData(this.#projects);
             }
         }
     }
@@ -92,7 +118,7 @@ export default class ToDo {
             let projectTasks = this.#projects[i].getTasks();
 
             for (let j = 0; j < projectTasks.length; j++) {
-                if (compareAsc(projectTasks[j].getDueDate(), nextWeek) != 1) {
+                if (compareAsc(parseISO(projectTasks[j].getDueDate()), nextWeek) != 1) {
                     tasks.push(projectTasks[j]);
                 }
             }

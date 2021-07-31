@@ -17,6 +17,10 @@ export default class Task {
         this.priority = priority;
     }
 
+    toggleTaskStatus() {
+        this.isCompleted = !this.isCompleted;
+    }
+
     getName() {
         return this.name;
     }
