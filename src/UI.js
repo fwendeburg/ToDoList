@@ -175,35 +175,36 @@ export default class UI {
         UI.addModalEventListeners(modalType, taskId);
     }
 
-    static showTaskInfoModal = (name, description, dueDate, priority) => {
+    static showTaskInfoModal = (taskId) => {
         const body = document.querySelector('body');
+        const taskInfo = ToDo.getTaskInfo(taskId);
 
         body.insertAdjacentHTML('beforeend', `
         <div class="modal-wrapper">
             <div class="show-task-modal">
                 <div class="modal-header">
-                    <h4>${name}</h4>
+                    <h4>${taskInfo[0]}</h4>
                 </div>
 
                 <div class="properties">
                     <div class="show-task-modal-left-panel">
                         <div class="task-property">
                             <p class="property-title">Title:</p>
-                            <p>${name}</p>
+                            <p>${taskInfo[0]}</p>
                         </div>
                         <div class="task-property">
                             <p class="property-desc">Description:</p>
-                            <p>${description}</p>
+                            <p>${taskInfo[1]}</p>
                         </div>
                     </div>
                     <div class="show-task-modal-right-panel">
                         <div class="task-property">
                             <p class="property-due-date">Due date:</p>
-                            <p>${format(dueDate, "yyyy/MM/dd")}</p>
+                            <p>${format(taskInfo[2], "yyyy/MM/dd")}</p>
                         </div>
                         <div class="task-property">
                             <p class="property-priority">Priority:</p>
-                            <p>${priority}</p>
+                            <p>${taskInfo[3]}</p>
                         </div>
                     </div>
                 </div>
@@ -216,7 +217,10 @@ export default class UI {
         </div>`
         );
 
-        UI.addModalEventListeners();
+
+        const modalType = document.querySelector('.modal-header').childNodes[1].innerText;
+
+        UI.addModalEventListeners(modalType, taskId);
     }
 
     static addNewTask = (name, dueDate, priority, id) => {
@@ -238,8 +242,18 @@ export default class UI {
         </div>`
         );
 
+        this.addTaskInfoEL(id);
         this.addEditTaskBtnEL(id);
         this.addDeleteTaskBtnEL(id);
+    }
+
+    static addTaskInfoEL(taskId) {
+        const taskInfo = document.querySelector(`[data-taskid='${taskId}']`);
+        const label = taskInfo.querySelector('label');
+
+        label.addEventListener('click', (e) => {
+            this.showTaskInfoModal(taskId);
+        })
     }
 
     static addDeleteTaskBtnEL(id) {
@@ -417,6 +431,12 @@ export default class UI {
         else if (modalType === 'Edit Task') {
             continueBtn.addEventListener('click', () => {
                 this.#handleTaskEdit(taskId);
+            });
+        }
+        else {
+            continueBtn.addEventListener('click', () => {
+                this.removeModal();
+                this.showEditTaskModal(taskId);
             });
         }
 
