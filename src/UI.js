@@ -223,7 +223,7 @@ export default class UI {
         UI.addModalEventListeners(modalType, taskId);
     }
 
-    static addNewTask = (name, dueDate, priority, id) => {
+    static addNewTask = (name, dueDate, priority, id, taskStatus) => {
         const content = document.querySelector('.content');
 
         content.insertAdjacentHTML('beforeend', `
@@ -256,6 +256,22 @@ export default class UI {
             this.changeTaskStatus(id, e.target.parentNode.parentNode);
         })
 
+        if (taskStatus) {
+            const tasks = document.querySelectorAll('.task');
+            let task;
+
+            for (let i = 0; i < tasks.length; i++) {
+                if (tasks[i].dataset.taskid == id) {
+                    task = tasks[i];
+                    break;
+                };
+            }
+    
+            task.childNodes[1].classList.toggle('completedl');
+            task.childNodes[1].childNodes[1].checked = true;
+            task.childNodes[3].classList.toggle('completedr');
+        };
+
         this.addTaskInfoEL(id);
         this.addEditTaskBtnEL(id);
         this.addDeleteTaskBtnEL(id);
@@ -263,7 +279,6 @@ export default class UI {
 
     static changeTaskStatus(id, taskEntry) {
         ToDo.changeTaskStatus(id);
-        console.log(taskEntry.childNodes)
 
         taskEntry.childNodes[1].classList.toggle('completedl');
         taskEntry.childNodes[3].classList.toggle('completedr');
@@ -446,7 +461,8 @@ export default class UI {
 
         ToDo.addNewTask(newTask, newTaskProject);
 
-        UI.addNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(), newTask.getId());
+        UI.addNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(),
+        newTask.getId(), newTask.getStatus());
 
         UI.removeModal();
     }
@@ -531,7 +547,8 @@ export default class UI {
 
         if (tasks) {
             tasks.forEach(task => {
-                this.addNewTask(task.getName(), task.getDueDate(), task.getPriority(), task.getId());
+                this.addNewTask(task.getName(), task.getDueDate(), task.getPriority(),
+                task.getId(), task.getStatus());
             });
         }
     }

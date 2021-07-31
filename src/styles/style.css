@@ -230,6 +230,15 @@ nav h1 {
     color: rgb(0, 202, 0);
 }
 
+.completedl {
+    text-decoration: line-through;
+    opacity: 70%;
+}
+
+.completedr {
+    opacity: 70%;
+}
+
 .delete-task-btn {
     margin-left: 5px;
     margin-right: 5px;

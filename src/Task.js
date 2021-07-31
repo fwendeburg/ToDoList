@@ -21,6 +21,10 @@ export default class Task {
         this.isCompleted = !this.isCompleted;
     }
 
+    getStatus() {
+        return this.isCompleted;
+    }
+
     getName() {
         return this.name;
     }
