@@ -1,7 +1,7 @@
 import ToDo from './ToDo.js';
 import Project from './Project.js';
 import Task from './Task.js';
-import { startOfToday } from 'date-fns';
+import { startOfToday, formatISO } from 'date-fns';
 
 export default class Storage {
     static #saveName = 'ToDoList';
@@ -35,7 +35,7 @@ export default class Storage {
             let defaultProject = new Project('default');
 
             defaultProject.addTask(new Task('Example', 'An example task', 
-            Date.now(), 'Low'));
+            formatISO(startOfToday(), { representation: 'date' }), 'Low'));
 
             ToDo.addNewProject(defaultProject);
         }
