@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    // mode: 'development',
+    mode: 'development',
     entry: {
         index: './src/index.js',
         Storage: './src/Storage.js',
@@ -11,7 +11,7 @@ module.exports = {
         Task: './src/Task.js',
         UI: './src/UI.js',
     },
-    // devtool: 'inline-source-map',
+    devtool: 'inline-source-map',
     devServer: {
         contentBase: './dist',
     },
