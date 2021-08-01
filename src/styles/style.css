@@ -285,6 +285,17 @@ nav h1 {
     border-radius: 5px;
 }
 
+.edit-task-modal {
+    min-width: 590px;
+    min-height: 410px;
+    width: max-content;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 5px;
+}
+
 .modal-header h4 {
     font-size: 20px;
     padding: 16px;
@@ -319,7 +330,7 @@ nav h1 {
     width: 50%;
 }
 
-#new-task-description {
+#task-description-input {
     height: 150px;
     resize: none;
 }

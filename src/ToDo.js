@@ -28,6 +28,18 @@ export default class ToDo {
         Storage.saveData(this.#projects);
     }
 
+    static getAllTasks() {
+        let tasks = [];
+
+        for (let i = 0; i < this.#projects.length; i++) {
+            this.#projects[i].getTasks().forEach(task => {
+                tasks.push(task);
+            });
+        }
+
+        return tasks;
+    }
+
     static getProjects() {
         return this.#projects;
     }
@@ -39,6 +51,9 @@ export default class ToDo {
             this.#projects[index].addTask(task);
 
             Storage.saveData(this.#projects);
+        }
+        else if (project == 'No project') {
+            this.#projects[0].addTask(task);
         }
     }
 

@@ -66,7 +66,7 @@ export default class UI {
                             <label>Project</label>
                             <br>
                             <select id="task-project-input">
-                                <option>All tasks</option>
+                                <option>No project</option>
                             </select>
                         </div>
                     </div>
@@ -126,7 +126,7 @@ export default class UI {
 
         body.insertAdjacentHTML('beforeend', `
         <div class="modal-wrapper">
-            <div class="add-task-modal">
+            <div class="edit-task-modal">
                 <div class="modal-header">
                     <h4>Edit Task</h4>
                 </div>
@@ -531,7 +531,7 @@ export default class UI {
         let tasks;
 
         if (filter === 'All tasks') {
-            // Todo.
+            tasks = ToDo.getAllTasks();
         }
         else if (filter === 'Today') {
             tasks = ToDo.getDueTodayTasks();
@@ -606,5 +606,9 @@ export default class UI {
                 this.addNewProject(project.getName(), project.getId());
             }
         });
+
+        const showAllTasks = document.querySelector('#all-tasks');
+
+        showAllTasks.click();
     }
 }
