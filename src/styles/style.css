@@ -35,20 +35,28 @@ nav h1 {
     align-items: center;
 }
 
-#add-task-btn {
+.right-side-nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-btn {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     margin-right: 25px;
     font-size: 20px;
-    width: 150px;
+    gap: 10px;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
     height: 40px;
     background-color: rgb(59, 78, 198);
     border-radius: 10px;
 }
 
-#add-task-btn:hover {
+.navbar-btn:hover {
     cursor: pointer;
     background-color: #2e3c97;
 }
@@ -313,18 +321,18 @@ nav h1 {
     justify-content: space-around;
 }
 
-.task-property {
+.form-input {
     margin-top: 20px;
 }
 
-.task-property input,
-.task-property select,
-.task-property textarea {
+.form-input input,
+.form-input select,
+.form-input textarea {
     width: 100%;
 }
 
-.new-task-modal-left-panel,
-.new-task-modal-right-panel {
+.modal-left-panel,
+.modal-right-panel {
     margin-left: 20px;
     margin-right: 20px;
     width: 50%;
@@ -342,36 +350,35 @@ nav h1 {
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+    margin-top: 15px;
 }
 
-.cancel-btn {
+.grey-btn {
     width: 65px;
     height: 40px;
     border: 2px solid #6c757d;
     background-color: transparent;
     border-radius: 5px;
-    margin-bottom: 15px;
 }
 
-.cancel-btn:hover {
+.grey-btn:hover {
     background-color: #6c757d;
     color: white;
     cursor: pointer;
 }
 
-.continue-btn {
-    margin-right: 20px;
-    margin-left: 20px;
-    margin-bottom: 15px;
+.blue-btn {
     width: 110px;
     height: 40px;
     background-color: #3445B4;
     border: none;
     border-radius: 5px;
     color: white;
+    font-size: 16px;
+    font-weight: normal;
 }
 
-.continue-btn:hover {
+.blue-btn:hover {
     cursor: pointer;
     background-color: #2e3c97;
 }
@@ -450,6 +457,70 @@ footer {
 
 footer a {
     color: white;
+}
+
+#local-mode-info {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+#user-account-modal {
+    min-width: 480px;
+    min-height: 380px;
+    height: max-content;
+    width: 55vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 5px;
+}
+
+.modal-subheader {
+    font-size: 24px;
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
+
+.bottom-modal-btn {
+    margin-bottom: 15px;
+    margin-right: 20px;
+}
+
+.login-register-btns {
+    margin-top: 20px;
+}
+
+#mobile-login-register-btns-container {
+    display: none;
+    background-color: #3445B4;
+    height: 80px;
+    flex-direction: row;
+    gap: 20px;
+    color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-log-reg-modal {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: max-content;
+    min-width: 300px;
+    background-color: white;
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 5px;
+}
+
+.inputs-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 /*Material Icons*/
@@ -573,6 +644,20 @@ footer a {
     }
 }
 
+@media (max-width: 730px) {
+    #user-acc-btn {
+        display: none;
+    }
+
+    #mobile-login-register-btns-container {
+        display: flex;
+    }
+
+    .navbar-btn {
+        margin: 0px;
+    }
+}
+
 @media (max-width: 530px) {
     #add-task-btn {
         display: none;
@@ -625,12 +710,12 @@ footer a {
         width: 100%;
     }
 
-    .new-task-modal-left-panel,
-    .new-task-modal-right-panel {
+    .modal-left-panel,
+    .modal-right-panel {
         width: calc(100% - 40px);
     }
 
-    .new-task-modal-right-panel {
+    .modal-right-panel {
         margin-bottom: 20px;
     }
 
