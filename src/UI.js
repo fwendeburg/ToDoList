@@ -24,6 +24,147 @@ export default class UI {
         });
     }
 
+    static showMobileLoginModal = () => {
+        const body = document.querySelector('body');
+
+        body.insertAdjacentHTML('beforeend', `<div class="modal-wrapper">
+        <div class="mobile-log-reg-modal">
+                <div class="modal-header">
+                    <h4>Login</h4>
+                </div>
+        
+                <div class="inputs-container">
+                    <div class="form-input">
+                        <label>Email</label>
+                        <br>
+                        <input type="email">
+                    </div>
+                    <div class="form-input">
+                        <label>Password</label>
+                        <br>
+                        <input type="password">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="grey-btn bottom-modal-btn">Close</button>
+                    <button class="blue-btn bottom-modal-btn">Login</button>
+                </div>
+            </div>
+        </div>`
+        );
+    }
+
+    static showMobileRegisterModal = () => {
+        const body = document.querySelector('body');
+
+        body.insertAdjacentHTML('beforeend', `<div class="modal-wrapper">
+        <div class="mobile-log-reg-modal">
+                <div class="modal-header">
+                    <h4>Register</h4>
+                </div>
+        
+                <div class="inputs-container">
+                    <div class="form-input">
+                        <label>Name</label>
+                        <br>
+                        <input type="text">
+                    </div>
+                    <div class="form-input">
+                        <label>Email</label>
+                        <br>
+                        <input type="email">
+                    </div>
+                    <div class="form-input">
+                        <label>Password</label>
+                        <br>
+                        <input type="password">
+                    </div>
+                    <div class="form-input">
+                        <label>Confirm Password</label>
+                        <br>
+                        <input type="password">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="grey-btn bottom-modal-btn">Close</button>
+                    <button class="blue-btn bottom-modal-btn">Register</button>
+                </div>
+            </div>
+        </div>`
+        );
+    }
+
+    static showUserAccountModal = () => {
+        const body = document.querySelector('body');
+
+        body.insertAdjacentHTML('beforeend', `
+        <div class="modal-wrapper">
+            <div id="user-account-modal">
+                <div class="modal-header">
+                    <h4>User account</h4>
+                </div>
+        
+                <div id="local-mode-info">
+                    <p>
+                        You are currently using the app in local mode.
+                        This means that any projects/tasks you create will be stored locally.
+                        If you wish to save the data to a database you will have to sign
+                        in to an account.
+                    </p>
+                    <a href="#">Remove Stored Data</a>
+                </div>
+        
+                <div class="inputs">
+                    <div class="modal-left-panel">
+                        <h5 class="modal-subheader">Login</h5>
+                        <div class="form-input">
+                            <label>Email</label>
+                            <br>
+                            <input type="email">
+                        </div>
+                        <div class="form-input">
+                            <label>Password</label>
+                            <br>
+                            <input type="password">
+                        </div>
+                        <button class="blue-btn login-register-btns">Login</button>
+                    </div>
+                    <div class="modal-right-panel">
+                        <h5 class="modal-subheader">Register</h5>
+                        <div class="form-input">
+                            <label>Name</label>
+                            <br>
+                            <input type="text">
+                        </div>
+                        <div class="form-input">
+                            <label>Email</label>
+                            <br>
+                            <input type="email">
+                        </div>
+                        <div class="form-input">
+                            <label>Password</label>
+                            <br>
+                            <input type="password">
+                        </div>
+                        <div class="form-input">
+                            <label>Confirm Password</label>
+                            <br>
+                            <input type="password">
+                        </div>
+                        <button class="blue-btn login-register-btns">Register</button>
+                    </div>
+                </div>
+        
+                <div class="modal-footer">
+                    <button class="grey-btn bottom-modal-btn">Close</button>
+                </div>
+            </div>
+        </div>`
+        );
+    }
+
     static showNewTaskModal = () => {
         const body = document.querySelector('body');
 
@@ -35,25 +176,25 @@ export default class UI {
                 </div>
 
                 <div class="inputs">
-                    <div class="new-task-modal-left-panel">
-                        <div class="task-property">
+                    <div class="modal-left-panel">
+                        <div class="form-input">
                             <label>Title</label>
                             <br>
                             <input type="text" id="task-name-input">
                         </div>
-                        <div class="task-property">
+                        <div class="form-input">
                             <label>Description</label>
                             <br>
                             <textarea id="task-description-input"></textarea>
                         </div>
                     </div>
-                    <div class="new-task-modal-right-panel">
-                        <div class="task-property">
+                    <div class="modal-right-panel">
+                        <div class="form-input">
                             <label>Due date</label>
                             <br>
                             <input type="date" id="task-duedate-input">
                         </div>
-                        <div class="task-property">
+                        <div class="form-input">
                             <label>Priority</label>
                             <br>
                             <select id="task-priority-input">
@@ -62,7 +203,7 @@ export default class UI {
                                 <option>High</option>
                             </select>
                         </div>
-                        <div class="task-property">
+                        <div class="form-input">
                             <label>Project</label>
                             <br>
                             <select id="task-project-input">
@@ -73,8 +214,8 @@ export default class UI {
                 </div>
 
                 <div class="modal-footer">
-                    <button class="cancel-btn">Close</button>
-                    <button class="continue-btn">Add task</button>
+                    <button class="grey-btn bottom-modal-btn">Close</button>
+                    <button class="blue-btn bottom-modal-btn">Add task</button>
                 </div>
             </div>
         </div>`
@@ -106,14 +247,13 @@ export default class UI {
                 </div>
                 
                 <div class="modal-footer">
-                    <button class="cancel-btn">Close</button>
-                    <button class="continue-btn">Add project</button>
+                    <button class="grey-btn bottom-modal-btn">Close</button>
+                    <button class="blue-btn bottom-modal-btn">Add project</button>
                 </div>
             </div>
         </div>`
         );
 
-        const continueBtn = document.querySelector('.continue-btn');
         // The 2nd element is the modal header.
         const modalType = document.querySelector('.modal-header').childNodes[1].innerText;
 
@@ -132,25 +272,25 @@ export default class UI {
                 </div>
 
                 <div class="inputs">
-                    <div class="new-task-modal-left-panel">
-                        <div class="task-property">
+                    <div class="modal-left-panel">
+                        <div class="form-input">
                             <label>Title</label>
                             <br>
                             <input type="text" id="task-name-input" value="${taskInfo[0]}">
                         </div>
-                        <div class="task-property">
+                        <div class="form-input">
                             <label>Description</label>
                             <br>
                             <textarea id="task-description-input">${taskInfo[1]}</textarea>
                         </div>
                     </div>
-                    <div class="new-task-modal-right-panel">
-                        <div class="task-property">
+                    <div class="modal-right-panel">
+                        <div class="form-input">
                             <label>Due date</label>
                             <br>
                             <input type="date" id="task-duedate-input" value="${taskInfo[2]}">
                         </div>
-                        <div class="task-property">
+                        <div class="form-input">
                             <label>Priority</label>
                             <br>
                             <select id="task-priority-input">
@@ -163,8 +303,8 @@ export default class UI {
                 </div>
 
                 <div class="modal-footer">
-                    <button class="cancel-btn">Close</button>
-                    <button class="continue-btn">Save</button>
+                    <button class="grey-btn bottom-modal-btn">Close</button>
+                    <button class="blue-btn bottom-modal-btn">Save</button>
                 </div>
             </div>
         </div>`
@@ -188,21 +328,21 @@ export default class UI {
 
                 <div class="properties">
                     <div class="show-task-modal-left-panel">
-                        <div class="task-property">
+                        <div class="form-input">
                             <p class="property-title">Title:</p>
                             <p>${taskInfo[0]}</p>
                         </div>
-                        <div class="task-property">
+                        <div class="form-input">
                             <p class="property-desc">Description:</p>
                             <p>${taskInfo[1]}</p>
                         </div>
                     </div>
                     <div class="show-task-modal-right-panel">
-                        <div class="task-property">
+                        <div class="form-input">
                             <p class="property-due-date">Due date:</p>
                             <p>${taskInfo[2]}</p>
                         </div>
-                        <div class="task-property">
+                        <div class="form-input">
                             <p class="property-priority">Priority:</p>
                             <p>${taskInfo[3]}</p>
                         </div>
@@ -210,17 +350,14 @@ export default class UI {
                 </div>
 
                 <div class="modal-footer">
-                    <button class="cancel-btn">Close</button>
-                    <button class="continue-btn">Edit task</button>
+                    <button class="grey-btn bottom-modal-btn">Close</button>
+                    <button class="blue-btn bottom-modal-btn">Edit task</button>
                 </div>
             </div>
         </div>`
         );
 
-
-        const modalType = document.querySelector('.modal-header').childNodes[1].innerText;
-
-        UI.addModalEventListeners(modalType, taskId);
+        UI.addModalEventListeners('TaskInfo', taskId);
     }
 
     static addNewTask = (name, dueDate, priority, id, taskStatus) => {
@@ -387,6 +524,8 @@ export default class UI {
         const body = document.querySelector('body');
         const modal = document.querySelector('.modal-wrapper');
 
+        body.style = "";
+
         if (modal) {
             modal.textContent = '';
 
@@ -470,8 +609,8 @@ export default class UI {
     static addModalEventListeners = (modalType, taskId = -1) => {
         const body = document.querySelector('body');
         const modalWrapper = document.querySelector('.modal-wrapper');
-        const cancelBtn = document.querySelector('.cancel-btn');
-        const continueBtn = document.querySelector('.continue-btn');
+        const cancelBtn = document.querySelector('.grey-btn');
+        const continueBtn = document.querySelector('.blue-btn');
 
         if (modalType === 'New task') {
             continueBtn.addEventListener('click', this.#handleNewTask);
@@ -484,7 +623,7 @@ export default class UI {
                 this.#handleTaskEdit(taskId);
             });
         }
-        else {
+        else if (modalType === 'TaskInfo'){
             continueBtn.addEventListener('click', () => {
                 this.removeModal();
                 this.showEditTaskModal(taskId);
@@ -565,19 +704,42 @@ export default class UI {
         const addTaskBtn = document.querySelector('#add-task-btn');
         const addTaskBtnAlt = document.querySelector('#add-task-btn-alt');
         const addProjectBtn = document.querySelector('.add-project-btn');
+        const userAccountBtn = document.querySelector('#user-acc-btn');
+        const mobileLoginBtn = document.querySelector('#mobile-login-btn');
+        const mobileRegisterBtn = document.querySelector('#mobile-register-btn');
+
+        const body = document.querySelector('body');
 
         UI.#updateTaskFiltersEventListeners();
 
         addProjectBtn.addEventListener('click', (e) => {
+            body.style = "overflow-y: hidden;";
             UI.showNewProjectModal();
         });
 
         addTaskBtn.addEventListener('click', (e) => {
+            body.style = "overflow-y: hidden;";
             UI.showNewTaskModal();
         });
 
         addTaskBtnAlt.addEventListener('click', (e) => {
+            body.style = "overflow-y: hidden;";
             UI.showNewTaskModal();
+        });
+
+        userAccountBtn.addEventListener('click', (e) => {
+            body.style = "overflow-y: hidden;";
+            UI.showUserAccountModal();
+        });
+
+        mobileLoginBtn.addEventListener('click', (e) => {
+            body.style = "overflow-y: hidden;";
+            UI.showMobileLoginModal();
+        });
+
+        mobileRegisterBtn.addEventListener('click', (e) => {
+            body.style = "overflow-y: hidden;";
+            UI.showMobileRegisterModal();
         });
 
         UI.#activateBurgerMenu();
