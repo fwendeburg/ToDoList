@@ -53,6 +53,8 @@ export default class UI {
             </div>
         </div>`
         );
+
+        this.addModalEventListeners('mobileLogin');
     }
 
     static showMobileRegisterModal = () => {
@@ -94,6 +96,8 @@ export default class UI {
             </div>
         </div>`
         );
+
+        this.addModalEventListeners('mobileRegister');
     }
 
     static showUserAccountModal = () => {
@@ -129,7 +133,7 @@ export default class UI {
                             <br>
                             <input type="password">
                         </div>
-                        <button class="blue-btn login-register-btns">Login</button>
+                        <button id="login-btn" class="blue-btn login-register-btns">Login</button>
                     </div>
                     <div class="modal-right-panel">
                         <h5 class="modal-subheader">Register</h5>
@@ -153,7 +157,7 @@ export default class UI {
                             <br>
                             <input type="password">
                         </div>
-                        <button class="blue-btn login-register-btns">Register</button>
+                        <button id="register-btn" class="blue-btn login-register-btns">Register</button>
                     </div>
                 </div>
         
@@ -163,6 +167,8 @@ export default class UI {
             </div>
         </div>`
         );
+
+        this.addModalEventListeners('userAccount');
     }
 
     static showNewTaskModal = () => {
@@ -622,6 +628,28 @@ export default class UI {
                 this.showEditTaskModal(taskId);
             });
         }
+        else if (modalType === 'userAccount') {
+            const loginBtn = document.querySelector('#login-btn');
+            const registerBtn = document.querySelector('#register-btn');
+
+            loginBtn.addEventListener('click', (e) => {
+                this.#handleLogin();
+            });
+
+            registerBtn.addEventListener('click', (e) => {
+                this.#handleRegister();
+            });
+        }
+        else if (modalType === 'mobileLogin') {
+            continueBtn.addEventListener('click', () => {
+                this.#handleLogin();
+            });
+        }
+        else if (modalType === 'mobileRegister') {
+            continueBtn.addEventListener('click', () => {
+                this.#handleRegister();
+            });
+        }
 
         modalWrapper.addEventListener('click', (e) => {
             if(e.target.classList.contains('modal-wrapper')) {
@@ -749,6 +777,14 @@ export default class UI {
                 `)
             }
         }
+    }
+
+    static #handleLogin() {
+
+    }
+
+    static #handleRegister() {
+
     }
 
     static initHomePage() {
