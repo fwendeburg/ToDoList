@@ -223,9 +223,7 @@ export default class UI {
 
         this.#updateProjectList();
 
-        const modalType = document.querySelector('.modal-header').childNodes[1].innerText;
-
-        this.addModalEventListeners(modalType);
+        this.addModalEventListeners('newTask');
     }
 
     static showNewProjectModal = () => {
@@ -254,10 +252,7 @@ export default class UI {
         </div>`
         );
 
-        // The 2nd element is the modal header.
-        const modalType = document.querySelector('.modal-header').childNodes[1].innerText;
-
-        UI.addModalEventListeners(modalType);
+        UI.addModalEventListeners('newProject');
     }
 
     static showEditTaskModal = (taskId) => {
@@ -310,9 +305,7 @@ export default class UI {
         </div>`
         );
 
-        const modalType = document.querySelector('.modal-header').childNodes[1].innerText;
-
-        UI.addModalEventListeners(modalType, taskId);
+        UI.addModalEventListeners('ediTask', taskId);
     }
 
     static showTaskInfoModal = (taskId) => {
@@ -357,7 +350,7 @@ export default class UI {
         </div>`
         );
 
-        UI.addModalEventListeners('TaskInfo', taskId);
+        UI.addModalEventListeners('taskInfo', taskId);
     }
 
     static addNewTask = (name, dueDate, priority, id, taskStatus) => {
@@ -612,18 +605,18 @@ export default class UI {
         const cancelBtn = document.querySelector('.grey-btn');
         const continueBtn = document.querySelector('.blue-btn');
 
-        if (modalType === 'New task') {
+        if (modalType === 'newTask') {
             continueBtn.addEventListener('click', this.#handleNewTask);
         }
-        else if (modalType === 'New project') {
+        else if (modalType === 'newProject') {
             continueBtn.addEventListener('click', this.#handleNewProject);
         }
-        else if (modalType === 'Edit Task') {
+        else if (modalType === 'editTask') {
             continueBtn.addEventListener('click', () => {
                 this.#handleTaskEdit(taskId);
             });
         }
-        else if (modalType === 'TaskInfo'){
+        else if (modalType === 'taskInfo'){
             continueBtn.addEventListener('click', () => {
                 this.removeModal();
                 this.showEditTaskModal(taskId);
