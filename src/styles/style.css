@@ -523,6 +523,24 @@ footer a {
     margin-right: 20px;
 }
 
+#remove-stored-data-btn {
+    color: blue;
+}
+
+.invalid-input {
+    border: 2px solid red;
+}
+
+.invalid-input-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.red-text {
+    color: red;
+}
+
 /*Material Icons*/
 .fs-36 { 
     font-size: 36px; 

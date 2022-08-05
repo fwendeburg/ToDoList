@@ -1,7 +1,15 @@
 import ToDo from './ToDo.js';
 import Task from './Task.js';
 import Project from './Project.js';
+import Storage from './Storage.js';
 import { parseISO, format } from 'date-fns';
+
+const kNOEMPTYFIELD = 'This field can\'t be empty';
+const kNOTWHITESPACEALONE = 'Whitespaces alone are not valid';
+const kINVALIDEMAIL = 'Invalid email';
+const kPASSWORDMINCHARS = 'The password has to have at least 5 characters';
+const kPASSWORDARSDONTMATCH = 'The password don\'t match';
+const kDATEINVALID = 'The due date can\'t be before today';
 
 export default class UI {
     static #activateBurgerMenu = () => {
@@ -35,14 +43,14 @@ export default class UI {
         
                 <div class="inputs-container">
                     <div class="form-input">
-                        <label>Email</label>
+                        <label for="login-user-email" >Email</label>
                         <br>
-                        <input type="email">
+                        <input required id="login-user-email" type="email">
                     </div>
                     <div class="form-input">
-                        <label>Password</label>
+                        <label for="login-user-password">Password</label>
                         <br>
-                        <input type="password">
+                        <input required id="login-user-password" type="password">
                     </div>
                 </div>
 
@@ -68,24 +76,24 @@ export default class UI {
         
                 <div class="inputs-container">
                     <div class="form-input">
-                        <label>Name</label>
+                        <label for="register-user-name">Name</label>
                         <br>
-                        <input type="text">
+                        <input required id="register-user-name" type="text">
                     </div>
                     <div class="form-input">
-                        <label>Email</label>
+                        <label for="register-user-email">Email</label>
                         <br>
-                        <input type="email">
+                        <input required id="register-user-email" type="email">
                     </div>
                     <div class="form-input">
-                        <label>Password</label>
+                        <label for="register-user-password">Password</label>
                         <br>
-                        <input type="password">
+                        <input required id="register-user-password" type="password">
                     </div>
                     <div class="form-input">
-                        <label>Confirm Password</label>
+                        <label for="register-user-conf-password" >Confirm Password</label>
                         <br>
-                        <input type="password">
+                        <input required id="register-user-conf-password" type="password">
                     </div>
                 </div>
 
@@ -117,45 +125,45 @@ export default class UI {
                         If you wish to save the data to a database you will have to sign
                         in to an account.
                     </p>
-                    <a href="#">Remove Stored Data</a>
+                    <a href="#" id="remove-stored-data-btn">Remove Stored Data</a>
                 </div>
         
                 <div class="inputs">
                     <div class="modal-left-panel">
                         <h5 class="modal-subheader">Login</h5>
                         <div class="form-input">
-                            <label>Email</label>
+                            <label for="login-user-email">Email</label>
                             <br>
-                            <input type="email">
+                            <input required id="login-user-email" type="email">
                         </div>
                         <div class="form-input">
-                            <label>Password</label>
+                            <label for="login-user-password">Password</label>
                             <br>
-                            <input type="password">
+                            <input required id="login-user-password" type="password">
                         </div>
                         <button id="login-btn" class="blue-btn login-register-btns">Login</button>
                     </div>
                     <div class="modal-right-panel">
                         <h5 class="modal-subheader">Register</h5>
                         <div class="form-input">
-                            <label>Name</label>
+                            <label for="register-user-name">Name</label>
                             <br>
-                            <input type="text">
+                            <input required id="register-user-name" type="text">
                         </div>
                         <div class="form-input">
-                            <label>Email</label>
+                            <label for="register-user-email">Email</label>
                             <br>
-                            <input type="email">
+                            <input required id="register-user-email" type="email">
                         </div>
                         <div class="form-input">
-                            <label>Password</label>
+                            <label for="register-user-password">Password</label>
                             <br>
-                            <input type="password">
+                            <input required id="register-user-password" type="password">
                         </div>
                         <div class="form-input">
-                            <label>Confirm Password</label>
+                            <label for="register-user-conf-password" >Confirm Password</label>
                             <br>
-                            <input type="password">
+                            <input required id="register-user-conf-password" type="password">
                         </div>
                         <button id="register-btn" class="blue-btn login-register-btns">Register</button>
                     </div>
@@ -184,35 +192,35 @@ export default class UI {
                 <div class="inputs">
                     <div class="modal-left-panel">
                         <div class="form-input">
-                            <label>Title</label>
+                            <label for="task-name-input">Title</label>
                             <br>
-                            <input type="text" id="task-name-input">
+                            <input required type="text" id="task-name-input">
                         </div>
                         <div class="form-input">
-                            <label>Description</label>
+                            <label for="task-description-input" >Description</label>
                             <br>
                             <textarea id="task-description-input"></textarea>
                         </div>
                     </div>
                     <div class="modal-right-panel">
                         <div class="form-input">
-                            <label>Due date</label>
+                            <label for="task-duedate-input">Due date</label>
                             <br>
                             <input type="date" id="task-duedate-input">
                         </div>
                         <div class="form-input">
-                            <label>Priority</label>
+                            <label for="task-priority-input">Priority</label>
                             <br>
-                            <select id="task-priority-input">
+                            <select required id="task-priority-input">
                                 <option>Low</option>
                                 <option>Medium</option>
                                 <option>High</option>
                             </select>
                         </div>
                         <div class="form-input">
-                            <label>Project</label>
+                            <label for="task-project-input">Project</label>
                             <br>
-                            <select id="task-project-input">
+                            <select required id="task-project-input">
                                 <option>No project</option>
                             </select>
                         </div>
@@ -244,9 +252,9 @@ export default class UI {
 
                 <div class="inputs">
                     <div class="project-property">
-                        <label>Title</label>
+                        <label for="proj-name-input">Title</label>
                         <br>
-                        <input type="text" id="proj-name-input">
+                        <input required type="text" id="proj-name-input">
                     </div>
                 </div>
                 
@@ -275,26 +283,26 @@ export default class UI {
                 <div class="inputs">
                     <div class="modal-left-panel">
                         <div class="form-input">
-                            <label>Title</label>
+                            <label for="task-name-input">Title</label>
                             <br>
-                            <input type="text" id="task-name-input" value="${taskInfo[0]}">
+                            <input required type="text" id="task-name-input" value="${taskInfo[0]}">
                         </div>
                         <div class="form-input">
-                            <label>Description</label>
+                            <label for="task-descritpion-input">Description</label>
                             <br>
                             <textarea id="task-description-input">${taskInfo[1]}</textarea>
                         </div>
                     </div>
                     <div class="modal-right-panel">
                         <div class="form-input">
-                            <label>Due date</label>
+                            <label for="task-duedate-input">Due date</label>
                             <br>
                             <input type="date" id="task-duedate-input" value="${taskInfo[2]}">
                         </div>
                         <div class="form-input">
-                            <label>Priority</label>
+                            <label for="task-priority-input">Priority</label>
                             <br>
-                            <select id="task-priority-input">
+                            <select required id="task-priority-input">
                                 <option ${(taskInfo[3] === 'Low')? 'selected="selected"' : ''}>Low</option>
                                 <option ${(taskInfo[3] === 'Medium')? 'selected="selected"' : ''}>Medium</option>
                                 <option ${(taskInfo[3] === 'High')? 'selected="selected"' : ''}>High</option>
@@ -577,32 +585,36 @@ export default class UI {
     static #handleNewProject() {
         const newProjectName = document.querySelector('#proj-name-input');
 
-        const newProject = new Project(newProjectName.value);
+        if (UI.#areProjectFieldsValid()) {
+            const newProject = new Project(newProjectName.value);
 
-        ToDo.addNewProject(newProject);
-
-        UI.addNewProject(newProject.getName(), newProject.getId());
-
-        UI.removeModal();
+            ToDo.addNewProject(newProject);
+    
+            UI.addNewProject(newProject.getName(), newProject.getId());
+    
+            UI.removeModal();
+        }
     }
 
     static #handleNewTask() {
-        const newTaskName = document.querySelector('#task-name-input').value;
-        const newTaskDesc = document.querySelector('#task-description-input').value;
-        const newTaskDueDate = document.querySelector('#task-duedate-input').value;
-        const taskPriorityInput = document.querySelector('#task-priority-input');
-        const newTaskPriority = taskPriorityInput.options[taskPriorityInput.selectedIndex].value;
-        const taskProjectInput = document.querySelector('#task-project-input');
-        const newTaskProject = taskProjectInput.options[taskProjectInput.selectedIndex].value;
-
-        const newTask = new Task(newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority);
-
-        ToDo.addNewTask(newTask, newTaskProject);
-
-        UI.addNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(),
-        newTask.getId(), newTask.getStatus());
-
-        UI.removeModal();
+        if (UI.#areTaskFieldsValid()) {
+            const newTaskName = document.querySelector('#task-name-input').value;
+            const newTaskDesc = document.querySelector('#task-description-input').value;
+            const newTaskDueDate = document.querySelector('#task-duedate-input').value;
+            const taskPriorityInput = document.querySelector('#task-priority-input');
+            const newTaskPriority = taskPriorityInput.options[taskPriorityInput.selectedIndex].value;
+            const taskProjectInput = document.querySelector('#task-project-input');
+            const newTaskProject = taskProjectInput.options[taskProjectInput.selectedIndex].value;
+    
+            const newTask = new Task(newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority);
+    
+            ToDo.addNewTask(newTask, newTaskProject);
+    
+            UI.addNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(),
+            newTask.getId(), newTask.getStatus());
+    
+            UI.removeModal();
+        }
     }
 
     static addModalEventListeners = (modalType, taskId = -1) => {
@@ -631,6 +643,7 @@ export default class UI {
         else if (modalType === 'userAccount') {
             const loginBtn = document.querySelector('#login-btn');
             const registerBtn = document.querySelector('#register-btn');
+            const removeDataBtn = document.querySelector('#remove-stored-data-btn');
 
             loginBtn.addEventListener('click', (e) => {
                 this.#handleLogin();
@@ -638,6 +651,12 @@ export default class UI {
 
             registerBtn.addEventListener('click', (e) => {
                 this.#handleRegister();
+            });
+
+            removeDataBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                Storage.removeData();
+                window.location.reload();
             });
         }
         else if (modalType === 'mobileLogin') {
@@ -779,10 +798,176 @@ export default class UI {
         }
     }
 
+    static #setInputAsInvalid(input, message) {
+        const inputLabel = document.querySelector(`label[for=${input.id}]`);
+
+        input.classList.add('invalid-input');
+        inputLabel.classList.add('red-text');
+
+        if (input.nextElementSibling === null) {
+            input.insertAdjacentHTML('afterend', `<span class="invalid-input-message">${message}</span>`);
+        }
+    }
+
+    static #setInputAsValid(input) {
+        const inputLabel = document.querySelector(`label[for=${input.id}]`);
+
+        input.classList.remove('invalid-input');
+        inputLabel.classList.remove('red-text');
+
+        input.nextElementSibling.remove();
+    }
+
+    static #areLoginFieldsValid() {
+        const userEmail = document.querySelector('#login-user-email');
+        const userPassword = document.querySelector('#login-user-password');
+
+        const emailValid = this.#isTextInputValid(userEmail);
+        const passValid = this.#isPasswordInputValid(userPassword);
+
+        return (emailValid && passValid);
+    }
+
+    static #isTextInputValid(input) {
+        if (input.value === '') {
+            this.#setInputAsInvalid(input, kNOEMPTYFIELD);
+            return false;
+        }
+        else if (input.value.trim() === '') {
+            this.#setInputAsInvalid(input, kNOTWHITESPACEALONE);
+            return false;
+        }
+        else if (input.classList.contains('invalid-input')) {
+            this.#setInputAsValid(input);
+            return true;
+        }
+
+        return true;
+    }
+
+    static #isEmailInputValid(input) {
+        if (input.value === '') {
+            this.#setInputAsInvalid(input, kNOEMPTYFIELD);
+            return false;
+        }
+        else if (input.value.trim() === '') {
+            this.#setInputAsInvalid(input, kNOTWHITESPACEALONE);
+            return false;
+        }
+        else if (!input.checkValidity()) {
+            this.#activateBurgerMenu(input, kINVALIDEMAIL);
+            return false;
+        }
+        else if (input.classList.contains('invalid-input')) {
+            this.#setInputAsValid(input);
+            return true;
+        }
+
+        return true;
+    }
+
+    static #isPasswordInputValid(input) {
+        if (input.value === '') {
+            this.#setInputAsInvalid(input, kNOEMPTYFIELD);
+            return false;
+        }
+        else if (input.value.length >= 5) {
+            this.#setInputAsInvalid(input, kPASSWORDMINCHARS);
+            return false;
+        }
+        else if (input.classList.contains('invalid-input')) {
+            this.#setInputAsValid(input);
+            return true;
+        }
+
+        return true;
+    }
+
+    static #isConfPassInputValid(input, password) {
+        if (input.value === '') {
+            this.#setInputAsInvalid(input, kNOEMPTYFIELD);
+            return false;
+        }
+        else if (input.value === password) {
+            this.#setInputAsInvalid(input, kPASSWORDARSDONTMATCH);
+            return false;
+        }
+        else if (input.classList.contains('invalid-input')) {
+            this.#setInputAsValid(input);
+            return true;
+        }
+    }
+
+    static #isOptionInputValid(input) {
+        if (input.value === '') {
+            this.#setInputAsInvalid(input, kNOEMPTYFIELD);
+            return false;
+        }
+        else if (input.classList.contains('invalid-input')) {
+            this.#setInputAsValid(input);
+            return true;
+        }
+
+        return true;
+    }
+
+    static #isDateValid(input) {
+        const d = new Date();
+        const currentDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        const inputDate = new Date(input.value);
+        
+        if (inputDate < currentDate) {
+            this.#setInputAsInvalid(input, kDATEINVALID);
+            return false;
+        }
+        else if (input.classList.contains('invalid-input')) {
+            this.#setInputAsValid(input);
+            return true;
+        }
+
+        return true;
+    }
+
+    static #areRegisterFieldsValid() {
+        const userName = document.querySelector('#register-user-name');
+        const userEmail = document.querySelector('#register-user-email');
+        const userPassword = document.querySelector('#register-user-password');
+        const userConfPassword = document.querySelector('#register-user-conf-password');
+    
+        const validName = this.#isTextInputValid(userName);
+        const validEmail = this.#isEmailInputValid(userEmail);
+        const validPass = this.#isPasswordInputValid(userPassword);
+        const validConfPass = this.#isConfPassInputValid(userConfPassword);
+
+        return (validName && validEmail && validPass && validConfPass);
+    }
+
+    static #areTaskFieldsValid() {
+        const taskName = document.querySelector('#task-name-input');
+        const taskDueDate = document.querySelector('#task-duedate-input');
+        const taskPriority = document.querySelector('#task-priority-input');
+        const taskProject = document.querySelector('#task-project-input');
+
+        const validName = this.#isTextInputValid(taskName);
+        const validDueDate = (taskDueDate.value === '' | this.#isDateValid(taskDueDate));
+        const validPriority = this.#isOptionInputValid(taskPriority);
+        const validProject = this.#isOptionInputValid(taskProject);
+
+        return (validName && validDueDate && validPriority && validProject);
+    }
+
+    static #areProjectFieldsValid() {
+        const projName = document.querySelector('#proj-name-input');
+
+        return this.#isTextInputValid(projName);
+    }
+
+    //TODO
     static #handleLogin() {
 
     }
 
+    //TODO
     static #handleRegister() {
 
     }
