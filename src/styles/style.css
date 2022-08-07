@@ -459,67 +459,8 @@ footer a {
     color: white;
 }
 
-#local-mode-info {
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 10px;
-}
-
-#user-account-modal {
-    min-width: 480px;
-    min-height: 380px;
-    height: max-content;
-    width: 55vw;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    border-radius: 5px;
-}
-
-.modal-subheader {
-    font-size: 24px;
-    margin-bottom: 0px;
-    margin-top: 20px;
-}
-
 .bottom-modal-btn {
     margin-bottom: 15px;
-    margin-right: 20px;
-}
-
-.login-register-btns {
-    margin-top: 20px;
-}
-
-#mobile-login-register-btns-container {
-    display: none;
-    background-color: #3445B4;
-    height: 80px;
-    flex-direction: row;
-    gap: 20px;
-    color: white;
-    align-items: center;
-    justify-content: center;
-}
-
-.mobile-log-reg-modal {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    height: max-content;
-    min-width: 300px;
-    background-color: white;
-    width: 90vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    border-radius: 5px;
-}
-
-.inputs-container {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
     margin-right: 20px;
 }
 

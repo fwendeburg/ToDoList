@@ -32,153 +32,6 @@ export default class UI {
         });
     }
 
-    static showMobileLoginModal = () => {
-        const body = document.querySelector('body');
-
-        body.insertAdjacentHTML('beforeend', `<div class="modal-wrapper">
-        <div class="mobile-log-reg-modal">
-                <div class="modal-header">
-                    <h4>Login</h4>
-                </div>
-        
-                <div class="inputs-container">
-                    <div class="form-input">
-                        <label for="login-user-email" >Email</label>
-                        <br>
-                        <input required id="login-user-email" type="email">
-                    </div>
-                    <div class="form-input">
-                        <label for="login-user-password">Password</label>
-                        <br>
-                        <input required id="login-user-password" type="password">
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="grey-btn bottom-modal-btn">Close</button>
-                    <button class="blue-btn bottom-modal-btn">Login</button>
-                </div>
-            </div>
-        </div>`
-        );
-
-        this.addModalEventListeners('mobileLogin');
-    }
-
-    static showMobileRegisterModal = () => {
-        const body = document.querySelector('body');
-
-        body.insertAdjacentHTML('beforeend', `<div class="modal-wrapper">
-        <div class="mobile-log-reg-modal">
-                <div class="modal-header">
-                    <h4>Register</h4>
-                </div>
-        
-                <div class="inputs-container">
-                    <div class="form-input">
-                        <label for="register-user-name">Name</label>
-                        <br>
-                        <input required id="register-user-name" type="text">
-                    </div>
-                    <div class="form-input">
-                        <label for="register-user-email">Email</label>
-                        <br>
-                        <input required id="register-user-email" type="email">
-                    </div>
-                    <div class="form-input">
-                        <label for="register-user-password">Password</label>
-                        <br>
-                        <input required id="register-user-password" type="password">
-                    </div>
-                    <div class="form-input">
-                        <label for="register-user-conf-password" >Confirm Password</label>
-                        <br>
-                        <input required id="register-user-conf-password" type="password">
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="grey-btn bottom-modal-btn">Close</button>
-                    <button class="blue-btn bottom-modal-btn">Register</button>
-                </div>
-            </div>
-        </div>`
-        );
-
-        this.addModalEventListeners('mobileRegister');
-    }
-
-    static showUserAccountModal = () => {
-        const body = document.querySelector('body');
-
-        body.insertAdjacentHTML('beforeend', `
-        <div class="modal-wrapper">
-            <div id="user-account-modal">
-                <div class="modal-header">
-                    <h4>User account</h4>
-                </div>
-        
-                <div id="local-mode-info">
-                    <p>
-                        You are currently using the app in local mode.
-                        This means that any projects/tasks you create will be stored locally.
-                        If you wish to save the data to a database you will have to sign
-                        in to an account.
-                    </p>
-                    <a href="#" id="remove-stored-data-btn">Remove Stored Data</a>
-                </div>
-        
-                <div class="inputs">
-                    <div class="modal-left-panel">
-                        <h5 class="modal-subheader">Login</h5>
-                        <div class="form-input">
-                            <label for="login-user-email">Email</label>
-                            <br>
-                            <input required id="login-user-email" type="email">
-                        </div>
-                        <div class="form-input">
-                            <label for="login-user-password">Password</label>
-                            <br>
-                            <input required id="login-user-password" type="password">
-                        </div>
-                        <button id="login-btn" class="blue-btn login-register-btns">Login</button>
-                    </div>
-                    <div class="modal-right-panel">
-                        <h5 class="modal-subheader">Register</h5>
-                        <div class="form-input">
-                            <label for="register-user-name">Name</label>
-                            <br>
-                            <input required id="register-user-name" type="text">
-                        </div>
-                        <div class="form-input">
-                            <label for="register-user-email">Email</label>
-                            <br>
-                            <input required id="register-user-email" type="email">
-                        </div>
-                        <div class="form-input">
-                            <label for="register-user-password">Password</label>
-                            <br>
-                            <input required id="register-user-password" type="password">
-                        </div>
-                        <div class="form-input">
-                            <label for="register-user-conf-password" >Confirm Password</label>
-                            <br>
-                            <input required id="register-user-conf-password" type="password">
-                        </div>
-                        <button id="register-btn" class="blue-btn login-register-btns">Register</button>
-                    </div>
-                </div>
-        
-                <div class="modal-footer">
-                    <button class="grey-btn bottom-modal-btn">Close</button>
-                </div>
-            </div>
-        </div>`
-        );
-
-        this.addModalEventListeners('userAccount');
-    }
-
     static showNewTaskModal = () => {
         const body = document.querySelector('body');
 
@@ -640,35 +493,6 @@ export default class UI {
                 this.showEditTaskModal(taskId);
             });
         }
-        else if (modalType === 'userAccount') {
-            const loginBtn = document.querySelector('#login-btn');
-            const registerBtn = document.querySelector('#register-btn');
-            const removeDataBtn = document.querySelector('#remove-stored-data-btn');
-
-            loginBtn.addEventListener('click', (e) => {
-                this.#handleLogin();
-            });
-
-            registerBtn.addEventListener('click', (e) => {
-                this.#handleRegister();
-            });
-
-            removeDataBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                Storage.removeData();
-                window.location.reload();
-            });
-        }
-        else if (modalType === 'mobileLogin') {
-            continueBtn.addEventListener('click', () => {
-                this.#handleLogin();
-            });
-        }
-        else if (modalType === 'mobileRegister') {
-            continueBtn.addEventListener('click', () => {
-                this.#handleRegister();
-            });
-        }
 
         modalWrapper.addEventListener('click', (e) => {
             if(e.target.classList.contains('modal-wrapper')) {
@@ -745,8 +569,6 @@ export default class UI {
         const addTaskBtnAlt = document.querySelector('#add-task-btn-alt');
         const addProjectBtn = document.querySelector('.add-project-btn');
         const userAccountBtn = document.querySelector('#user-acc-btn');
-        const mobileLoginBtn = document.querySelector('#mobile-login-btn');
-        const mobileRegisterBtn = document.querySelector('#mobile-register-btn');
 
         const body = document.querySelector('body');
 
@@ -765,21 +587,6 @@ export default class UI {
         addTaskBtnAlt.addEventListener('click', (e) => {
             body.style = "overflow-y: hidden;";
             UI.showNewTaskModal();
-        });
-
-        userAccountBtn.addEventListener('click', (e) => {
-            body.style = "overflow-y: hidden;";
-            UI.showUserAccountModal();
-        });
-
-        mobileLoginBtn.addEventListener('click', (e) => {
-            body.style = "overflow-y: hidden;";
-            UI.showMobileLoginModal();
-        });
-
-        mobileRegisterBtn.addEventListener('click', (e) => {
-            body.style = "overflow-y: hidden;";
-            UI.showMobileRegisterModal();
         });
 
         UI.#activateBurgerMenu();
@@ -816,16 +623,6 @@ export default class UI {
         inputLabel.classList.remove('red-text');
 
         input.nextElementSibling.remove();
-    }
-
-    static #areLoginFieldsValid() {
-        const userEmail = document.querySelector('#login-user-email');
-        const userPassword = document.querySelector('#login-user-password');
-
-        const emailValid = this.#isTextInputValid(userEmail);
-        const passValid = this.#isPasswordInputValid(userPassword);
-
-        return (emailValid && passValid);
     }
 
     static #isTextInputValid(input) {
@@ -866,38 +663,6 @@ export default class UI {
         return true;
     }
 
-    static #isPasswordInputValid(input) {
-        if (input.value === '') {
-            this.#setInputAsInvalid(input, kNOEMPTYFIELD);
-            return false;
-        }
-        else if (input.value.length >= 5) {
-            this.#setInputAsInvalid(input, kPASSWORDMINCHARS);
-            return false;
-        }
-        else if (input.classList.contains('invalid-input')) {
-            this.#setInputAsValid(input);
-            return true;
-        }
-
-        return true;
-    }
-
-    static #isConfPassInputValid(input, password) {
-        if (input.value === '') {
-            this.#setInputAsInvalid(input, kNOEMPTYFIELD);
-            return false;
-        }
-        else if (input.value === password) {
-            this.#setInputAsInvalid(input, kPASSWORDARSDONTMATCH);
-            return false;
-        }
-        else if (input.classList.contains('invalid-input')) {
-            this.#setInputAsValid(input);
-            return true;
-        }
-    }
-
     static #isOptionInputValid(input) {
         if (input.value === '') {
             this.#setInputAsInvalid(input, kNOEMPTYFIELD);
@@ -928,20 +693,6 @@ export default class UI {
         return true;
     }
 
-    static #areRegisterFieldsValid() {
-        const userName = document.querySelector('#register-user-name');
-        const userEmail = document.querySelector('#register-user-email');
-        const userPassword = document.querySelector('#register-user-password');
-        const userConfPassword = document.querySelector('#register-user-conf-password');
-    
-        const validName = this.#isTextInputValid(userName);
-        const validEmail = this.#isEmailInputValid(userEmail);
-        const validPass = this.#isPasswordInputValid(userPassword);
-        const validConfPass = this.#isConfPassInputValid(userConfPassword);
-
-        return (validName && validEmail && validPass && validConfPass);
-    }
-
     static #areTaskFieldsValid() {
         const taskName = document.querySelector('#task-name-input');
         const taskDueDate = document.querySelector('#task-duedate-input');
@@ -960,16 +711,6 @@ export default class UI {
         const projName = document.querySelector('#proj-name-input');
 
         return this.#isTextInputValid(projName);
-    }
-
-    //TODO
-    static #handleLogin() {
-
-    }
-
-    //TODO
-    static #handleRegister() {
-
     }
 
     static initHomePage() {
