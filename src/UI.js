@@ -7,8 +7,6 @@ import { parseISO, format } from 'date-fns';
 const kNOEMPTYFIELD = 'This field can\'t be empty';
 const kNOTWHITESPACEALONE = 'Whitespaces alone are not valid';
 const kINVALIDEMAIL = 'Invalid email';
-const kPASSWORDMINCHARS = 'The password has to have at least 5 characters';
-const kPASSWORDARSDONTMATCH = 'The password don\'t match';
 const kDATEINVALID = 'The due date can\'t be before today';
 
 export default class UI {
@@ -30,6 +28,33 @@ export default class UI {
             sidebar.classList.toggle('visible-mobile-nav');
             burgerMenuBtn.classList.toggle('open');
         });
+    }
+
+    static showDelteDataModal() {
+        const body = document.querySelector('body');
+
+        body.insertAdjacentHTML('beforeend', `
+        <div class="modal-wrapper">
+            <div class="delete-data-modal">
+                <div class="modal-header">
+                    <h4>Delete store data?</h4>
+                </div>
+
+                <p class="modal-text">
+                    You are about to delete all stored project and task data.
+                    <br>
+                    Are you sure you want to do this?
+                </p>
+
+                <div class="modal-footer">
+                    <button class="grey-btn bottom-modal-btn">Close</button>
+                    <button class="red-btn bottom-modal-btn">Delete data</button>
+                </div>
+            </div>
+        </div>
+        `);
+
+        this.addModalEventListeners('deleteStoredData');
     }
 
     static showNewTaskModal = () => {
@@ -472,9 +497,9 @@ export default class UI {
 
     static addModalEventListeners = (modalType, taskId = -1) => {
         const body = document.querySelector('body');
-        const modalWrapper = document.querySelector('.modal-wrapper');
-        const cancelBtn = document.querySelector('.grey-btn');
-        const continueBtn = document.querySelector('.blue-btn');
+        const modal = document.querySelector('.modal-wrapper');
+        const cancelBtn = modal.querySelector('.grey-btn');
+        const continueBtn = modal.querySelector('.blue-btn') || modal.querySelector('.red-btn');
 
         if (modalType === 'newTask') {
             continueBtn.addEventListener('click', this.#handleNewTask);
@@ -490,11 +515,18 @@ export default class UI {
         else if (modalType === 'taskInfo'){
             continueBtn.addEventListener('click', () => {
                 this.removeModal();
+                body.style = "overflow-y: hidden;";
                 this.showEditTaskModal(taskId);
             });
         }
+        else if (modalType === 'deleteStoredData') {
+            continueBtn.addEventListener('click', () => {
+                this.#handleDataDeletion();
+                this.removeModal();
+            });
+        }
 
-        modalWrapper.addEventListener('click', (e) => {
+        modal.addEventListener('click', (e) => {
             if(e.target.classList.contains('modal-wrapper')) {
                 UI.removeModal();
             }
@@ -568,7 +600,8 @@ export default class UI {
         const addTaskBtn = document.querySelector('#add-task-btn');
         const addTaskBtnAlt = document.querySelector('#add-task-btn-alt');
         const addProjectBtn = document.querySelector('.add-project-btn');
-        const userAccountBtn = document.querySelector('#user-acc-btn');
+        const deleteDataBtn = document.querySelector('#delete-data-btn');
+        const deleteDataBtnAlt = document.querySelector('#delete-data-btn-alt');
 
         const body = document.querySelector('body');
 
@@ -587,6 +620,16 @@ export default class UI {
         addTaskBtnAlt.addEventListener('click', (e) => {
             body.style = "overflow-y: hidden;";
             UI.showNewTaskModal();
+        });
+
+        deleteDataBtn.addEventListener('click', (e) => {
+            body.style = "overflow-y: hidden;";
+            UI.showDelteDataModal();
+        });
+
+        deleteDataBtnAlt.addEventListener('click', (e) => {
+            body.style = "overflow-y: hidden;";
+            UI.showDelteDataModal();
         });
 
         UI.#activateBurgerMenu();
@@ -632,27 +675,6 @@ export default class UI {
         }
         else if (input.value.trim() === '') {
             this.#setInputAsInvalid(input, kNOTWHITESPACEALONE);
-            return false;
-        }
-        else if (input.classList.contains('invalid-input')) {
-            this.#setInputAsValid(input);
-            return true;
-        }
-
-        return true;
-    }
-
-    static #isEmailInputValid(input) {
-        if (input.value === '') {
-            this.#setInputAsInvalid(input, kNOEMPTYFIELD);
-            return false;
-        }
-        else if (input.value.trim() === '') {
-            this.#setInputAsInvalid(input, kNOTWHITESPACEALONE);
-            return false;
-        }
-        else if (!input.checkValidity()) {
-            this.#activateBurgerMenu(input, kINVALIDEMAIL);
             return false;
         }
         else if (input.classList.contains('invalid-input')) {
@@ -711,6 +733,11 @@ export default class UI {
         const projName = document.querySelector('#proj-name-input');
 
         return this.#isTextInputValid(projName);
+    }
+
+    static #handleDataDeletion() {
+        Storage.removeData();
+        window.location.reload();
     }
 
     static initHomePage() {
