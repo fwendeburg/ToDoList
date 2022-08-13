@@ -61,7 +61,7 @@ export default class ToDo {
         let taskIndex = this.#getTaskIndex(taskId)
         
         if (taskIndex != -1) {
-            this.tasks.splice(this.#getTaskIndex(taskId), 1);
+            this.#tasks.splice(this.#getTaskIndex(taskId), 1);
         }
     }
 
@@ -69,7 +69,7 @@ export default class ToDo {
         let taskIndex = this.#getTaskIndex(taskId)
         
         if (taskIndex != -1) {
-            this.tasks[taskIndex].setProperties(name, desc, dueDate, priority, project);
+            this.#tasks[taskIndex].setProperties(name, desc, dueDate, priority, project);
         }
     }
 
@@ -109,7 +109,8 @@ export default class ToDo {
     }
 
     getTasksByProject(projectName) {
-        let projectIndex = this.getProjectByName(projectName); 
+        let projectId = this.getProjectByName(projectName).getId();
+
         let tasks = [];
 
         for (let i = 0; i < this.#tasks.length; i++) {
