@@ -183,6 +183,13 @@ export default class UI {
                                 <option ${(task.getPriority() === 'High')? 'selected="selected"' : ''}>High</option>
                             </select>
                         </div>
+                        <div class="form-input">
+                            <label for="task-project-input">Project</label>
+                            <br>
+                            <select required id="task-project-input">
+                                <option>No project</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -194,7 +201,9 @@ export default class UI {
         </div>`
         );
 
-        UI.addModalEventListeners('ediTask', taskId);
+        this.#updateProjectList();
+
+        UI.addModalEventListeners('editTask', taskId);
     }
 
     static showTaskInfoModal = (taskId) => {
@@ -550,7 +559,7 @@ export default class UI {
         const projectNameDisplay = document.querySelector('#project-name');
 
         // The paragraph element is the 3rd children of the btn pressed.
-        const projectName = selectedBtn.childNodes[3];
+        const projectName = selectedBtn.childNodes[3].innerText;
 
         for (let i = 0; i < btnNodeList.length; i++) {
             if (btnNodeList[i].classList.contains('selected')) {
@@ -560,9 +569,9 @@ export default class UI {
 
         selectedBtn.classList.add('selected');
 
-        projectNameDisplay.innerText = projectName.innerText;
+        projectNameDisplay.innerText = projectName;
 
-        this.#getProjectsForFilter(selectedBtn.childNodes[3].innerText);
+        this.#getProjectsForFilter(projectName);
     }
 
     static #getProjectsForFilter = (filter) => {
