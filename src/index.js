@@ -1,5 +1,5 @@
-import UI from './UI.js';
-import Storage from './Storage.js';
+import UI from './UI';
+import App from './App';
 
-Storage.initToDo();
+App.initApp();
 UI.initHomePage();

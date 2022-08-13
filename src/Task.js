@@ -1,20 +1,22 @@
 export default class Task {
     static #nextId = 0;
 
-    constructor(name, description, dueDate, priority) {
+    constructor(name, description, dueDate, priority, project) {
         this.name = name;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.id = Task.#nextId++;
         this.isCompleted = false;
+        this.project = null;
     }
 
-    setAttributes(name, description, dueDate, priority) {
+    setProperties(name, description, dueDate, priority, project) {
         this.name = name;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.project = project;
     }
 
     toggleTaskStatus() {
@@ -43,5 +45,9 @@ export default class Task {
 
     getId() {
         return this.id;
+    }
+
+    getProject() {
+        return this.project;
     }
 }

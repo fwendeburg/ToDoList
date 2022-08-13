@@ -3,20 +3,7 @@ export default class Project {
 
     constructor(name) {
         this.name = name;
-        this.tasks = [];
         this.id = Project.#nextId++;
-    }
-
-    getTaskIndex(taskId) {
-        let index = -1;
-
-        for (let i = 0; i < this.tasks.length; i++) {
-            if (taskId == this.tasks[i].getId()) {
-                index = i;
-            }
-        }
-        
-        return index;
     }
 
     deleteTask(taskPos) {

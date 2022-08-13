@@ -35,22 +35,44 @@ nav h1 {
     align-items: center;
 }
 
-#add-task-btn {
+.right-side-nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-btn {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     margin-right: 25px;
     font-size: 20px;
-    width: 150px;
+    gap: 10px;
+    width: auto;
+    padding-left: 15px;
+    padding-right: 15px;
     height: 40px;
-    background-color: rgb(59, 78, 198);
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
-#add-task-btn:hover {
+.navbar-btn:hover {
     cursor: pointer;
+}
+
+.navbar-btn-blue {
+    background-color: rgb(59, 78, 198);
+}
+
+.navbar-btn-blue:hover {
     background-color: #2e3c97;
+}
+
+.navbar-btn-red {
+    background-color: #b02929;
+}
+
+.navbar-btn-red:hover {
+    background-color: #7e2828;
 }
 
 .burger-menu {
@@ -261,9 +283,9 @@ nav h1 {
 }
 
 .modal-wrapper {
-    position: absolute;
-    top: 0;
+    position: fixed;
     left: 0;
+    top: 0;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
@@ -275,8 +297,7 @@ nav h1 {
 }
 
 .add-task-modal {
-    min-width: 590px;
-    min-height: 410px;
+    height: max-content;
     width: 55vw;
     background-color: white;
     display: flex;
@@ -286,8 +307,7 @@ nav h1 {
 }
 
 .edit-task-modal {
-    min-width: 590px;
-    min-height: 410px;
+    height: max-content;
     width: max-content;
     background-color: white;
     display: flex;
@@ -313,18 +333,18 @@ nav h1 {
     justify-content: space-around;
 }
 
-.task-property {
+.form-input {
     margin-top: 20px;
 }
 
-.task-property input,
-.task-property select,
-.task-property textarea {
+.form-input input,
+.form-input select,
+.form-input textarea {
     width: 100%;
 }
 
-.new-task-modal-left-panel,
-.new-task-modal-right-panel {
+.modal-left-panel,
+.modal-right-panel {
     margin-left: 20px;
     margin-right: 20px;
     width: 50%;
@@ -342,43 +362,71 @@ nav h1 {
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+    margin-top: 15px;
 }
 
-.cancel-btn {
-    width: 65px;
+.grey-btn {
+    width: max-content;
+    padding-left: 15px;
+    padding-right: 15px;
     height: 40px;
     border: 2px solid #6c757d;
     background-color: transparent;
     border-radius: 5px;
-    margin-bottom: 15px;
 }
 
-.cancel-btn:hover {
+.grey-btn:hover {
     background-color: #6c757d;
     color: white;
     cursor: pointer;
 }
 
-.continue-btn {
-    margin-right: 20px;
-    margin-left: 20px;
-    margin-bottom: 15px;
-    width: 110px;
+.blue-btn {
+    width: max-content;
+    padding-left: 15px;
+    padding-right: 15px;
     height: 40px;
     background-color: #3445B4;
     border: none;
     border-radius: 5px;
     color: white;
+    font-size: 16px;
+    font-weight: normal;
 }
 
-.continue-btn:hover {
+.blue-btn:hover {
     cursor: pointer;
     background-color: #2e3c97;
 }
 
+.red-btn {
+    width: max-content;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 40px;
+    background-color: #b02929;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.red-btn:hover {
+    cursor: pointer;
+    background-color: #7e2828;
+}
+
+#delete-data-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 25px;
+}
+
 .add-project-modal {
     min-width: 290px;
-    min-height: max-content;
+    height: max-content;
     width: 30vw;
     background-color: white;
     display: flex;
@@ -400,7 +448,6 @@ nav h1 {
 
 .show-task-modal {
     min-width: 480px;
-    min-height: 380px;
     height: max-content;
     width: 45vw;
     background-color: white;
@@ -450,6 +497,56 @@ footer {
 
 footer a {
     color: white;
+}
+
+.bottom-modal-btn {
+    margin-bottom: 15px;
+    margin-right: 20px;
+}
+
+#remove-stored-data-btn {
+    color: blue;
+}
+
+.invalid-input {
+    border: 2px solid red;
+}
+
+.invalid-input-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.red-text {
+    color: red;
+}
+
+.delete-data-modal {
+    height: max-content;
+    width: max-content;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 5px;
+}
+
+.modal-text {
+    text-align: left;
+    font-size: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 20px;
+}
+
+.responsive-navbar-etension {
+    display: none;
+    height: max-content;
+    background-color: #3445B4;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
 }
 
 /*Material Icons*/
@@ -537,7 +634,7 @@ footer a {
     }
 
     #add-task-btn {
-        margin-right: 30px;
+        margin-right: 25px;
     }
 
     #sidebar {
@@ -570,6 +667,34 @@ footer a {
 
     footer {
         position: relative;
+    }
+}
+
+@media (max-width: 730px) {
+    #user-acc-btn {
+        display: none;
+    }
+
+    #mobile-login-register-btns-container {
+        display: flex;
+    }
+
+    .navbar-btn {
+        margin: 0px;
+    }
+}
+
+@media (max-width: 610px) {
+    #delete-data-btn {
+        display: none;
+    }
+
+    #delete-data-btn-alt {
+        color: white;
+    }
+
+    .responsive-navbar-etension {
+        display: flex;
     }
 }
 
@@ -615,7 +740,34 @@ footer a {
     .add-task-modal {
         margin-top: 10px;
         margin-bottom: 10px;
-        height: max-content;
+        min-width: 300px;
+        width: 90vw;
+    }
+
+    .add-project-modal {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        min-width: 300px;
+        width: 90vw;
+    }
+
+    .show-task-modal {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        min-width: 300px;
+        width: 90vw;
+    }
+
+    .edit-task-modal {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        min-width: 300px;
+        width: 90vw;
+    }
+
+    .delete-data-modal {
+        margin-top: 10px;
+        margin-bottom: 10px;
         min-width: 300px;
         width: 90vw;
     }
@@ -625,12 +777,12 @@ footer a {
         width: 100%;
     }
 
-    .new-task-modal-left-panel,
-    .new-task-modal-right-panel {
+    .modal-left-panel,
+    .modal-right-panel {
         width: calc(100% - 40px);
     }
 
-    .new-task-modal-right-panel {
+    .modal-right-panel {
         margin-bottom: 20px;
     }
 

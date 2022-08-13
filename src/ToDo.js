@@ -1,163 +1,159 @@
 import Project from './Project.js';
 import Task from './Task.js';
-import Storage from './Storage.js';
-import { isToday, startOfToday, compareAsc, addDays, parseISO } from 'date-fns';
+import app from './App';
+import { isToday, startOfToday, compareAsc, addDays, parseISO} from 'date-fns';
 
 export default class ToDo {
-    static #projects = [];
+    #projects;
+    #tasks;
 
-    static addNewProject(project) {
-        this.#projects.push(project);
-
-        Storage.saveData(this.#projects);
+    constructor() {
+        this.#projects = [];
+        this.#tasks = [];
     }
 
-    static changeTaskStatus(taskId) {
-        let index = this.getProjectOfTask(taskId);
+    static withJSONData(jsonData) {
+        let todo = new ToDo();
+
+        todo.#setProjects(jsonData.projects.map(project => Object.assign(new Project(), project)));
+        todo.#setTasks(jsonData.tasks.map(task => Object.assign(new Task(), task)));
+
+        return todo;
+    }
+
+    #setProjects(projects) {
+        this.#projects = projects;
+    }
+
+    #setTasks(tasks) {
+        this.#tasks = tasks;
+    }
+
+    addNewProject(project) {
+        this.#projects.push(project);
+    }
+
+    addNewTask(task) {
+        this.#tasks.push(task);
+    }
+
+    #getTaskIndex(taskId) {
+        let index = -1;
+
+        for (let i = 0; i < this.#tasks.length; i++) {
+            if (taskId == this.#tasks[i].getId()) {
+                index = i;
+            }
+        }
+        
+        return index;
+    }
+
+    changeTaskStatus(taskId) {
+        let index = this.#getTaskIndex(taskId);
 
         if (index != -1) {
-            this.#projects[index].toggleTaskStatus(taskId);
-
-            Storage.saveData(this.#projects);
+            this.#tasks[index].toggleTaskStatus(taskId);
         }
     }
 
-    static setProjects(projects) {
-        this.#projects = projects;
-
-        Storage.saveData(this.#projects);
-    }
-
-    static getAllTasks() {
-        let tasks = [];
-
-        for (let i = 0; i < this.#projects.length; i++) {
-            this.#projects[i].getTasks().forEach(task => {
-                tasks.push(task);
-            });
+    deleteTask(taskId) {
+        let taskIndex = this.#getTaskIndex(taskId)
+        
+        if (taskIndex != -1) {
+            this.tasks.splice(this.#getTaskIndex(taskId), 1);
         }
-
-        return tasks;
     }
 
-    static getProjects() {
+    updateTaskInfo(taskId, name, desc, dueDate, priority, project) {
+        let taskIndex = this.#getTaskIndex(taskId)
+        
+        if (taskIndex != -1) {
+            this.tasks[taskIndex].setProperties(name, desc, dueDate, priority, project);
+        }
+    }
+
+    getTasks() {
+        return this.#tasks;
+    }
+
+    getProjects() {
         return this.#projects;
     }
 
-    static addNewTask(task, project) {
-        let index = this.#getProjectIndex(project);
-
-        if (index != -1) {
-            this.#projects[index].addTask(task);
-
-            Storage.saveData(this.#projects);
-        }
-        else if (project == 'No project') {
-            this.#projects[0].addTask(task);
-        }
-    }
-
-    static #getProjectIndex(project) {
+    #getProjectIndex(projectId) {
         let index = -1;
 
         for (let i = 0; i < this.#projects.length; i++) {
-            if (this.#projects[i].getName() === project) {
+            if (this.#projects[i].getId() === projectId) {
                 index = i;
                 break;
             }
         }
+
         return index;
     }
 
-    static getProjectNames() {
+    getProjectNames() {
         return this.#projects.map(project => project.getName());
     }
 
-    static getProjectTasks(project) {
-        let index = this.#getProjectIndex(project);
-        let tasks = null;
-
-        if (index != -1) {
-            tasks = this.#projects[index].getTasks();
+    getProjectByName(projName) {
+        for (let i = 0; i < this.#projects.length; i++) {
+            if (this.#projects[i].getName() == projName) {
+                return this.#projects[i];
+            }
         }
 
-        return tasks;
+        return null;
     }
 
-    static getDueTodayTasks = () => {
+    getTasksByProject(projectName) {
+        let projectIndex = this.getProjectByName(projectName); 
         let tasks = [];
 
-        for (let i = 0; i < this.#projects.length; i++) {
-            let projectTasks = this.#projects[i].getTasks();
-
-            for (let j = 0; j < projectTasks.length; j++) {
-                if (isToday(parseISO(projectTasks[j].getDueDate()))) {
-                    tasks.push(projectTasks[j]);
-                }
+        for (let i = 0; i < this.#tasks.length; i++) {
+            if (this.#tasks[i].getProject() == projectId) {
+                tasks.push(this.#tasks[i]);
             }
         }
 
         return tasks;
     }
 
-    static deleteTask(taskId) {
-        for (let i = 0; i < this.#projects.length; i++) {
-            if (this.#projects[i].getTaskIndex(taskId) != -1) {
-                this.#projects[i].deleteTask(this.#projects[i].getTaskIndex(taskId));
-                Storage.saveData(this.#projects);
-                break;
+    getDueTodayTasks() {
+        let tasks = [];
+
+        for (let i = 0; i < this.#tasks.length; i++) {
+            if (isToday(parseISO(this.#tasks[i].getDueDate()))) {
+                tasks.push(this.#tasks[i]);
             }
         }
+
+        return tasks;
     }
 
-    static changeTaskInfo(taskId, name, desc, dueDate, priority) {
-        let projectIndex = this.getProjectOfTask(taskId);
-        let taskIndex;
-
-        if (projectIndex != -1) {
-            taskIndex = this.#projects[projectIndex].getTaskIndex(taskId);
-
-            if (taskIndex != -1) {
-                this.#projects[projectIndex].updateTaskInfo(taskIndex, name, desc, dueDate, priority);
-                Storage.saveData(this.#projects);
-            }
-        }
-    }
-
-
-    static getDueThisWeekTasks = () => {
+    getDueThisWeekTasks = () => {
         let tasks = [];
         let nextWeek = addDays(startOfToday(), 7);
 
-        for (let i = 0; i < this.#projects.length; i++) {
-            let projectTasks = this.#projects[i].getTasks();
-
-            for (let j = 0; j < projectTasks.length; j++) {
-                if (compareAsc(parseISO(projectTasks[j].getDueDate()), nextWeek) != 1) {
-                    tasks.push(projectTasks[j]);
-                }
+        for (let i = 0; i < this.#tasks.length; i++) {
+            if (compareAsc(parseISO(this.#tasks[i].getDueDate()), nextWeek) != 1) {
+                tasks.push(this.#tasks[i]);
             }
         }
 
         return tasks;
     }
 
-    static getProjectOfTask(taskId) {
-        let projectIndex = -1;
-
-        for (let i = 0; i < this.#projects.length; i++) {
-            if (this.#projects[i].getTaskIndex(taskId) != -1) {
-                projectIndex = i;
-            }
-        }
-
-        return projectIndex;
+    getTask(taskId) {
+        return this.#tasks[this.#getTaskIndex(taskId)];
     }
 
-    static getTaskInfo(taskId) {
-        let projectIndex = this.getProjectOfTask(taskId);
-        let task = this.#projects[projectIndex].getTask(taskId);
-
-        return [task.getName(), task.getDescription(), task.getDueDate(), task.getPriority()];
+    toJSONObject() {
+        return {
+            projects: this.#projects,
+            tasks: this.#tasks
+        }
     }
 }

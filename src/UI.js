@@ -1,12 +1,9 @@
-import ToDo from './ToDo.js';
 import Task from './Task.js';
 import Project from './Project.js';
-import Storage from './Storage.js';
-import { parseISO, format } from 'date-fns';
+import App from './App';
 
 const kNOEMPTYFIELD = 'This field can\'t be empty';
 const kNOTWHITESPACEALONE = 'Whitespaces alone are not valid';
-const kINVALIDEMAIL = 'Invalid email';
 const kDATEINVALID = 'The due date can\'t be before today';
 
 export default class UI {
@@ -30,7 +27,7 @@ export default class UI {
         });
     }
 
-    static showDelteDataModal() {
+    static showDeleteDataModal() {
         const body = document.querySelector('body');
 
         body.insertAdjacentHTML('beforeend', `
@@ -149,7 +146,7 @@ export default class UI {
 
     static showEditTaskModal = (taskId) => {
         const body = document.querySelector('body');
-        const taskInfo = ToDo.getTaskInfo(taskId);
+        const task = App.getTask(taskId);
 
         body.insertAdjacentHTML('beforeend', `
         <div class="modal-wrapper">
@@ -163,27 +160,27 @@ export default class UI {
                         <div class="form-input">
                             <label for="task-name-input">Title</label>
                             <br>
-                            <input required type="text" id="task-name-input" value="${taskInfo[0]}">
+                            <input required type="text" id="task-name-input" value="${task.getName()}">
                         </div>
                         <div class="form-input">
                             <label for="task-descritpion-input">Description</label>
                             <br>
-                            <textarea id="task-description-input">${taskInfo[1]}</textarea>
+                            <textarea id="task-description-input">${task.getDescription()}</textarea>
                         </div>
                     </div>
                     <div class="modal-right-panel">
                         <div class="form-input">
                             <label for="task-duedate-input">Due date</label>
                             <br>
-                            <input type="date" id="task-duedate-input" value="${taskInfo[2]}">
+                            <input type="date" id="task-duedate-input" value="${task.getDueDate()}">
                         </div>
                         <div class="form-input">
                             <label for="task-priority-input">Priority</label>
                             <br>
                             <select required id="task-priority-input">
-                                <option ${(taskInfo[3] === 'Low')? 'selected="selected"' : ''}>Low</option>
-                                <option ${(taskInfo[3] === 'Medium')? 'selected="selected"' : ''}>Medium</option>
-                                <option ${(taskInfo[3] === 'High')? 'selected="selected"' : ''}>High</option>
+                                <option ${(task.getPriority() === 'Low')? 'selected="selected"' : ''}>Low</option>
+                                <option ${(task.getPriority() === 'Medium')? 'selected="selected"' : ''}>Medium</option>
+                                <option ${(task.getPriority() === 'High')? 'selected="selected"' : ''}>High</option>
                             </select>
                         </div>
                     </div>
@@ -202,34 +199,34 @@ export default class UI {
 
     static showTaskInfoModal = (taskId) => {
         const body = document.querySelector('body');
-        const taskInfo = ToDo.getTaskInfo(taskId);
+        const task = App.getTask(taskId);
 
         body.insertAdjacentHTML('beforeend', `
         <div class="modal-wrapper">
             <div class="show-task-modal">
                 <div class="modal-header">
-                    <h4>${taskInfo[0]}</h4>
+                    <h4>${task.getName()}</h4>
                 </div>
 
                 <div class="properties">
                     <div class="show-task-modal-left-panel">
                         <div class="form-input">
                             <p class="property-title">Title:</p>
-                            <p>${taskInfo[0]}</p>
+                            <p>${task.getName()}</p>
                         </div>
                         <div class="form-input">
                             <p class="property-desc">Description:</p>
-                            <p>${taskInfo[1]}</p>
+                            <p>${task.getDescription()}</p>
                         </div>
                     </div>
                     <div class="show-task-modal-right-panel">
                         <div class="form-input">
                             <p class="property-due-date">Due date:</p>
-                            <p>${taskInfo[2]}</p>
+                            <p>${task.getDueDate()}</p>
                         </div>
                         <div class="form-input">
                             <p class="property-priority">Priority:</p>
-                            <p>${taskInfo[3]}</p>
+                            <p>${task.getPriority()}</p>
                         </div>
                     </div>
                 </div>
@@ -300,7 +297,7 @@ export default class UI {
     }
 
     static changeTaskStatus(id, taskEntry) {
-        ToDo.changeTaskStatus(id);
+        App.changeTaskStatus(id);
 
         taskEntry.childNodes[1].classList.toggle('completedl');
         taskEntry.childNodes[3].classList.toggle('completedr');
@@ -329,7 +326,7 @@ export default class UI {
         deleteTaskBtn.addEventListener('click', (e) => {
             this.removeTask(e.target.dataset.taskid);
 
-            ToDo.deleteTask(e.target.dataset.taskid);
+            App.deleteTask(e.target.dataset.taskid);
         })
     }
 
@@ -355,9 +352,12 @@ export default class UI {
         const newTaskDueDate = document.querySelector('#task-duedate-input').value;
         const taskPriorityInput = document.querySelector('#task-priority-input');
         const newTaskPriority = taskPriorityInput.options[taskPriorityInput.selectedIndex].value;
-        const taskProjectInput = document.querySelector('#task-project-input');
+        const taskProjectName = document.querySelector('#task-project-input').value;
 
-        ToDo.changeTaskInfo(id, newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority);
+        const taskProject = (taskProjectName === 'No project'? null : 
+        App.getProjectByName(taskProjectName).getId());
+
+        App.updateTaskInfo(id, newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority, taskProject);
 
         this.#updateTaskEntry(id, newTaskName, newTaskDueDate, newTaskPriority);
 
@@ -466,7 +466,7 @@ export default class UI {
         if (UI.#areProjectFieldsValid()) {
             const newProject = new Project(newProjectName.value);
 
-            ToDo.addNewProject(newProject);
+            App.addNewProject(newProject);
     
             UI.addNewProject(newProject.getName(), newProject.getId());
     
@@ -482,11 +482,14 @@ export default class UI {
             const taskPriorityInput = document.querySelector('#task-priority-input');
             const newTaskPriority = taskPriorityInput.options[taskPriorityInput.selectedIndex].value;
             const taskProjectInput = document.querySelector('#task-project-input');
-            const newTaskProject = taskProjectInput.options[taskProjectInput.selectedIndex].value;
+            const taskProjectName = taskProjectInput.options[taskProjectInput.selectedIndex].value;
+            
+            const taskProject = (taskProjectName === 'No project'? null : 
+            App.getProjectByName(taskProjectName).getId());
+
+            const newTask = new Task(newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority, taskProject);
     
-            const newTask = new Task(newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority);
-    
-            ToDo.addNewTask(newTask, newTaskProject);
+            App.addNewTask(newTask);
     
             UI.addNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(),
             newTask.getId(), newTask.getStatus());
@@ -566,16 +569,16 @@ export default class UI {
         let tasks;
 
         if (filter === 'All tasks') {
-            tasks = ToDo.getAllTasks();
+            tasks = App.getTasks();
         }
         else if (filter === 'Today') {
-            tasks = ToDo.getDueTodayTasks();
+            tasks = App.getDueTodayTasks();
         }
         else if (filter === 'This week') {
-            tasks = ToDo.getDueThisWeekTasks();
+            tasks = App.getDueThisWeekTasks();
         }
         else {
-            tasks = ToDo.getProjectTasks(filter);
+            tasks = App.getTasksByProject(filter);
         }
 
         this.clearTasks();        
@@ -624,27 +627,26 @@ export default class UI {
 
         deleteDataBtn.addEventListener('click', (e) => {
             body.style = "overflow-y: hidden;";
-            UI.showDelteDataModal();
+            UI.showDeleteDataModal();
         });
 
         deleteDataBtnAlt.addEventListener('click', (e) => {
             body.style = "overflow-y: hidden;";
-            UI.showDelteDataModal();
+            UI.showDeleteDataModal();
         });
 
         UI.#activateBurgerMenu();
     }
 
+    // In the options input on edit/create task.
     static #updateProjectList() {
         const taskProjectInput = document.querySelector('#task-project-input');
-        let projectNames = ToDo.getProjectNames();
+        let projectNames = App.getProjectNames();
 
         for (let i = 0; i < projectNames.length; i++) {
-            if (projectNames[i] != 'default') {
-                taskProjectInput.insertAdjacentHTML('beforeend', `
-                <option>${projectNames[i]}</option>
-                `)
-            }
+            taskProjectInput.insertAdjacentHTML('beforeend', `
+            <option>${projectNames[i]}</option>
+            `);
         }
     }
 
@@ -736,19 +738,17 @@ export default class UI {
     }
 
     static #handleDataDeletion() {
-        Storage.removeData();
+        App.removeData();
         window.location.reload();
     }
 
     static initHomePage() {
         UI.addHomepageEventListeners();
 
-        let projects = ToDo.getProjects();
+        let projects = App.getProjects();
 
         projects.forEach(project => {
-            if (project.getName() != 'default') {
-                this.addNewProject(project.getName(), project.getId());
-            }
+            this.addNewProject(project.getName(), project.getId());
         });
 
         const showAllTasks = document.querySelector('#all-tasks');
