@@ -1,0 +1,818 @@
+body {
+    display: flex;
+    flex-direction: row;
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+    overflow-y: hidden;
+}
+
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background-color: #3445B4;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav h1 {
+    font-size: 36px;
+    margin-left: 10px;
+}
+
+.left-side-nav > .material-icons {
+    margin-left: 25px;
+}
+
+.left-side-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.right-side-nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-right: 25px;
+    font-size: 20px;
+    gap: 10px;
+    width: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.navbar-btn:hover {
+    cursor: pointer;
+}
+
+.navbar-btn-blue {
+    background-color: rgb(59, 78, 198);
+}
+
+.navbar-btn-blue:hover {
+    background-color: #2e3c97;
+}
+
+.navbar-btn-red {
+    background-color: #b02929;
+}
+
+.navbar-btn-red:hover {
+    background-color: #7e2828;
+}
+
+.burger-menu {
+    display: none;
+}
+
+#sidebar {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    height: calc(100% - 80px);
+    width: 21vw;
+    min-width: 239px;
+    background-color: #E4E4E4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.task-filter {
+    min-height: 35px;
+    height: max-content;
+    width: 80%;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    margin-left: 25px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.task-filter > p {
+    margin-left: 10px;
+}
+
+.task-filter span {
+    margin-left: 10px;
+}
+
+.task-filter:hover {
+    background-color: rgb(204, 204, 204);
+    cursor: pointer;
+}
+
+.selected {
+    background-color: rgb(204, 204, 204);
+}
+
+#add-task-btn-alt {
+    min-height: 35px;
+    height: max-content;
+    width: calc(100% - 50px);
+    background-color: transparent;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    margin-left: 25px;
+    margin-top: 30px;
+    border-radius: 5px;
+    border: 3px solid rgb(204, 204, 204);
+    display: none;
+}
+
+#add-task-btn-alt:hover {
+    background-color: rgb(204, 204, 204);
+    cursor: pointer;
+}
+
+#add-task-btn-alt > p {
+    margin-left: 10px;
+}
+
+#add-task-btn-alt span {
+    margin-left: 10px;
+}
+
+.section-title-mobile {
+    display: none;
+}
+
+#all-tasks {
+    margin-top: 30px;
+}
+
+.add-project-btn {
+    min-height: 35px;
+    height: max-content;
+    width: 80%;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    margin-left: 25px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 3px solid rgb(204, 204, 204);
+}
+
+.add-project-btn > p {
+    margin-left: 10px;
+}
+
+.add-project-btn span {
+    margin-left: 10px;
+}
+
+.add-project-btn:hover {
+    background-color: rgb(204, 204, 204);
+    cursor: pointer;
+}
+
+
+.projects h2{
+    margin-left: 25px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.content {
+    margin-top: 80px;
+    margin-left: max(239px, 21vw);
+    width: calc(100vw - max(239px, 21vw));
+    height: calc(100vh - 113px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: scroll;
+}
+
+.content h3 {
+    margin-top: 30px;
+    margin-left: 50px;
+    margin-bottom: 5px;
+    font-size: 30px;
+}
+
+.task {
+    margin-top: 15px;
+    margin-left: 50px;
+    min-height: 30px;
+    height: max-content;
+    width: 50vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E4E4E4;
+}
+
+.task:hover label {
+    cursor: pointer;
+}
+
+.task:hover .task-low-priority,
+.task:hover .task-mid-priority,
+.task:hover .task-high-priority {
+    cursor: default;
+}
+
+.task label {
+    margin-left: 5px;
+    font-weight: 600;
+}
+
+.task-high-priority {
+    color: red;
+}
+
+.task-medium-priority {
+    color: #f49c18;
+}
+
+.task-low-priority {
+    color: rgb(0, 202, 0);
+}
+
+.completedl {
+    text-decoration: line-through;
+    opacity: 70%;
+}
+
+.completedr {
+    opacity: 70%;
+}
+
+.delete-task-btn {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.delete-task-btn:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.edit-task-btn:hover {
+    cursor: pointer;
+    color: #f49c18;
+}
+
+.left-panel,
+.right-panel {
+    display: flex;
+    align-items: center;
+}
+
+.modal-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-task-modal {
+    height: max-content;
+    width: 55vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 5px;
+}
+
+.edit-task-modal {
+    height: max-content;
+    width: max-content;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 5px;
+}
+
+.modal-header h4 {
+    font-size: 20px;
+    padding: 16px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #E4E4E4;
+}
+
+.inputs {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.form-input {
+    margin-top: 20px;
+}
+
+.form-input input,
+.form-input select,
+.form-input textarea {
+    width: 100%;
+}
+
+.modal-left-panel,
+.modal-right-panel {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 50%;
+}
+
+#task-description-input {
+    height: 150px;
+    resize: none;
+}
+
+.modal-footer {
+    width: 100%;
+    height: 61.6px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.grey-btn {
+    width: max-content;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 40px;
+    border: 2px solid #6c757d;
+    background-color: transparent;
+    border-radius: 5px;
+}
+
+.grey-btn:hover {
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+}
+
+.blue-btn {
+    width: max-content;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 40px;
+    background-color: #3445B4;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.blue-btn:hover {
+    cursor: pointer;
+    background-color: #2e3c97;
+}
+
+.red-btn {
+    width: max-content;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 40px;
+    background-color: #b02929;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.red-btn:hover {
+    cursor: pointer;
+    background-color: #7e2828;
+}
+
+#delete-data-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 25px;
+}
+
+.add-project-modal {
+    min-width: 290px;
+    height: max-content;
+    width: 30vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.project-property {
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.project-property input {
+    width: 100%;
+}
+
+.show-task-modal {
+    min-width: 480px;
+    height: max-content;
+    width: 45vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 5px;
+}
+
+.properties {
+        width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.property-title,
+.property-desc,
+.property-due-date,
+.property-priority,
+.property-proj {
+    font-weight: 600;
+}
+
+.show-task-modal-left-panel,
+.show-task-modal-right-panel {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 50%;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 33px;
+    background-color: #3445B4;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+footer a {
+    color: white;
+}
+
+.bottom-modal-btn {
+    margin-bottom: 15px;
+    margin-right: 20px;
+}
+
+#remove-stored-data-btn {
+    color: blue;
+}
+
+.invalid-input {
+    border: 2px solid red;
+}
+
+.invalid-input-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.red-text {
+    color: red;
+}
+
+.delete-data-modal {
+    height: max-content;
+    width: max-content;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 5px;
+}
+
+.modal-text {
+    text-align: left;
+    font-size: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 20px;
+}
+
+.responsive-navbar-etension {
+    display: none;
+    height: max-content;
+    background-color: #3445B4;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+/*Material Icons*/
+.fs-36 { 
+    font-size: 36px; 
+}
+
+.fs-22 { 
+    font-size: 22px; 
+}
+
+/*Media Queries*/
+@media (max-width: 750px) {
+    body {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .content {
+        overflow: auto;
+    }
+
+    .burger-menu {
+        display: block;
+        align-self: center;
+        margin-right: 25px;
+        height: 40px;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .burger-btn {
+        align-self: center;
+        height: 6px;
+        width: 40px;
+        background-color: white;
+    }
+
+    .burger-btn::after,
+    .burger-btn::before {
+        content: '';
+        position: absolute;
+        height: 6px;
+        width: 40px;
+        background-color: white;
+        transition: all 100ms ease-in-out;
+    }
+
+    .burger-btn::after {
+        transform: translateY(12px);
+    }
+
+    .burger-btn::before {
+        transform: translateY(-12px);
+    }
+
+    /* Burger-Menu Animation */
+    .mobile-menu.show-menu {
+        display: grid;
+        height: calc(100vh - 100px);
+        width: 100vw;
+        background-color: #3445b4;
+        display: grid;
+        justify-content: space-evenly;
+    }
+
+    .burger-menu.open .burger-btn {
+        background: transparent;
+    }
+
+    .burger-menu.open .burger-btn::before {
+        transform: rotate(45deg);
+        transition: all 100ms ease-in-out;
+    }
+
+    .burger-menu.open .burger-btn::after {
+        transform: rotate(-45deg);
+        transition: all 100ms ease-in-out;
+    }
+
+    .right-side-nav {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #add-task-btn {
+        margin-right: 25px;
+    }
+
+    #sidebar {
+        position: relative;
+        width: 100%;
+        display: none;
+    }
+
+    #sidebar.visible-mobile-nav {
+        display: flex;
+    }
+
+    .task-filter {
+        width: calc(100% - 50px);
+    }
+
+    .add-project-btn {
+        width: calc(100% - 50px);
+        margin-bottom: 30px;
+    }
+
+    .content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .task {
+        width: calc(100vw - 100px);
+    }
+
+    footer {
+        position: relative;
+    }
+}
+
+@media (max-width: 730px) {
+    #user-acc-btn {
+        display: none;
+    }
+
+    #mobile-login-register-btns-container {
+        display: flex;
+    }
+
+    .navbar-btn {
+        margin: 0px;
+    }
+}
+
+@media (max-width: 610px) {
+    #delete-data-btn {
+        display: none;
+    }
+
+    #delete-data-btn-alt {
+        color: white;
+    }
+
+    .responsive-navbar-etension {
+        display: flex;
+    }
+}
+
+@media (max-width: 530px) {
+    #add-task-btn {
+        display: none;
+    }
+
+    #add-task-btn-alt {
+        display: flex;
+    }
+
+    .section-title-mobile {
+        display: block;
+        margin-left: 25px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
+
+    #all-tasks {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 350px) {
+    .burger-menu {
+        height: 30px;
+        width: 30px;
+    }
+
+    .burger-btn {
+        width: 30px;
+    }
+
+    .burger-btn::after,
+    .burger-btn::before {
+        width: 30px;
+    }
+
+}
+
+@media (max-width: 610px) {
+    .add-task-modal {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        min-width: 300px;
+        width: 90vw;
+    }
+
+    .add-project-modal {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        min-width: 300px;
+        width: 90vw;
+    }
+
+    .show-task-modal {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        min-width: 300px;
+        width: 90vw;
+    }
+
+    .edit-task-modal {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        min-width: 300px;
+        width: 90vw;
+    }
+
+    .delete-data-modal {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        min-width: 300px;
+        width: 90vw;
+    }
+
+    .inputs {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .modal-left-panel,
+    .modal-right-panel {
+        width: calc(100% - 40px);
+    }
+
+    .modal-right-panel {
+        margin-bottom: 20px;
+    }
+
+    #new-task-description {
+        height: auto;
+    }
+
+    .project-property {
+        width: auto;
+    }
+
+    .show-task-modal {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        height: max-content;
+        min-width: 300px;
+        width: 90vw;
+    }
+
+    .properties {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .show-task-modal-left-panel,
+    .show-task-modal-right-panel {
+        width: calc(100% - 40px);
+    }
+
+    .show-task-modal-right-panel {
+        margin-bottom: 20px;
+    }
+}
