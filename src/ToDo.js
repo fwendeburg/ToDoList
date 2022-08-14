@@ -100,7 +100,17 @@ export default class ToDo {
 
     getProjectByName(projName) {
         for (let i = 0; i < this.#projects.length; i++) {
-            if (this.#projects[i].getName() == projName) {
+            if (this.#projects[i].getName() === projName) {
+                return this.#projects[i];
+            }
+        }
+
+        return null;
+    }
+
+    getProjectById(projId) {
+        for (let i = 0; i < this.#projects.length; i++) {
+            if (this.#projects[i].getId() === projId) {
                 return this.#projects[i];
             }
         }

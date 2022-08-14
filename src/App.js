@@ -75,5 +75,9 @@ export default class App {
     static removeData() {
         this.#storage.removeData();
     }
+
+    static getProjectById(projId) {
+        return this.#todo.getProjectById(projId);
+    }
 }
 

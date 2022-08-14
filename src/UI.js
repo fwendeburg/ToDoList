@@ -225,18 +225,22 @@ export default class UI {
                         </div>
                         <div class="form-input">
                             <p class="property-desc">Description:</p>
-                            <p>${task.getDescription()}</p>
+                            <p>${task.getDescription() === ''? 'No description set' : task.getDescription()}</p>
                         </div>
                     </div>
                     <div class="show-task-modal-right-panel">
                         <div class="form-input">
                             <p class="property-due-date">Due date:</p>
-                            <p>${task.getDueDate()}</p>
+                            <p>${task.getDueDate() === ''? 'No due date set' : task.getDueDate()}</p>
                         </div>
                         <div class="form-input">
                             <p class="property-priority">Priority:</p>
                             <p>${task.getPriority()}</p>
                         </div>
+                        <div class="form-input">
+                            <p class="property-priority">Project:</p>
+                        <p>${task.getProject() === null? 'Task not assigned to a project' : App.getProjectById(task.getProject()).getName()}</p>
+                    </div>
                     </div>
                 </div>
 
