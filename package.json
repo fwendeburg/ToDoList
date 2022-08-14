@@ -8,7 +8,7 @@
     "start": "webpack serve --open",
     "watch": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "git subtree push --prefix dist origin gh-pages"
+    "deploy": "git subtree push --prefix dist origin prod"
   },
   "repository": {
     "type": "git",
