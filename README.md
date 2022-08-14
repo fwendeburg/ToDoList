@@ -1,2 +1,2 @@
-# ToDo-List
+# ToDoList
  A ToDo app made with HTML, CSS and vanilla JS.
