@@ -10,6 +10,7 @@ module.exports = {
         Project: './src/Project.js',
         Task: './src/Task.js',
         UI: './src/UI.js',
+        App: './src/App.js'
     },
     devtool: 'inline-source-map',
     devServer: {
