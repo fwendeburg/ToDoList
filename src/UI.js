@@ -7,6 +7,12 @@ const kNOTWHITESPACEALONE = 'Whitespaces alone are not valid';
 const kDATEINVALID = 'The due date can\'t be before today';
 
 export default class UI {
+
+    
+    /*
+    **  Responsiveness related methods
+    */
+
     static #activateBurgerMenu = () => {
         const body = document.querySelector('body');
         const burgerMenuBtn = document.querySelector('.burger-menu');
@@ -27,7 +33,11 @@ export default class UI {
         });
     }
 
-    static showDeleteDataModal() {
+    /*
+    **  Modals
+    */
+
+    static #showDeleteDataModal() {
         const body = document.querySelector('body');
 
         body.insertAdjacentHTML('beforeend', `
@@ -51,10 +61,10 @@ export default class UI {
         </div>
         `);
 
-        this.addModalEventListeners('deleteStoredData');
+        this.#addModalEventListeners('deleteStoredData');
     }
 
-    static showNewTaskModal = () => {
+    static #showNewTaskModal = () => {
         const body = document.querySelector('body');
 
         body.insertAdjacentHTML('beforeend', `
@@ -110,12 +120,12 @@ export default class UI {
         </div>`
         );
 
-        this.#updateProjectList();
+        this.#addOptionsToProjectSelector();
 
-        this.addModalEventListeners('newTask');
+        this.#addModalEventListeners('newTask');
     }
 
-    static showNewProjectModal = () => {
+    static #showNewProjectModal = () => {
         const body = document.querySelector('body');
 
         body.insertAdjacentHTML('beforeend', `
@@ -141,10 +151,10 @@ export default class UI {
         </div>`
         );
 
-        UI.addModalEventListeners('newProject');
+        UI.#addModalEventListeners('newProject');
     }
 
-    static showEditTaskModal = (taskId) => {
+    static #showEditTaskModal = (taskId) => {
         const body = document.querySelector('body');
         const task = App.getTask(taskId);
 
@@ -201,12 +211,12 @@ export default class UI {
         </div>`
         );
 
-        this.#updateProjectList();
+        this.#addOptionsToProjectSelector();
 
-        UI.addModalEventListeners('editTask', taskId);
+        UI.#addModalEventListeners('editTask', taskId);
     }
 
-    static showTaskInfoModal = (taskId) => {
+    static #showTaskInfoModal = (taskId) => {
         const body = document.querySelector('body');
         const task = App.getTask(taskId);
 
@@ -252,10 +262,24 @@ export default class UI {
         </div>`
         );
 
-        UI.addModalEventListeners('taskInfo', taskId);
+        UI.#addModalEventListeners('taskInfo', taskId);
     }
 
-    static addNewTask = (name, dueDate, priority, id, taskStatus) => {
+    /*
+    **  Update task/project display
+    */
+
+    static #getHTMLElementByTaskId(id, elements) {
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].dataset.taskid == id) {
+                return elements[i];
+            };
+        }
+
+        return null;
+    }
+
+    static #displayNewTask = (name, dueDate, priority, id, taskStatus) => {
         const content = document.querySelector('.content');
 
         content.insertAdjacentHTML('beforeend', `
@@ -275,87 +299,57 @@ export default class UI {
         );
 
         const completedTaskInputs = document.querySelectorAll('.task-finished');
-        let taskStatusToggle;
 
-        for (let i = 0; i < completedTaskInputs.length; i++) {
-            if (completedTaskInputs[i].dataset.taskid == id) {
-                taskStatusToggle = completedTaskInputs[i];
-                break;
-            };
-        }
-
-        taskStatusToggle.addEventListener('click', (e) => {
-            this.changeTaskStatus(id, e.target.parentNode.parentNode);
+        this.#getHTMLElementByTaskId(id, completedTaskInputs).addEventListener('click', (e) => {
+            this.#changeTaskStatus(id, e.target.parentNode.parentNode);
         })
 
         if (taskStatus) {
-            const tasks = document.querySelectorAll('.task');
-            let task;
-
-            for (let i = 0; i < tasks.length; i++) {
-                if (tasks[i].dataset.taskid == id) {
-                    task = tasks[i];
-                    break;
-                };
-            }
+            const task = this.#getHTMLElementByTaskId(id, document.querySelectorAll('.task'));
     
             task.childNodes[1].classList.toggle('completedl');
             task.childNodes[1].childNodes[1].checked = true;
             task.childNodes[3].classList.toggle('completedr');
         };
 
-        this.addTaskInfoEL(id);
-        this.addEditTaskBtnEL(id);
-        this.addDeleteTaskBtnEL(id);
+        this.#addTaskInfoBtnEventListener(id);
+        this.#addEditTaskBtnEventListener(id);
+        this.#addDeleteTaskBtnEventListener(id);
     }
 
-    static changeTaskStatus(id, taskEntry) {
+    static #changeTaskStatus(id, taskEntry) {
         App.changeTaskStatus(id);
 
         taskEntry.childNodes[1].classList.toggle('completedl');
         taskEntry.childNodes[3].classList.toggle('completedr');
     }
 
-    static addTaskInfoEL(taskId) {
+    static #addTaskInfoBtnEventListener(taskId) {
         const taskInfo = document.querySelector(`[data-taskid='${taskId}']`);
         const label = taskInfo.querySelector('label');
 
         label.addEventListener('click', (e) => {
-            this.showTaskInfoModal(taskId);
+            this.#showTaskInfoModal(taskId);
         })
     }
 
-    static addDeleteTaskBtnEL(id) {
+    static #addDeleteTaskBtnEventListener(id) {
         const deleteTaskBtns = document.querySelectorAll('.delete-task-btn');
-        let deleteTaskBtn;
-
-        for (let i = 0; i < deleteTaskBtns.length; i++) {
-            if (deleteTaskBtns[i].dataset.taskid == id) {
-                deleteTaskBtn = deleteTaskBtns[i];
-                break;
-            };
-        }
+        let deleteTaskBtn = this.#getHTMLElementByTaskId(id, deleteTaskBtns);
 
         deleteTaskBtn.addEventListener('click', (e) => {
-            this.removeTask(e.target.dataset.taskid);
+            this.#removeTaskEntry(e.target.dataset.taskid);
 
             App.deleteTask(e.target.dataset.taskid);
         })
     }
 
-    static addEditTaskBtnEL(id) {
+    static #addEditTaskBtnEventListener(id) {
         const editTaskBtns = document.querySelectorAll('.edit-task-btn');
-        let editTaskBtn;
-
-        for (let i = 0; i < editTaskBtns.length; i++) {
-            if (editTaskBtns[i].dataset.taskid == id) {
-                editTaskBtn = editTaskBtns[i];
-                break;
-            }
-        }
+        let editTaskBtn = this.#getHTMLElementByTaskId(id, editTaskBtns);
 
         editTaskBtn.addEventListener('click', (e) => {
-            this.showEditTaskModal(e.target.dataset.taskid);
+            this.#showEditTaskModal(e.target.dataset.taskid);
         });
     }
 
@@ -374,7 +368,7 @@ export default class UI {
 
         this.#updateTaskEntry(id, newTaskName, newTaskDueDate, newTaskPriority);
 
-        this.removeModal();
+        this.#removeModal();
     }
 
     static #updateTaskEntry(taskId, name, dueDate, priority) {
@@ -392,7 +386,7 @@ export default class UI {
         taskPriority.classList.add(`task-${priority.toLowerCase()}-priority`);
     }
 
-    static addNewProject = (name, id) => {
+    static #addNewProjectNameToSidebar(name, id) {
         const projects = document.getElementsByClassName('project');
 
         if (projects.length == 0) {
@@ -407,7 +401,7 @@ export default class UI {
             `);
         }
         else {
-            projects[projects.length -1].insertAdjacentHTML('afterend', `
+            projects[projects.length - 1].insertAdjacentHTML('afterend', `
             <div class="task-filter project" data-projid="${id}">
                 <span class="material-icons-outlined">description</span>
                 <p>${name}</p>
@@ -415,34 +409,31 @@ export default class UI {
             `);
         }
 
-        UI.#updateTaskFiltersEventListeners();
+        UI.#setTaskFiltersEventListeners();
     }
 
-    static removeModal = () => {
+    static #removeModal() {
         const body = document.querySelector('body');
         const modal = document.querySelector('.modal-wrapper');
 
         body.style = "";
 
         if (modal) {
-            modal.textContent = '';
-
             body.removeChild(modal);
-    
-            UI.#removeModalEventListeners();
+
+            body.removeEventListener('keydown', UI.#handleEscapeKeyPress);
         }
     }
 
-    static removeTask = (id) => {
+    static #removeTaskEntry(id) {
         const task = document.querySelector(`[data-taskid='${id}']`);
         const content = document.querySelector('.content');
 
         content.removeChild(task);
     }
 
-    static clearTasks = () => {
+    static #clearTaskEntries() {
         const content = document.querySelector('.content');
-
         const tasks = document.querySelectorAll('.task');
 
         tasks.forEach(task => {
@@ -450,16 +441,15 @@ export default class UI {
         });
     }
 
-    static removeProject = (id) => {
+    static #removeProjectNameFromSidebar = (id) => {
         const project = document.querySelector(`[data-projid='${id}']`);
         const projects = document.querySelector('.projects');
 
         projects.removeChild(project);
     }
 
-    static clearProjects = () => {
+    static #clearProjectNamesFromSidebar() {
         const projectContainer = document.querySelector('.projects');
-
         const projects = document.querySelectorAll('.project');
 
         projects.forEach(proj => {
@@ -467,9 +457,9 @@ export default class UI {
         })
     }
 
-    static #handleModalEventEsc = (e) => {
+    static #handleEscapeKeyPress(e) {
         if (e.key === 'Escape') {
-            UI.removeModal();
+            UI.#removeModal();
         }
     }
 
@@ -481,9 +471,9 @@ export default class UI {
 
             App.addNewProject(newProject);
     
-            UI.addNewProject(newProject.getName(), newProject.getId());
+            UI.#addNewProjectNameToSidebar(newProject.getName(), newProject.getId());
     
-            UI.removeModal();
+            UI.#removeModal();
         }
     }
 
@@ -504,14 +494,14 @@ export default class UI {
     
             App.addNewTask(newTask);
     
-            UI.addNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(),
+            UI.#displayNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(),
             newTask.getId(), newTask.getStatus());
     
-            UI.removeModal();
+            UI.#removeModal();
         }
     }
 
-    static addModalEventListeners = (modalType, taskId = -1) => {
+    static #addModalEventListeners(modalType, taskId = -1) {
         const body = document.querySelector('body');
         const modal = document.querySelector('.modal-wrapper');
         const cancelBtn = modal.querySelector('.grey-btn');
@@ -528,38 +518,32 @@ export default class UI {
                 this.#handleTaskEdit(taskId);
             });
         }
-        else if (modalType === 'taskInfo'){
+        else if (modalType === 'taskInfo') {
             continueBtn.addEventListener('click', () => {
-                this.removeModal();
+                this.#removeModal();
                 body.style = "overflow-y: hidden;";
-                this.showEditTaskModal(taskId);
+                this.#showEditTaskModal(taskId);
             });
         }
         else if (modalType === 'deleteStoredData') {
             continueBtn.addEventListener('click', () => {
                 this.#handleDataDeletion();
-                this.removeModal();
+                this.#removeModal();
             });
         }
 
         modal.addEventListener('click', (e) => {
             if(e.target.classList.contains('modal-wrapper')) {
-                UI.removeModal();
+                UI.#removeModal();
             }
         })
 
-        body.addEventListener('keydown', UI.#handleModalEventEsc);
+        body.addEventListener('keydown', UI.#handleEscapeKeyPress);
 
-        cancelBtn.addEventListener('click', UI.removeModal);
+        cancelBtn.addEventListener('click', UI.#removeModal);
     }
 
-    static #removeModalEventListeners = () => {
-        const body = document.querySelector('body');
-
-        body.removeEventListener('keydown', UI.#handleModalEventEsc);
-    }
-
-    static #handleFilterSelection = (selectedBtn, btnNodeList) => {
+    static #handleFilterSelection(selectedBtn, btnNodeList) {
         const projectNameDisplay = document.querySelector('#project-name');
 
         // The paragraph element is the 3rd children of the btn pressed.
@@ -575,10 +559,10 @@ export default class UI {
 
         projectNameDisplay.innerText = projectName;
 
-        this.#getProjectsForFilter(projectName);
+        this.#getTasksForFilter(projectName);
     }
 
-    static #getProjectsForFilter = (filter) => {
+    static #getTasksForFilter(filter) {
         let tasks;
 
         if (filter === 'All tasks') {
@@ -594,17 +578,17 @@ export default class UI {
             tasks = App.getTasksByProject(filter);
         }
 
-        this.clearTasks();        
+        this.#clearTaskEntries();        
 
         if (tasks) {
             tasks.forEach(task => {
-                this.addNewTask(task.getName(), task.getDueDate(), task.getPriority(),
+                this.#displayNewTask(task.getName(), task.getDueDate(), task.getPriority(),
                 task.getId(), task.getStatus());
             });
         }
     }
 
-    static #updateTaskFiltersEventListeners = () => {
+    static #setTaskFiltersEventListeners() {
         const taskFilters = document.querySelectorAll('.task-filter');
 
         taskFilters.forEach(filter => filter.addEventListener('click', (e) => {
@@ -612,7 +596,7 @@ export default class UI {
         }));
     }
 
-    static addHomepageEventListeners = () => {
+    static #addUIEventListeners() {
         const addTaskBtn = document.querySelector('#add-task-btn');
         const addTaskBtnAlt = document.querySelector('#add-task-btn-alt');
         const addProjectBtn = document.querySelector('.add-project-btn');
@@ -621,38 +605,37 @@ export default class UI {
 
         const body = document.querySelector('body');
 
-        UI.#updateTaskFiltersEventListeners();
+        UI.#setTaskFiltersEventListeners();
 
         addProjectBtn.addEventListener('click', (e) => {
             body.style = "overflow-y: hidden;";
-            UI.showNewProjectModal();
+            UI.#showNewProjectModal();
         });
 
         addTaskBtn.addEventListener('click', (e) => {
             body.style = "overflow-y: hidden;";
-            UI.showNewTaskModal();
+            UI.#showNewTaskModal();
         });
 
         addTaskBtnAlt.addEventListener('click', (e) => {
             body.style = "overflow-y: hidden;";
-            UI.showNewTaskModal();
+            UI.#showNewTaskModal();
         });
 
         deleteDataBtn.addEventListener('click', (e) => {
             body.style = "overflow-y: hidden;";
-            UI.showDeleteDataModal();
+            UI.#showDeleteDataModal();
         });
 
         deleteDataBtnAlt.addEventListener('click', (e) => {
             body.style = "overflow-y: hidden;";
-            UI.showDeleteDataModal();
+            UI.#showDeleteDataModal();
         });
 
         UI.#activateBurgerMenu();
     }
 
-    // In the options input on edit/create task.
-    static #updateProjectList() {
+    static #addOptionsToProjectSelector() {
         const taskProjectInput = document.querySelector('#task-project-input');
         let projectNames = App.getProjectNames();
 
@@ -694,20 +677,18 @@ export default class UI {
         }
         else if (input.classList.contains('invalid-input')) {
             this.#setInputAsValid(input);
-            return true;
         }
 
         return true;
     }
 
-    static #isOptionInputValid(input) {
+    static #isOptionsInputValid(input) {
         if (input.value === '') {
             this.#setInputAsInvalid(input, kNOEMPTYFIELD);
             return false;
         }
         else if (input.classList.contains('invalid-input')) {
             this.#setInputAsValid(input);
-            return true;
         }
 
         return true;
@@ -724,7 +705,6 @@ export default class UI {
         }
         else if (input.classList.contains('invalid-input')) {
             this.#setInputAsValid(input);
-            return true;
         }
 
         return true;
@@ -738,8 +718,8 @@ export default class UI {
 
         const validName = this.#isTextInputValid(taskName);
         const validDueDate = (taskDueDate.value === '' | this.#isDateValid(taskDueDate));
-        const validPriority = this.#isOptionInputValid(taskPriority);
-        const validProject = this.#isOptionInputValid(taskProject);
+        const validPriority = this.#isOptionsInputValid(taskPriority);
+        const validProject = this.#isOptionsInputValid(taskProject);
 
         return (validName && validDueDate && validPriority && validProject);
     }
@@ -755,17 +735,16 @@ export default class UI {
         window.location.reload();
     }
 
-    static initHomePage() {
-        UI.addHomepageEventListeners();
+    static initUI() {
+        UI.#addUIEventListeners();
 
         let projects = App.getProjects();
 
         projects.forEach(project => {
-            this.addNewProject(project.getName(), project.getId());
+            this.#addNewProjectNameToSidebar(project.getName(), project.getId());
         });
 
         const showAllTasks = document.querySelector('#all-tasks');
-
         showAllTasks.click();
     }
 }
