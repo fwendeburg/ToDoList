@@ -136,6 +136,10 @@ export default class ToDo {
         let tasks = [];
 
         for (let i = 0; i < this.#tasks.length; i++) {
+            if (this.#tasks[i].getDueDate() === '') {
+                continue;
+            }
+
             if (isToday(parseISO(this.#tasks[i].getDueDate()))) {
                 tasks.push(this.#tasks[i]);
             }
@@ -149,6 +153,10 @@ export default class ToDo {
         let nextWeek = addDays(startOfToday(), 7);
 
         for (let i = 0; i < this.#tasks.length; i++) {
+            if (this.#tasks[i].getDueDate() === '') {
+                continue;
+            }
+
             if (compareAsc(parseISO(this.#tasks[i].getDueDate()), nextWeek) != 1) {
                 tasks.push(this.#tasks[i]);
             }
