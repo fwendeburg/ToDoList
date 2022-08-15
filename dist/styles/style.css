@@ -159,7 +159,7 @@ nav h1 {
     margin-top: 30px;
 }
 
-.add-project-btn {
+#add-project-btn {
     min-height: 35px;
     height: max-content;
     width: 80%;
@@ -174,15 +174,15 @@ nav h1 {
     border: 3px solid rgb(204, 204, 204);
 }
 
-.add-project-btn > p {
+#add-project-btn > p {
     margin-left: 10px;
 }
 
-.add-project-btn span {
+#add-project-btn span {
     margin-left: 10px;
 }
 
-.add-project-btn:hover {
+#add-project-btn:hover {
     background-color: rgb(204, 204, 204);
     cursor: pointer;
 }
@@ -212,7 +212,7 @@ nav h1 {
     font-size: 30px;
 }
 
-.task {
+.task-entry {
     margin-top: 15px;
     margin-left: 50px;
     min-height: 30px;
@@ -225,17 +225,17 @@ nav h1 {
     border-bottom: 1px solid #E4E4E4;
 }
 
-.task:hover label {
+.task-entry:hover label {
     cursor: pointer;
 }
 
-.task:hover .task-low-priority,
-.task:hover .task-mid-priority,
-.task:hover .task-high-priority {
+.task-entry:hover .task-mid-priority,
+.task-entry:hover .task-low-priority,
+.task-entry:hover .task-high-priority {
     cursor: default;
 }
 
-.task label {
+.task-entry label {
     margin-left: 5px;
     font-weight: 600;
 }
@@ -276,8 +276,8 @@ nav h1 {
     color: #f49c18;
 }
 
-.left-panel,
-.right-panel {
+.left-side,
+.right-side {
     display: flex;
     align-items: center;
 }
@@ -308,7 +308,7 @@ nav h1 {
 
 .edit-task-modal {
     height: max-content;
-    width: max-content;
+    width: 55vw;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -335,6 +335,7 @@ nav h1 {
 
 .form-input {
     margin-top: 20px;
+    width: 100%;
 }
 
 .form-input input,
@@ -434,16 +435,8 @@ nav h1 {
     border-radius: 5px;
 }
 
-.project-property {
-    width: 100%;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.project-property input {
-    width: 100%;
+.all-sides-20px-margin {
+    margin: 20px 20px 20px 20px;
 }
 
 .show-task-modal {
@@ -457,20 +450,17 @@ nav h1 {
     border-radius: 5px;
 }
 
+.property-name {
+    font-weight: 600;
+    margin-top: 20px;
+}
+
 .properties {
-        width: 100%;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-}
-
-.property-title,
-.property-desc,
-.property-due-date,
-.property-priority,
-.property-proj {
-    font-weight: 600;
 }
 
 .show-task-modal-left-panel,
@@ -651,7 +641,7 @@ footer a {
         width: calc(100% - 50px);
     }
 
-    .add-project-btn {
+    #add-project-btn {
         width: calc(100% - 50px);
         margin-bottom: 30px;
     }
@@ -661,7 +651,7 @@ footer a {
         width: 100%;
     }
 
-    .task {
+    .task-entry {
         width: calc(100vw - 100px);
     }
 
@@ -684,7 +674,7 @@ footer a {
     }
 }
 
-@media (max-width: 610px) {
+@media (max-width: 700px) {
     #delete-data-btn {
         display: none;
     }

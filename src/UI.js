@@ -44,7 +44,7 @@ export default class UI {
         <div class="modal-wrapper">
             <div class="delete-data-modal">
                 <div class="modal-header">
-                    <h4>Delete store data?</h4>
+                    <h4>Delete stored data?</h4>
                 </div>
 
                 <p class="modal-text">
@@ -136,7 +136,7 @@ export default class UI {
                 </div>
 
                 <div class="inputs">
-                    <div class="project-property">
+                    <div class="form-input all-sides-20px-margin">
                         <label for="proj-name-input">Title</label>
                         <br>
                         <input required type="text" id="proj-name-input">
@@ -229,26 +229,26 @@ export default class UI {
 
                 <div class="properties">
                     <div class="show-task-modal-left-panel">
-                        <div class="form-input">
-                            <p class="property-title">Title:</p>
+                        <div>
+                            <p class="property-name">Title:</p>
                             <p>${task.getName()}</p>
                         </div>
-                        <div class="form-input">
-                            <p class="property-desc">Description:</p>
+                        <div>
+                            <p class="property-name">Description:</p>
                             <p>${task.getDescription() === ''? 'No description set' : task.getDescription()}</p>
                         </div>
                     </div>
                     <div class="show-task-modal-right-panel">
-                        <div class="form-input">
-                            <p class="property-due-date">Due date:</p>
+                        <div>
+                            <p class="property-name">Due date:</p>
                             <p>${task.getDueDate() === ''? 'No due date set' : task.getDueDate()}</p>
                         </div>
-                        <div class="form-input">
-                            <p class="property-priority">Priority:</p>
+                        <div>
+                            <p class="property-name">Priority:</p>
                             <p>${task.getPriority()}</p>
                         </div>
-                        <div class="form-input">
-                            <p class="property-priority">Project:</p>
+                        <div>
+                            <p class="property-name">Project:</p>
                         <p>${task.getProject() === null? 'Task not assigned to a project' : App.getProjectById(task.getProject()).getName()}</p>
                     </div>
                     </div>
@@ -283,16 +283,16 @@ export default class UI {
         const content = document.querySelector('.content');
 
         content.insertAdjacentHTML('beforeend', `
-        <div class="task" data-taskid ="${id}">
-                <div class="left-panel">
+        <div class="task-entry" data-taskid ="${id}">
+                <div class="left-side">
                     <input type="checkbox" class="task-finished" data-taskid="${id}">
                     <label>${name} - ${dueDate}</label>
                 </div>
 
-                <div class="right-panel">
+                <div class="right-side">
                     <span class="material-icons-outlined edit-task-btn" data-taskid ="${id}">edit</span>
                     <span class="material-icons delete-task-btn" data-taskid ="${id}">delete_outline</span>
-                    <span id="task-priority" class="material-icons task-${priority.toLowerCase()}-priority">circle</span>
+                    <span class="task-priority material-icons task-${priority.toLowerCase()}-priority">circle</span>
                 </div>
             </div>
         </div>`
@@ -305,7 +305,7 @@ export default class UI {
         })
 
         if (taskStatus) {
-            const task = this.#getHTMLElementByTaskId(id, document.querySelectorAll('.task'));
+            const task = this.#getHTMLElementByTaskId(id, document.querySelectorAll('.task-entry'));
     
             task.childNodes[1].classList.toggle('completedl');
             task.childNodes[1].childNodes[1].checked = true;
@@ -373,7 +373,7 @@ export default class UI {
 
     static #updateTaskEntry(taskId, name, dueDate, priority) {
         const task = document.querySelector(`[data-taskid='${taskId}']`);
-        const taskPriority = task.querySelector('#task-priority');
+        const taskPriority = task.querySelector('.task-priority');
         const taskName = task.querySelector('label');
 
         taskName.innerText = `${name} - ${dueDate}`;
@@ -434,7 +434,7 @@ export default class UI {
 
     static #clearTaskEntries() {
         const content = document.querySelector('.content');
-        const tasks = document.querySelectorAll('.task');
+        const tasks = document.querySelectorAll('.task-entry');
 
         tasks.forEach(task => {
             content.removeChild(task);
@@ -599,7 +599,7 @@ export default class UI {
     static #addUIEventListeners() {
         const addTaskBtn = document.querySelector('#add-task-btn');
         const addTaskBtnAlt = document.querySelector('#add-task-btn-alt');
-        const addProjectBtn = document.querySelector('.add-project-btn');
+        const addProjectBtn = document.querySelector('#add-project-btn');
         const deleteDataBtn = document.querySelector('#delete-data-btn');
         const deleteDataBtnAlt = document.querySelector('#delete-data-btn-alt');
 
