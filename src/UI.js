@@ -544,7 +544,7 @@ export default class UI {
     }
 
     static #handleFilterSelection(selectedBtn, btnNodeList) {
-        const projectNameDisplay = document.querySelector('#project-name');
+        const projectNameDisplay = document.querySelector('#filter-name');
 
         // The paragraph element is the 3rd children of the btn pressed.
         const projectName = selectedBtn.childNodes[3].innerText;
