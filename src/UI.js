@@ -69,7 +69,7 @@ export default class UI {
 
         body.insertAdjacentHTML('beforeend', `
         <div class="modal-wrapper">
-            <div class="add-task-modal">
+            <div class="add-task-modal" role="dialog" aria-modal="true">
                 <div class="modal-header">
                     <h4>New task</h4>
                 </div>
@@ -286,12 +286,12 @@ export default class UI {
         <div class="task-entry" data-taskid ="${id}">
                 <div class="left-side">
                     <input type="checkbox" class="task-finished" data-taskid="${id}">
-                    <label>${name} - ${dueDate}</label>
+                    <label tabindex="0">${name} - ${dueDate}</label>
                 </div>
 
                 <div class="right-side">
-                    <span class="material-icons-outlined edit-task-btn" data-taskid ="${id}">edit</span>
-                    <span class="material-icons delete-task-btn" data-taskid ="${id}">delete_outline</span>
+                    <span class="material-icons-outlined edit-task-btn" data-taskid ="${id}" tabindex="0">edit</span>
+                    <span class="material-icons delete-task-btn" data-taskid ="${id}" tabindex="0">delete_outline</span>
                     <span class="task-priority material-icons task-${priority.toLowerCase()}-priority">circle</span>
                 </div>
             </div>
@@ -299,10 +299,13 @@ export default class UI {
         );
 
         const completedTaskInputs = document.querySelectorAll('.task-finished');
+        const taskCompletedCheckbox = this.#getHTMLElementByTaskId(id, completedTaskInputs)
 
-        this.#getHTMLElementByTaskId(id, completedTaskInputs).addEventListener('click', (e) => {
+        taskCompletedCheckbox.addEventListener('click', (e) => {
             this.#changeTaskStatus(id, e.target.parentNode.parentNode);
-        })
+        });
+
+        taskCompletedCheckbox.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
 
         if (taskStatus) {
             const task = this.#getHTMLElementByTaskId(id, document.querySelectorAll('.task-entry'));
@@ -330,7 +333,9 @@ export default class UI {
 
         label.addEventListener('click', (e) => {
             this.#showTaskInfoModal(taskId);
-        })
+        });
+
+        label.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
     }
 
     static #addDeleteTaskBtnEventListener(id) {
@@ -341,7 +346,9 @@ export default class UI {
             this.#removeTaskEntry(e.target.dataset.taskid);
 
             App.deleteTask(e.target.dataset.taskid);
-        })
+        });
+
+        deleteTaskBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
     }
 
     static #addEditTaskBtnEventListener(id) {
@@ -351,6 +358,8 @@ export default class UI {
         editTaskBtn.addEventListener('click', (e) => {
             this.#showEditTaskModal(e.target.dataset.taskid);
         });
+
+        editTaskBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
     }
 
     static #handleTaskEdit(id) {
@@ -388,13 +397,13 @@ export default class UI {
 
     static #addNewProjectNameToSidebar(name, id) {
         const projects = document.getElementsByClassName('project');
+        const projectContainer = document.querySelector('.projects');
 
         if (projects.length == 0) {
-            const projectContainer = document.querySelector('.projects');
             const containerHeader = projectContainer.childNodes[1];
 
             containerHeader.insertAdjacentHTML('afterend', `
-            <div class="task-filter project" data-projid="${id}">
+            <div class="task-filter project" data-projid="${id}" tabindex="0">
                 <span class="material-icons-outlined">description</span>
                 <p>${name}</p>
             </div>
@@ -402,12 +411,16 @@ export default class UI {
         }
         else {
             projects[projects.length - 1].insertAdjacentHTML('afterend', `
-            <div class="task-filter project" data-projid="${id}">
+            <div class="task-filter project" data-projid="${id}" tabindex="0">
                 <span class="material-icons-outlined">description</span>
                 <p>${name}</p>
             </div>
             `);
         }
+
+
+        const projectEntry = projectContainer.querySelector(`[data-projid='${id}']`);
+        projectEntry.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
 
         UI.#setTaskFiltersEventListeners();
     }
@@ -417,6 +430,8 @@ export default class UI {
         const modal = document.querySelector('.modal-wrapper');
 
         body.style = "";
+
+        document.removeEventListener('keydown', UI.#handleTabKeyPressOnModal);
 
         if (modal) {
             body.removeChild(modal);
@@ -501,9 +516,39 @@ export default class UI {
         }
     }
 
+    static #handleTabKeyPressOnModal(firstFocusableElement, lastFocusableElement, e) {
+        let isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+
+        if (!isTabPressed) {
+          return;
+        }
+      
+        if (e.shiftKey) { // shift + tab
+            if (document.activeElement === firstFocusableElement) {
+                e.preventDefault();
+                lastFocusableElement.focus();
+            }
+        } else {
+            if (document.activeElement === lastFocusableElement) {
+                e.preventDefault();
+                firstFocusableElement.focus();
+            }
+        }
+    }
+
+    static #trapFocusOnModal(modal) {
+        const  focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+        const focusableContent = modal.querySelectorAll(focusableElements);
+
+        document.addEventListener('keydown', UI.#handleTabKeyPressOnModal.bind(null, focusableContent[0], focusableContent[focusableContent.length - 1]));
+    
+        focusableContent[0].focus();
+    }
+
     static #addModalEventListeners(modalType, taskId = -1) {
         const body = document.querySelector('body');
-        const modal = document.querySelector('.modal-wrapper');
+        const modalWrapper = document.querySelector('.modal-wrapper');
+        const modal = modalWrapper.firstElementChild;
         const cancelBtn = modal.querySelector('.grey-btn');
         const continueBtn = modal.querySelector('.blue-btn') || modal.querySelector('.red-btn');
 
@@ -532,7 +577,7 @@ export default class UI {
             });
         }
 
-        modal.addEventListener('click', (e) => {
+        modalWrapper.addEventListener('click', (e) => {
             if(e.target.classList.contains('modal-wrapper')) {
                 UI.#removeModal();
             }
@@ -541,6 +586,8 @@ export default class UI {
         body.addEventListener('keydown', UI.#handleEscapeKeyPress);
 
         cancelBtn.addEventListener('click', UI.#removeModal);
+    
+        this.#trapFocusOnModal(modal);
     }
 
     static #handleFilterSelection(selectedBtn, btnNodeList) {
@@ -631,6 +678,10 @@ export default class UI {
             body.style = "overflow-y: hidden;";
             UI.#showDeleteDataModal();
         });
+
+        addProjectBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
+        addTaskBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
+        deleteDataBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
 
         UI.#activateBurgerMenu();
     }
@@ -733,6 +784,13 @@ export default class UI {
     static #handleDataDeletion() {
         App.removeData();
         window.location.reload();
+    }
+
+    static #handleEnterOnFocusedHTMLElement(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            e.target.click();
+        }
     }
 
     static initUI() {
