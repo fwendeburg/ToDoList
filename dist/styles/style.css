@@ -205,11 +205,50 @@ nav h1 {
     overflow-y: scroll;
 }
 
-.content h3 {
+#content-section-header {
     margin-top: 30px;
     margin-left: 50px;
     margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#filter-name {
     font-size: 30px;
+    width: max-content;
+}
+
+.project-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    padding: 5px 5px 5px 5px;
+    border-radius: 5px;
+    margin-top: 3px;
+}
+
+.project-action-btn:hover {
+    background-color: rgb(204, 204, 204);
+    cursor: pointer;
+}
+
+#edit-project-btn {
+    margin-left: 20px;
+}
+
+#edit-project-btn:hover {
+    color: #f49c18;
+}
+
+#delete-project-btn {
+    margin-left: 5px;
+}
+
+#delete-project-btn:hover {
+    color: red;
 }
 
 .task-entry {
