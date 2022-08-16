@@ -154,6 +154,65 @@ export default class UI {
         UI.#addModalEventListeners('newProject');
     }
 
+    static #showEditProjectModal() {
+        const body = document.querySelector('body');
+        const projectName = document.querySelector('#filter-name').innerText;
+        const project = App.getProjectByName(projectName);
+
+        body.insertAdjacentHTML('beforeend', `
+        <div class="modal-wrapper">
+            <div class="add-project-modal">
+                <div class="modal-header">
+                    <h4>Edit project</h4>
+                </div>
+
+                <div class="inputs">
+                    <div class="form-input all-sides-20px-margin">
+                        <label for="proj-name-input">Title</label>
+                        <br>
+                        <input required type="text" id="proj-name-input" value="${project.getName()}">
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button class="grey-btn bottom-modal-btn">Close</button>
+                    <button class="blue-btn bottom-modal-btn">Save</button>
+                </div>
+            </div>
+        </div>`
+        );
+
+        this.#addModalEventListeners('editProject');
+    }
+
+    static #showDeleteProjectModal() {
+        const body = document.querySelector('body');
+        const projName = document.querySelector('#filter-name').innerText;
+
+        body.insertAdjacentHTML('beforeend', `
+        <div class="modal-wrapper">
+            <div class="delete-data-modal">
+                <div class="modal-header">
+                    <h4>Delete project "${projName}"?</h4>
+                </div>
+
+                <p class="modal-text">
+                    Are you sure you want to delete this project?
+                    <br>
+                    This will also delete all tasks assigned to the project.
+                </p>
+
+                <div class="modal-footer">
+                    <button class="grey-btn bottom-modal-btn">Close</button>
+                    <button class="red-btn bottom-modal-btn">Delete project</button>
+                </div>
+            </div>
+        </div>
+        `);
+
+        this.#addModalEventListeners('deleteProject');
+    }
+
     static #showEditTaskModal = (taskId) => {
         const body = document.querySelector('body');
         const task = App.getTask(taskId);
@@ -331,7 +390,10 @@ export default class UI {
         const taskInfo = document.querySelector(`[data-taskid='${taskId}']`);
         const label = taskInfo.querySelector('label');
 
+        const body = document.querySelector('body');
+
         label.addEventListener('click', (e) => {
+            body.style = "overflow-y: hidden;";
             this.#showTaskInfoModal(taskId);
         });
 
@@ -353,9 +415,12 @@ export default class UI {
 
     static #addEditTaskBtnEventListener(id) {
         const editTaskBtns = document.querySelectorAll('.edit-task-btn');
+        const body = document.querySelector('body');
+
         let editTaskBtn = this.#getHTMLElementByTaskId(id, editTaskBtns);
 
         editTaskBtn.addEventListener('click', (e) => {
+            body.style = "overflow-y: hidden;";
             this.#showEditTaskModal(e.target.dataset.taskid);
         });
 
@@ -456,7 +521,7 @@ export default class UI {
         });
     }
 
-    static #removeProjectNameFromSidebar = (id) => {
+    static #removeProjectNameFromSidebar(id) {
         const project = document.querySelector(`[data-projid='${id}']`);
         const projects = document.querySelector('.projects');
 
@@ -576,6 +641,18 @@ export default class UI {
                 this.#removeModal();
             });
         }
+        else if (modalType === 'editProject') {
+            continueBtn.addEventListener('click', () => {
+                this.#handleEditProject();
+                this.#removeModal();
+            });
+        }
+        else if (modalType === 'deleteProject') {
+            continueBtn.addEventListener('click', (e) => {
+                this.#handleDeleteProject();
+                this.#removeModal();
+            });
+        }
 
         modalWrapper.addEventListener('click', (e) => {
             if(e.target.classList.contains('modal-wrapper')) {
@@ -590,23 +667,114 @@ export default class UI {
         this.#trapFocusOnModal(modal);
     }
 
+    static #updateProjectNameOnUI(projectId, newProjectName) {
+        document.querySelector('#filter-name').innerText = newProjectName;
+
+        const sidebarProjects = document.querySelector('.projects');
+        const projectElement = sidebarProjects.querySelector(`[data-projid="${projectId}"]`);
+        
+        projectElement.children[1].innerText = newProjectName;
+    }
+
+    static #handleEditProject() {
+        if (UI.#areProjectFieldsValid()) {
+            const newProjectName = document.querySelector('#proj-name-input').value;
+            const currentProjectName = document.querySelector('#filter-name').innerText;
+            const project = App.getProjectByName(currentProjectName);
+
+            this.#updateProjectNameOnUI(project.getId(), newProjectName);
+
+            App.editProject(project.getId(), newProjectName);
+
+            UI.#removeModal();
+        }
+    }
+
+    static #handleDeleteProject() {
+        const projectName = document.querySelector('#filter-name').innerText;
+        const project = App.getProjectByName(projectName);
+        const projectTasks = App.getTasksByProject(projectName);
+        
+        this.#removeProjectNameFromSidebar(project.getId());
+
+        projectTasks.forEach(task => {
+            this.#removeTaskEntry(task.getId());
+        });        
+
+        App.deleteProject(project.getId());
+
+        document.querySelector('#all-tasks').click();
+    }
+
+    static #addProjectActionButtons(filter) {
+        const filterWithoutActions = ['All tasks', 'Today', 'This week'];
+
+        if (!filterWithoutActions.includes(filter)) {
+            const contentSectionHeader = document.querySelector('#content-section-header');
+
+            contentSectionHeader.insertAdjacentHTML('beforeend',`
+                <div class="project-action-btn" id="edit-project-btn" tabindex="0">
+                    <span class="material-icons-outlined">edit</span>
+                </div>
+                <div class="project-action-btn" id="delete-project-btn" tabindex="0">
+                    <span class="material-icons-outlined">delete_outline</span>
+                </div>
+            `);
+
+            const deleteProjectBtn = contentSectionHeader.querySelector('#delete-project-btn');
+            const editProjectBtn = contentSectionHeader.querySelector('#edit-project-btn');
+            
+            deleteProjectBtn.addEventListener('click', (e) => {
+                this.#showDeleteProjectModal();
+            });
+
+            editProjectBtn.addEventListener('click', (e) => {
+                this.#showEditProjectModal();
+            }); 
+
+            deleteProjectBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
+            editProjectBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
+        }
+    }
+
+    static #removeProjectActionButtons(filter) {
+        const contentSectionHeader = document.querySelector('#content-section-header');
+        
+        const filterWithoutActions = ['All tasks', 'Today', 'This week'];
+
+        if (!filterWithoutActions.includes(filter)) {
+            const editProjBtn = contentSectionHeader.querySelector('#edit-project-btn');
+            const deleteProjBtn = contentSectionHeader.querySelector('#delete-project-btn');
+
+            editProjBtn.remove();
+            deleteProjBtn.remove();
+        }
+    }
+
     static #handleFilterSelection(selectedBtn, btnNodeList) {
-        const projectNameDisplay = document.querySelector('#filter-name');
+        const filterNameDisplay = document.querySelector('#filter-name');
+        const currentFilterName = filterNameDisplay.innerText;
 
         // The paragraph element is the 3rd children of the btn pressed.
-        const projectName = selectedBtn.childNodes[3].innerText;
+        const filter = selectedBtn.childNodes[3].innerText;
 
         for (let i = 0; i < btnNodeList.length; i++) {
-            if (btnNodeList[i].classList.contains('selected')) {
+            if (btnNodeList[i].classList.contains('selected') && btnNodeList[i] != selectedBtn) {
                 btnNodeList[i].classList.remove('selected');
             }
         }
 
-        selectedBtn.classList.add('selected');
+        this.#removeProjectActionButtons(currentFilterName);
 
-        projectNameDisplay.innerText = projectName;
+        if (!selectedBtn.classList.contains('selected')) {
+            this.#addProjectActionButtons(filter);
 
-        this.#getTasksForFilter(projectName);
+            selectedBtn.classList.add('selected');
+
+            filterNameDisplay.innerText = filter;
+
+            this.#getTasksForFilter(filter);
+        }
     }
 
     static #getTasksForFilter(filter) {

@@ -79,5 +79,17 @@ export default class App {
     static getProjectById(projId) {
         return this.#todo.getProjectById(projId);
     }
+
+    static editProject(projid, newProjectName) {
+        this.#todo.editProject(projid, newProjectName);
+
+        this.#storage.saveData(this.#todo.toJSONObject());
+    }
+
+    static deleteProject(projId) {
+        this.#todo.deleteProject(projId);
+
+        this.#storage.saveData(this.#todo.toJSONObject());
+    }
 }
 

@@ -61,8 +61,22 @@ export default class ToDo {
         let taskIndex = this.#getTaskIndex(taskId)
         
         if (taskIndex != -1) {
-            this.#tasks.splice(this.#getTaskIndex(taskId), 1);
+            this.#tasks.splice(taskIndex, 1);
         }
+    }
+
+    deleteProject(projId) {
+        const projectIndex = this.#getProjectIndex(projId)
+        const project = this.getProjectById(projId);
+
+        if (projectIndex != -1) {
+            this.#projects.splice(projectIndex, 1);
+        }
+
+        let projectTasks = this.#tasks.filter(task => task.getProject() === project.getId());
+        projectTasks.map(task => task.getId());
+        
+        projectTasks.forEach(taskId => this.deleteTask(taskId));
     }
 
     updateTaskInfo(taskId, name, desc, dueDate, priority, project) {
@@ -174,5 +188,9 @@ export default class ToDo {
             projects: this.#projects,
             tasks: this.#tasks
         }
+    }
+
+    editProject(projid, newProjectName) {
+        this.getProjectById(projid).setName(newProjectName);
     }
 }
