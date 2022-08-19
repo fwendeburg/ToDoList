@@ -211,8 +211,9 @@ nav h1 {
     margin-bottom: 5px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-start;
+    width: 50vw;
 }
 
 #filter-name {
