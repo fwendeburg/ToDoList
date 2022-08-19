@@ -84,8 +84,7 @@ nav h1 {
     top: 80px;
     left: 0;
     height: calc(100% - 80px);
-    width: 21vw;
-    min-width: 239px;
+    width: 280px;
     background-color: #E4E4E4;
     display: flex;
     flex-direction: column;
@@ -104,6 +103,7 @@ nav h1 {
     margin-left: 25px;
     margin-top: 10px;
     border-radius: 5px;
+    flex-wrap: wrap;
 }
 
 .task-filter > p {
@@ -187,8 +187,7 @@ nav h1 {
     cursor: pointer;
 }
 
-
-.projects h2{
+#projects-section h2{
     margin-left: 25px;
     margin-top: 20px;
     margin-bottom: 5px;
@@ -196,8 +195,8 @@ nav h1 {
 
 .content {
     margin-top: 80px;
-    margin-left: max(239px, 21vw);
-    width: calc(100vw - max(239px, 21vw));
+    margin-left: 239px;
+    width: calc(100vw - 280px);
     height: calc(100vh - 113px);
     display: flex;
     flex-direction: column;
@@ -211,8 +210,10 @@ nav h1 {
     margin-bottom: 5px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-start;
+    width: 50vw;
+    flex-wrap: wrap;
 }
 
 #filter-name {
@@ -220,7 +221,7 @@ nav h1 {
     width: max-content;
 }
 
-.project-action-btn {
+.content-section-header-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -230,9 +231,15 @@ nav h1 {
     margin-top: 3px;
 }
 
-.project-action-btn:hover {
+.content-section-header-btn:hover {
     background-color: rgb(204, 204, 204);
     cursor: pointer;
+}
+
+.content-section-header-btn-hovered {
+    background-color: rgb(204, 204, 204);
+    cursor: pointer;
+    color: black;
 }
 
 #edit-project-btn {
@@ -251,6 +258,14 @@ nav h1 {
     color: red;
 }
 
+#sort-tasks-btn:hover {
+    color: black;
+}
+
+.content-section-header-btn p {
+    margin-left: 5px;
+}
+
 .task-entry {
     margin-top: 15px;
     margin-left: 50px;
@@ -262,6 +277,7 @@ nav h1 {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #E4E4E4;
+    flex-wrap: wrap;
 }
 
 .task-entry:hover label {
@@ -578,6 +594,41 @@ footer a {
     padding-bottom: 20px;
 }
 
+.dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    width: max-content;
+    z-index: 1;
+    position: absolute;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #E4E4E4;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+    gap: 5px;
+    display: none;
+}
+
+.dropdown-content-visible {
+    display: flex;
+}
+
+.dropdown-option {
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    padding: 7px 7px 7px 7px;
+}
+
+.dropdown-option:hover {
+    background-color: rgb(204, 204, 204);
+}
+
 /*Material Icons*/
 .fs-36 { 
     font-size: 36px; 
@@ -691,6 +742,10 @@ footer a {
     }
 
     .task-entry {
+        width: calc(100vw - 100px);
+    }
+
+    #content-section-header {
         width: calc(100vw - 100px);
     }
 
@@ -843,5 +898,15 @@ footer a {
 
     .show-task-modal-right-panel {
         margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 940px) {
+    .dropdown-wrapper {
+        float: right;
+    }
+
+    .dropdown-content {
+        right: 0;
     }
 }
