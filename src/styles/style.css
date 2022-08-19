@@ -224,9 +224,9 @@ nav h1 {
     margin-left: 50px;
     margin-bottom: 5px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     width: 50vw;
     flex-wrap: wrap;
 }
@@ -618,7 +618,6 @@ footer a {
     width: max-content;
     z-index: 1;
     position: absolute;
-    display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
@@ -923,9 +922,5 @@ footer a {
 @media (max-width: 940px) {
     .dropdown-wrapper {
         float: right;
-    }
-
-    .dropdown-content {
-        right: 0;
     }
 }
