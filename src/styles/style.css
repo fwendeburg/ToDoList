@@ -92,8 +92,7 @@ nav h1 {
 }
 
 .task-filter {
-    min-height: 35px;
-    height: max-content;
+    min-height: max-content;
     width: 80%;
     background-color: transparent;
     display: flex;
@@ -101,18 +100,16 @@ nav h1 {
     align-items: center;
     font-size: 16px;
     margin-left: 25px;
-    margin-top: 10px;
     border-radius: 5px;
-    flex-wrap: wrap;
     margin-top: 0px;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-bottom: 5px;
+    padding-left: 15px;
 }
 
 .task-filter > p {
     margin-left: 10px;
-}
-
-.task-filter span {
-    margin-left: 15px;
 }
 
 .task-filter:hover {
@@ -234,7 +231,7 @@ nav h1 {
 
 #filter-name {
     font-size: 30px;
-    width: max-content;
+    max-width: calc(50vw - 93px);
 }
 
 .content-section-header-btn {
@@ -766,6 +763,10 @@ footer a {
 
     #content-section-header {
         width: calc(100vw - 100px);
+    }
+
+    #filter-name {
+        max-width: calc(100vw - 193px);
     }
 
     footer {
