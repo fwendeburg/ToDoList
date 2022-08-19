@@ -69,18 +69,35 @@
                 </div>
             </div>
 
-            <div class="projects">
+            <div id="projects-section">
                 <h2>Projects</h2>
                 <div id="add-project-btn" tabindex="0">
                     <span class="material-icons-outlined">note_add</span>
-                    <p>New Project</p>
+                    <p>New project</p>
+                </div>
+                <div id="project-list-container">
                 </div>
             </div>
         </div>
 
         <div class="content">
             <div id="content-section-header">
-                <h3 id="filter-name">All tasks</h3>
+                <div class="left-side">
+                    <h3 id="filter-name">All tasks</h3>
+                </div>
+                <div class="right-side">
+                    <div class="dropdown-wrapper">
+                        <div id="sort-tasks-btn" class="content-section-header-btn" tabindex="0">
+                            <span class="material-icons-outlined">sort</span>
+                            <p>Sort tasks</p>
+                        </div>
+                        <div class="dropdown-content" id="sort-tasks-options">
+                            <span data-value="duedateasc" class="dropdown-option task-sort-option" tabindex="0">By duedate, ascending</span>
+                            <span data-value="alphabeticallyasc" class="dropdown-option task-sort-option" tabindex="0">Alphabetically, ascending</span>
+                            <span data-value="prioritydesc" class="dropdown-option task-sort-option" tabindex="0">By priority, descending</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <footer>

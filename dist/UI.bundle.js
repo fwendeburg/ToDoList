@@ -1272,12 +1272,6 @@ const kNOTWHITESPACEALONE = 'Whitespaces alone are not valid';
 const kDATEINVALID = 'The due date can\'t be before today';
 
 class UI {
-
-    
-    /*
-    **  Responsiveness related methods
-    */
-
     static #activateBurgerMenu = () => {
         const body = document.querySelector('body');
         const burgerMenuBtn = document.querySelector('.burger-menu');
@@ -1297,10 +1291,6 @@ class UI {
             burgerMenuBtn.classList.toggle('open');
         });
     }
-
-    /*
-    **  Modals
-    */
 
     static #showDeleteDataModal() {
         const body = document.querySelector('body');
@@ -1725,33 +1715,26 @@ class UI {
         taskPriority.classList.add(`task-${priority.toLowerCase()}-priority`);
     }
 
+    static #removeTaskFiltersEventListeners() {
+        const taskFilters = document.querySelectorAll('.task-filter');
+
+        taskFilters.forEach(filter => filter.removeEventListener('click', this.#handleFilterSelection));
+    }
+
     static #addNewProjectNameToSidebar(name, id) {
-        const projects = document.getElementsByClassName('project');
-        const projectContainer = document.querySelector('.projects');
+        const projectContainer = document.querySelector('#project-list-container');
 
-        if (projects.length == 0) {
-            const containerHeader = projectContainer.childNodes[1];
-
-            containerHeader.insertAdjacentHTML('afterend', `
-            <div class="task-filter project" data-projid="${id}" tabindex="0">
-                <span class="material-icons-outlined">description</span>
-                <p>${name}</p>
-            </div>
-            `);
-        }
-        else {
-            projects[projects.length - 1].insertAdjacentHTML('afterend', `
-            <div class="task-filter project" data-projid="${id}" tabindex="0">
-                <span class="material-icons-outlined">description</span>
-                <p>${name}</p>
-            </div>
-            `);
-        }
-
+        projectContainer.insertAdjacentHTML('beforeend', `
+        <div class="task-filter project" data-projid="${id}" tabindex="0">
+            <span class="material-icons-outlined">description</span>
+            <p>${name}</p>
+        </div>
+        `);
 
         const projectEntry = projectContainer.querySelector(`[data-projid='${id}']`);
         projectEntry.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
 
+        UI.#removeTaskFiltersEventListeners();
         UI.#setTaskFiltersEventListeners();
     }
 
@@ -1788,20 +1771,11 @@ class UI {
 
     static #removeProjectNameFromSidebar(id) {
         const project = document.querySelector(`[data-projid='${id}']`);
-        const projects = document.querySelector('.projects');
+        const projectList = document.querySelector('#project-list-container');
 
-        projects.removeChild(project);
+        projectList.removeChild(project);
     }
-
-    static #clearProjectNamesFromSidebar() {
-        const projectContainer = document.querySelector('.projects');
-        const projects = document.querySelectorAll('.project');
-
-        projects.forEach(proj => {
-            projectContainer.removeChild(proj);
-        })
-    }
-
+    
     static #handleEscapeKeyPress(e) {
         if (e.key === 'Escape') {
             UI.#removeModal();
@@ -1935,8 +1909,8 @@ class UI {
     static #updateProjectNameOnUI(projectId, newProjectName) {
         document.querySelector('#filter-name').innerText = newProjectName;
 
-        const sidebarProjects = document.querySelector('.projects');
-        const projectElement = sidebarProjects.querySelector(`[data-projid="${projectId}"]`);
+        const sidebarProjectList = document.querySelector('#project-list-container');
+        const projectElement = sidebarProjectList.querySelector(`[data-projid="${projectId}"]`);
         
         projectElement.children[1].innerText = newProjectName;
     }
@@ -1976,12 +1950,13 @@ class UI {
 
         if (!filterWithoutActions.includes(filter)) {
             const contentSectionHeader = document.querySelector('#content-section-header');
+            const leftSide = contentSectionHeader.querySelector('.left-side');
 
-            contentSectionHeader.insertAdjacentHTML('beforeend',`
-                <div class="project-action-btn" id="edit-project-btn" tabindex="0">
+            leftSide.insertAdjacentHTML('beforeend',`
+                <div class="content-section-header-btn" id="edit-project-btn" tabindex="0">
                     <span class="material-icons-outlined">edit</span>
                 </div>
-                <div class="project-action-btn" id="delete-project-btn" tabindex="0">
+                <div class="content-section-header-btn" id="delete-project-btn" tabindex="0">
                     <span class="material-icons-outlined">delete_outline</span>
                 </div>
             `);
@@ -2016,12 +1991,14 @@ class UI {
         }
     }
 
-    static #handleFilterSelection(selectedBtn, btnNodeList) {
+    static #handleFilterSelection(e) {
+        const btnNodeList = document.querySelectorAll('.task-filter');
+        const selectedBtn = e.currentTarget;
         const filterNameDisplay = document.querySelector('#filter-name');
         const currentFilterName = filterNameDisplay.innerText;
 
         // The paragraph element is the 3rd children of the btn pressed.
-        const filter = selectedBtn.childNodes[3].innerText;
+        const newFilter = selectedBtn.childNodes[3].innerText;
 
         for (let i = 0; i < btnNodeList.length; i++) {
             if (btnNodeList[i].classList.contains('selected') && btnNodeList[i] != selectedBtn) {
@@ -2029,17 +2006,39 @@ class UI {
             }
         }
 
-        this.#removeProjectActionButtons(currentFilterName);
+        UI.#removeProjectActionButtons(currentFilterName);
 
         if (!selectedBtn.classList.contains('selected')) {
-            this.#addProjectActionButtons(filter);
+            UI.#addProjectActionButtons(newFilter);
 
             selectedBtn.classList.add('selected');
 
-            filterNameDisplay.innerText = filter;
+            filterNameDisplay.innerText = newFilter;
 
-            this.#getTasksForFilter(filter);
+            // sort arg missing
+            UI.#displayTasks(UI.#getTasksForFilter(newFilter));
         }
+    }   
+
+    static #displayTasks(tasks, sort) {
+        if (sort === 'alphabeticallyasc') {
+            UI.#sortTasksAlphabeticallyAsc(tasks);
+        }
+        else if (sort === 'prioritydesc') {
+            UI.#sortTasksByPriorityDesc(tasks);
+        }
+        else {
+            console.log(tasks)
+            UI.#sortTasksByDueDateAsc(tasks);
+            console.log(tasks)
+        }
+
+        this.#clearTaskEntries();
+
+        tasks.forEach(task => {
+            this.#displayNewTask(task.getName(), task.getDueDate(), task.getPriority(),
+            task.getId(), task.getStatus());
+        });
     }
 
     static #getTasksForFilter(filter) {
@@ -2058,22 +2057,143 @@ class UI {
             tasks = _App__WEBPACK_IMPORTED_MODULE_2__.default.getTasksByProject(filter);
         }
 
-        this.#clearTaskEntries();        
-
-        if (tasks) {
-            tasks.forEach(task => {
-                this.#displayNewTask(task.getName(), task.getDueDate(), task.getPriority(),
-                task.getId(), task.getStatus());
-            });
-        }
+        return tasks;
     }
 
     static #setTaskFiltersEventListeners() {
         const taskFilters = document.querySelectorAll('.task-filter');
 
-        taskFilters.forEach(filter => filter.addEventListener('click', (e) => {
-            UI.#handleFilterSelection(e.currentTarget, taskFilters);
-        }));
+        taskFilters.forEach(filter => filter.addEventListener('click', UI.#handleFilterSelection));
+    }
+
+    static #showSortTasksDropdownMenu() {
+        const sortingOptions = document.querySelector('#sort-tasks-options');
+        const sortTasksBtn = document.querySelector('#sort-tasks-btn')
+
+        if (!sortingOptions.classList.contains('dropdown-content-visible')) {
+            sortingOptions.classList.add('dropdown-content-visible');
+            sortTasksBtn.classList.add('content-section-header-btn-hovered');
+
+            window.addEventListener('click', UI.#removeTaskSortDropdownOnOusideClick);
+        }
+        else {
+            sortingOptions.classList.remove('dropdown-content-visible');
+            sortTasksBtn.classList.remove('content-section-header-btn-hovered');
+
+            window.removeEventListener('click', UI.#removeTaskSortDropdownOnOusideClick);
+        }
+    }
+
+    static #removeTaskSortDropdownOnOusideClick(e) {
+        const sortTasksBtn = document.querySelector('#sort-tasks-btn');
+
+        // Check if the target is the button that opens the dropdown menu.
+        const isTargetSortTasksBtn = e.target.matches('#sort-tasks-btn');
+        
+        // Check if the target is either the text or the icon of the button.
+        const isTargetSortTasksBtnIcon = e.target === sortTasksBtn.children[0];
+        const isTargetSortTasksBtnText = e.target === sortTasksBtn.children[1];
+
+        // Check if the target is an option of the menu.
+        const isTargetDropdownContent = e.target.matches('#sort-tasks-options') || 
+                                        e.target.parentNode.matches('#sort-tasks-options');
+
+
+        if (!isTargetSortTasksBtn && !isTargetSortTasksBtnIcon && 
+            !isTargetSortTasksBtnText && !isTargetDropdownContent) {
+            const sortingOptions = document.querySelector('#sort-tasks-options');
+
+            if (sortingOptions.classList.contains('dropdown-content-visible') &&
+                sortTasksBtn.classList.contains('content-section-header-btn-hovered')
+            ) {
+                sortingOptions.classList.remove('dropdown-content-visible');
+                sortTasksBtn.classList.remove('content-section-header-btn-hovered');
+
+                window.removeEventListener('click', UI.#removeTaskSortDropdownOnOusideClick);
+            }
+        }
+    }
+
+    static #sortTasksByDueDateAsc(tasks) {
+        tasks.sort((a, b) => {
+            let duedateA = a.getDueDate();
+            let duedateB = b.getDueDate();
+
+            if (duedateA === duedateB) {
+                return 0;
+            }
+            else if (duedateA === '') {
+                return 1;
+            }
+            else if (duedateB === '') {
+                return -1;
+            }
+            else {
+                return new Date(duedateA) - new Date(duedateB);
+            }
+        });
+    }
+
+    static #sortTasksAlphabeticallyAsc(tasks) {
+        tasks.sort((a, b) => {
+            let nameA = a.getName().toLowerCase();
+            let nameB = b.getName().toLowerCase();
+            
+            if (nameA === nameB) {
+                return 0;
+            }
+            else if (nameA < nameB) {
+                return -1;
+            }
+            else {
+                return 1;
+            }
+        });
+    }
+
+    static #sortTasksByPriorityDesc(tasks) {
+        tasks.sort((a, b) => {
+            let pA = a.getPriority().toLowerCase();
+            let pB = b.getPriority().toLowerCase();
+            
+            if (pA === pB) {
+                return 0;
+            }
+            else if (pA === 'low' && (pB === 'medium' || pB === 'high')) {
+                return 1;
+            }
+            else if (pA === 'medium' && pB === 'high') {
+                return 1;
+            }
+            else {
+                return -1;
+            }
+        });
+    }
+
+    static #handleTaskSortOptionSelection(e) {
+        const filter = document.querySelector('#filter-name').innerText;
+        const sortingOptions = document.querySelectorAll('.task-sort-option');
+
+        for (let i = 0; i < sortingOptions.length; i++) {
+            if (sortingOptions[i].classList.contains('selected') && sortingOptions[i] != e.currentTarget) {
+                sortingOptions[i].classList.remove('selected');
+            }
+        }
+
+        if (!e.currentTarget.classList.contains('selected')) {
+            e.currentTarget.classList.add('selected');
+
+            UI.#displayTasks(UI.#getTasksForFilter(filter), e.currentTarget.dataset.value);
+        }
+    }
+
+    static #setTaskSortingOptionsEventListeners() {
+        const sortingOptions = document.querySelectorAll('.task-sort-option');
+
+        sortingOptions.forEach(option => {
+            option.addEventListener('click', UI.#handleTaskSortOptionSelection);
+        });
     }
 
     static #addUIEventListeners() {
@@ -2082,6 +2202,7 @@ class UI {
         const addProjectBtn = document.querySelector('#add-project-btn');
         const deleteDataBtn = document.querySelector('#delete-data-btn');
         const deleteDataBtnAlt = document.querySelector('#delete-data-btn-alt');
+        const sortTasksBtn = document.querySelector('#sort-tasks-btn');
 
         const body = document.querySelector('body');
 
@@ -2112,9 +2233,16 @@ class UI {
             UI.#showDeleteDataModal();
         });
 
+        sortTasksBtn.addEventListener('click', (e) => {
+            UI.#showSortTasksDropdownMenu();
+        });
+
         addProjectBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
         addTaskBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
         deleteDataBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
+        sortTasksBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
+
+        UI.#setTaskSortingOptionsEventListeners();
 
         UI.#activateBurgerMenu();
     }
@@ -2236,7 +2364,13 @@ class UI {
         });
 
         const showAllTasks = document.querySelector('#all-tasks');
-        showAllTasks.click();
+        showAllTasks.classList.add('selected');
+
+        // sort by duedate
+        this.#displayTasks(this.#getTasksForFilter('All tasks'), 'duedateasc');
+        
+        const duedateascSortOption = document.querySelector('[data-value="duedateasc"]');
+        duedateascSortOption.classList.add('selected');
     }
 }
 })();

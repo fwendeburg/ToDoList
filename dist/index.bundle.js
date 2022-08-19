@@ -47,7 +47,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n    display: flex;\r\n    flex-direction: row;\r\n    font-family: 'Poppins', sans-serif;\r\n    justify-content: center;\r\n    overflow-y: hidden;\r\n}\r\n\r\nnav {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 80px;\r\n    background-color: #3445B4;\r\n    color: white;\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n}\r\n\r\nnav h1 {\r\n    font-size: 36px;\r\n    margin-left: 10px;\r\n}\r\n\r\n.left-side-nav > .material-icons {\r\n    margin-left: 25px;\r\n}\r\n\r\n.left-side-nav {\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n}\r\n\r\n.right-side-nav {\r\n    display: flex;\r\n    flex-direction: row;\r\n}\r\n\r\n.navbar-btn {\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    justify-content: space-evenly;\r\n    margin-right: 25px;\r\n    font-size: 20px;\r\n    gap: 10px;\r\n    width: auto;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n    height: 40px;\r\n    border-radius: 5px;\r\n}\r\n\r\n.navbar-btn:hover {\r\n    cursor: pointer;\r\n}\r\n\r\n.navbar-btn-blue {\r\n    background-color: rgb(59, 78, 198);\r\n}\r\n\r\n.navbar-btn-blue:hover {\r\n    background-color: #2e3c97;\r\n}\r\n\r\n.navbar-btn-red {\r\n    background-color: #b02929;\r\n}\r\n\r\n.navbar-btn-red:hover {\r\n    background-color: #7e2828;\r\n}\r\n\r\n.burger-menu {\r\n    display: none;\r\n}\r\n\r\n#sidebar {\r\n    position: absolute;\r\n    top: 80px;\r\n    left: 0;\r\n    height: calc(100% - 80px);\r\n    width: 21vw;\r\n    min-width: 239px;\r\n    background-color: #E4E4E4;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\r\n}\r\n\r\n.task-filter {\r\n    min-height: 35px;\r\n    height: max-content;\r\n    width: 80%;\r\n    background-color: transparent;\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    font-size: 16px;\r\n    margin-left: 25px;\r\n    margin-top: 10px;\r\n    border-radius: 5px;\r\n}\r\n\r\n.task-filter > p {\r\n    margin-left: 10px;\r\n}\r\n\r\n.task-filter span {\r\n    margin-left: 10px;\r\n}\r\n\r\n.task-filter:hover {\r\n    background-color: rgb(204, 204, 204);\r\n    cursor: pointer;\r\n}\r\n\r\n.selected {\r\n    background-color: rgb(204, 204, 204);\r\n}\r\n\r\n#add-task-btn-alt {\r\n    min-height: 35px;\r\n    height: max-content;\r\n    width: calc(100% - 50px);\r\n    background-color: transparent;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    font-size: 16px;\r\n    margin-left: 25px;\r\n    margin-top: 30px;\r\n    border-radius: 5px;\r\n    border: 3px solid rgb(204, 204, 204);\r\n    display: none;\r\n}\r\n\r\n#add-task-btn-alt:hover {\r\n    background-color: rgb(204, 204, 204);\r\n    cursor: pointer;\r\n}\r\n\r\n#add-task-btn-alt > p {\r\n    margin-left: 10px;\r\n}\r\n\r\n#add-task-btn-alt span {\r\n    margin-left: 10px;\r\n}\r\n\r\n.section-title-mobile {\r\n    display: none;\r\n}\r\n\r\n#all-tasks {\r\n    margin-top: 30px;\r\n}\r\n\r\n#add-project-btn {\r\n    min-height: 35px;\r\n    height: max-content;\r\n    width: 80%;\r\n    background-color: transparent;\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    font-size: 16px;\r\n    margin-left: 25px;\r\n    margin-top: 10px;\r\n    border-radius: 5px;\r\n    border: 3px solid rgb(204, 204, 204);\r\n}\r\n\r\n#add-project-btn > p {\r\n    margin-left: 10px;\r\n}\r\n\r\n#add-project-btn span {\r\n    margin-left: 10px;\r\n}\r\n\r\n#add-project-btn:hover {\r\n    background-color: rgb(204, 204, 204);\r\n    cursor: pointer;\r\n}\r\n\r\n\r\n.projects h2{\r\n    margin-left: 25px;\r\n    margin-top: 20px;\r\n    margin-bottom: 5px;\r\n}\r\n\r\n.content {\r\n    margin-top: 80px;\r\n    margin-left: max(239px, 21vw);\r\n    width: calc(100vw - max(239px, 21vw));\r\n    height: calc(100vh - 113px);\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\r\n    overflow-y: scroll;\r\n}\r\n\r\n#content-section-header {\r\n    margin-top: 30px;\r\n    margin-left: 50px;\r\n    margin-bottom: 5px;\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    justify-content: flex-start;\r\n}\r\n\r\n#filter-name {\r\n    font-size: 30px;\r\n    width: max-content;\r\n}\r\n\r\n.project-action-btn {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    color: #6c757d;\r\n    padding: 5px 5px 5px 5px;\r\n    border-radius: 5px;\r\n    margin-top: 3px;\r\n}\r\n\r\n.project-action-btn:hover {\r\n    background-color: rgb(204, 204, 204);\r\n    cursor: pointer;\r\n}\r\n\r\n#edit-project-btn {\r\n    margin-left: 20px;\r\n}\r\n\r\n#edit-project-btn:hover {\r\n    color: #f49c18;\r\n}\r\n\r\n#delete-project-btn {\r\n    margin-left: 5px;\r\n}\r\n\r\n#delete-project-btn:hover {\r\n    color: red;\r\n}\r\n\r\n.task-entry {\r\n    margin-top: 15px;\r\n    margin-left: 50px;\r\n    min-height: 30px;\r\n    height: max-content;\r\n    width: 50vw;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    border-bottom: 1px solid #E4E4E4;\r\n}\r\n\r\n.task-entry:hover label {\r\n    cursor: pointer;\r\n}\r\n\r\n.task-entry:hover .task-mid-priority,\r\n.task-entry:hover .task-low-priority,\r\n.task-entry:hover .task-high-priority {\r\n    cursor: default;\r\n}\r\n\r\n.task-entry label {\r\n    margin-left: 5px;\r\n    font-weight: 600;\r\n}\r\n\r\n.task-high-priority {\r\n    color: red;\r\n}\r\n\r\n.task-medium-priority {\r\n    color: #f49c18;\r\n}\r\n\r\n.task-low-priority {\r\n    color: rgb(0, 202, 0);\r\n}\r\n\r\n.completedl {\r\n    text-decoration: line-through;\r\n    opacity: 70%;\r\n}\r\n\r\n.completedr {\r\n    opacity: 70%;\r\n}\r\n\r\n.delete-task-btn {\r\n    margin-left: 5px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.delete-task-btn:hover {\r\n    color: red;\r\n    cursor: pointer;\r\n}\r\n\r\n.edit-task-btn:hover {\r\n    cursor: pointer;\r\n    color: #f49c18;\r\n}\r\n\r\n.left-side,\r\n.right-side {\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n.modal-wrapper {\r\n    position: fixed;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100vw;\r\n    height: 100vh;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    z-index: 1;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.add-task-modal {\r\n    height: max-content;\r\n    width: 55vw;\r\n    background-color: white;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\r\n    border-radius: 5px;\r\n}\r\n\r\n.edit-task-modal {\r\n    height: max-content;\r\n    width: 55vw;\r\n    background-color: white;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\r\n    border-radius: 5px;\r\n}\r\n\r\n.modal-header h4 {\r\n    font-size: 20px;\r\n    padding: 16px;\r\n}\r\n\r\n.modal-header {\r\n    border-bottom: 1px solid #E4E4E4;\r\n}\r\n\r\n.inputs {\r\n    width: 100%;\r\n    height: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n}\r\n\r\n.form-input {\r\n    margin-top: 20px;\r\n    width: 100%;\r\n}\r\n\r\n.form-input input,\r\n.form-input select,\r\n.form-input textarea {\r\n    width: 100%;\r\n}\r\n\r\n.modal-left-panel,\r\n.modal-right-panel {\r\n    margin-left: 20px;\r\n    margin-right: 20px;\r\n    width: 50%;\r\n}\r\n\r\n#task-description-input {\r\n    height: 150px;\r\n    resize: none;\r\n}\r\n\r\n.modal-footer {\r\n    width: 100%;\r\n    height: 61.6px;\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    margin-top: 15px;\r\n}\r\n\r\n.grey-btn {\r\n    width: max-content;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n    height: 40px;\r\n    border: 2px solid #6c757d;\r\n    background-color: transparent;\r\n    border-radius: 5px;\r\n}\r\n\r\n.grey-btn:hover {\r\n    background-color: #6c757d;\r\n    color: white;\r\n    cursor: pointer;\r\n}\r\n\r\n.blue-btn {\r\n    width: max-content;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n    height: 40px;\r\n    background-color: #3445B4;\r\n    border: none;\r\n    border-radius: 5px;\r\n    color: white;\r\n    font-size: 16px;\r\n    font-weight: normal;\r\n}\r\n\r\n.blue-btn:hover {\r\n    cursor: pointer;\r\n    background-color: #2e3c97;\r\n}\r\n\r\n.red-btn {\r\n    width: max-content;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n    height: 40px;\r\n    background-color: #b02929;\r\n    border: none;\r\n    border-radius: 5px;\r\n    color: white;\r\n    font-size: 16px;\r\n    font-weight: normal;\r\n}\r\n\r\n.red-btn:hover {\r\n    cursor: pointer;\r\n    background-color: #7e2828;\r\n}\r\n\r\n#delete-data-btn {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    margin-right: 25px;\r\n}\r\n\r\n.add-project-modal {\r\n    min-width: 290px;\r\n    height: max-content;\r\n    width: 30vw;\r\n    background-color: white;\r\n    display: flex;\r\n    flex-direction: column;\r\n    border-radius: 5px;\r\n}\r\n\r\n.all-sides-20px-margin {\r\n    margin: 20px 20px 20px 20px;\r\n}\r\n\r\n.show-task-modal {\r\n    min-width: 480px;\r\n    height: max-content;\r\n    width: 45vw;\r\n    background-color: white;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\r\n    border-radius: 5px;\r\n}\r\n\r\n.property-name {\r\n    font-weight: 600;\r\n    margin-top: 20px;\r\n}\r\n\r\n.properties {\r\n    width: 100%;\r\n    height: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n}\r\n\r\n.show-task-modal-left-panel,\r\n.show-task-modal-right-panel {\r\n    margin-left: 20px;\r\n    margin-right: 20px;\r\n    width: 50%;\r\n}\r\n\r\nfooter {\r\n    position: absolute;\r\n    bottom: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 33px;\r\n    background-color: #3445B4;\r\n    color: white;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 18px;\r\n}\r\n\r\nfooter a {\r\n    color: white;\r\n}\r\n\r\n.bottom-modal-btn {\r\n    margin-bottom: 15px;\r\n    margin-right: 20px;\r\n}\r\n\r\n#remove-stored-data-btn {\r\n    color: blue;\r\n}\r\n\r\n.invalid-input {\r\n    border: 2px solid red;\r\n}\r\n\r\n.invalid-input-message {\r\n    color: red;\r\n    font-size: 14px;\r\n    margin-top: 5px;\r\n}\r\n\r\n.red-text {\r\n    color: red;\r\n}\r\n\r\n.delete-data-modal {\r\n    height: max-content;\r\n    width: max-content;\r\n    background-color: white;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\r\n    border-radius: 5px;\r\n}\r\n\r\n.modal-text {\r\n    text-align: left;\r\n    font-size: 16px;\r\n    margin-left: 16px;\r\n    margin-right: 16px;\r\n    margin-top: 20px;\r\n}\r\n\r\n.responsive-navbar-etension {\r\n    display: none;\r\n    height: max-content;\r\n    background-color: #3445B4;\r\n    align-items: center;\r\n    justify-content: center;\r\n    padding-bottom: 20px;\r\n}\r\n\r\n/*Material Icons*/\r\n.fs-36 { \r\n    font-size: 36px; \r\n}\r\n\r\n.fs-22 { \r\n    font-size: 22px; \r\n}\r\n\r\n/*Media Queries*/\r\n@media (max-width: 750px) {\r\n    body {\r\n        flex-direction: column;\r\n        overflow-y: auto;\r\n    }\r\n\r\n    .content {\r\n        overflow: auto;\r\n    }\r\n\r\n    .burger-menu {\r\n        display: block;\r\n        align-self: center;\r\n        margin-right: 25px;\r\n        height: 40px;\r\n        width: 40px;\r\n        display: flex;\r\n        justify-content: center;\r\n    }\r\n\r\n    .burger-btn {\r\n        align-self: center;\r\n        height: 6px;\r\n        width: 40px;\r\n        background-color: white;\r\n    }\r\n\r\n    .burger-btn::after,\r\n    .burger-btn::before {\r\n        content: '';\r\n        position: absolute;\r\n        height: 6px;\r\n        width: 40px;\r\n        background-color: white;\r\n        transition: all 100ms ease-in-out;\r\n    }\r\n\r\n    .burger-btn::after {\r\n        transform: translateY(12px);\r\n    }\r\n\r\n    .burger-btn::before {\r\n        transform: translateY(-12px);\r\n    }\r\n\r\n    /* Burger-Menu Animation */\r\n    .mobile-menu.show-menu {\r\n        display: grid;\r\n        height: calc(100vh - 100px);\r\n        width: 100vw;\r\n        background-color: #3445b4;\r\n        display: grid;\r\n        justify-content: space-evenly;\r\n    }\r\n\r\n    .burger-menu.open .burger-btn {\r\n        background: transparent;\r\n    }\r\n\r\n    .burger-menu.open .burger-btn::before {\r\n        transform: rotate(45deg);\r\n        transition: all 100ms ease-in-out;\r\n    }\r\n\r\n    .burger-menu.open .burger-btn::after {\r\n        transform: rotate(-45deg);\r\n        transition: all 100ms ease-in-out;\r\n    }\r\n\r\n    .right-side-nav {\r\n        display: flex;\r\n        flex-direction: row;\r\n    }\r\n\r\n    #add-task-btn {\r\n        margin-right: 25px;\r\n    }\r\n\r\n    #sidebar {\r\n        position: relative;\r\n        width: 100%;\r\n        display: none;\r\n    }\r\n\r\n    #sidebar.visible-mobile-nav {\r\n        display: flex;\r\n    }\r\n\r\n    .task-filter {\r\n        width: calc(100% - 50px);\r\n    }\r\n\r\n    #add-project-btn {\r\n        width: calc(100% - 50px);\r\n        margin-bottom: 30px;\r\n    }\r\n\r\n    .content {\r\n        margin-left: 0;\r\n        width: 100%;\r\n    }\r\n\r\n    .task-entry {\r\n        width: calc(100vw - 100px);\r\n    }\r\n\r\n    footer {\r\n        position: relative;\r\n    }\r\n}\r\n\r\n@media (max-width: 730px) {\r\n    #user-acc-btn {\r\n        display: none;\r\n    }\r\n\r\n    #mobile-login-register-btns-container {\r\n        display: flex;\r\n    }\r\n\r\n    .navbar-btn {\r\n        margin: 0px;\r\n    }\r\n}\r\n\r\n@media (max-width: 700px) {\r\n    #delete-data-btn {\r\n        display: none;\r\n    }\r\n\r\n    #delete-data-btn-alt {\r\n        color: white;\r\n    }\r\n\r\n    .responsive-navbar-etension {\r\n        display: flex;\r\n    }\r\n}\r\n\r\n@media (max-width: 530px) {\r\n    #add-task-btn {\r\n        display: none;\r\n    }\r\n\r\n    #add-task-btn-alt {\r\n        display: flex;\r\n    }\r\n\r\n    .section-title-mobile {\r\n        display: block;\r\n        margin-left: 25px;\r\n        margin-top: 20px;\r\n        margin-bottom: 5px;\r\n    }\r\n\r\n    #all-tasks {\r\n        margin-top: 10px;\r\n    }\r\n}\r\n\r\n@media (max-width: 350px) {\r\n    .burger-menu {\r\n        height: 30px;\r\n        width: 30px;\r\n    }\r\n\r\n    .burger-btn {\r\n        width: 30px;\r\n    }\r\n\r\n    .burger-btn::after,\r\n    .burger-btn::before {\r\n        width: 30px;\r\n    }\r\n\r\n}\r\n\r\n@media (max-width: 610px) {\r\n    .add-task-modal {\r\n        margin-top: 10px;\r\n        margin-bottom: 10px;\r\n        min-width: 300px;\r\n        width: 90vw;\r\n    }\r\n\r\n    .add-project-modal {\r\n        margin-top: 10px;\r\n        margin-bottom: 10px;\r\n        min-width: 300px;\r\n        width: 90vw;\r\n    }\r\n\r\n    .show-task-modal {\r\n        margin-top: 10px;\r\n        margin-bottom: 10px;\r\n        min-width: 300px;\r\n        width: 90vw;\r\n    }\r\n\r\n    .edit-task-modal {\r\n        margin-top: 10px;\r\n        margin-bottom: 10px;\r\n        min-width: 300px;\r\n        width: 90vw;\r\n    }\r\n\r\n    .delete-data-modal {\r\n        margin-top: 10px;\r\n        margin-bottom: 10px;\r\n        min-width: 300px;\r\n        width: 90vw;\r\n    }\r\n\r\n    .inputs {\r\n        flex-direction: column;\r\n        width: 100%;\r\n    }\r\n\r\n    .modal-left-panel,\r\n    .modal-right-panel {\r\n        width: calc(100% - 40px);\r\n    }\r\n\r\n    .modal-right-panel {\r\n        margin-bottom: 20px;\r\n    }\r\n\r\n    #new-task-description {\r\n        height: auto;\r\n    }\r\n\r\n    .project-property {\r\n        width: auto;\r\n    }\r\n\r\n    .show-task-modal {\r\n        margin-top: 10px;\r\n        margin-bottom: 10px;\r\n        height: max-content;\r\n        min-width: 300px;\r\n        width: 90vw;\r\n    }\r\n\r\n    .properties {\r\n        flex-direction: column;\r\n        width: 100%;\r\n    }\r\n\r\n    .show-task-modal-left-panel,\r\n    .show-task-modal-right-panel {\r\n        width: calc(100% - 40px);\r\n    }\r\n\r\n    .show-task-modal-right-panel {\r\n        margin-bottom: 20px;\r\n    }\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n    display: flex;\r\n    flex-direction: row;\r\n    font-family: 'Poppins', sans-serif;\r\n    justify-content: center;\r\n    overflow-y: hidden;\r\n}\r\n\r\nnav {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 80px;\r\n    background-color: #3445B4;\r\n    color: white;\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n}\r\n\r\nnav h1 {\r\n    font-size: 36px;\r\n    margin-left: 10px;\r\n}\r\n\r\n.left-side-nav > .material-icons {\r\n    margin-left: 25px;\r\n}\r\n\r\n.left-side-nav {\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n}\r\n\r\n.right-side-nav {\r\n    display: flex;\r\n    flex-direction: row;\r\n}\r\n\r\n.navbar-btn {\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    justify-content: space-evenly;\r\n    margin-right: 25px;\r\n    font-size: 20px;\r\n    gap: 10px;\r\n    width: auto;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n    height: 40px;\r\n    border-radius: 5px;\r\n}\r\n\r\n.navbar-btn:hover {\r\n    cursor: pointer;\r\n}\r\n\r\n.navbar-btn-blue {\r\n    background-color: rgb(59, 78, 198);\r\n}\r\n\r\n.navbar-btn-blue:hover {\r\n    background-color: #2e3c97;\r\n}\r\n\r\n.navbar-btn-red {\r\n    background-color: #b02929;\r\n}\r\n\r\n.navbar-btn-red:hover {\r\n    background-color: #7e2828;\r\n}\r\n\r\n.burger-menu {\r\n    display: none;\r\n}\r\n\r\n#sidebar {\r\n    position: absolute;\r\n    top: 80px;\r\n    left: 0;\r\n    height: calc(100% - 80px);\r\n    width: 280px;\r\n    background-color: #E4E4E4;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\r\n}\r\n\r\n.task-filter {\r\n    min-height: 35px;\r\n    height: max-content;\r\n    width: 80%;\r\n    background-color: transparent;\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    font-size: 16px;\r\n    margin-left: 25px;\r\n    margin-top: 10px;\r\n    border-radius: 5px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.task-filter > p {\r\n    margin-left: 10px;\r\n}\r\n\r\n.task-filter span {\r\n    margin-left: 10px;\r\n}\r\n\r\n.task-filter:hover {\r\n    background-color: rgb(204, 204, 204);\r\n    cursor: pointer;\r\n}\r\n\r\n.selected {\r\n    background-color: rgb(204, 204, 204);\r\n}\r\n\r\n#add-task-btn-alt {\r\n    min-height: 35px;\r\n    height: max-content;\r\n    width: calc(100% - 50px);\r\n    background-color: transparent;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    font-size: 16px;\r\n    margin-left: 25px;\r\n    margin-top: 30px;\r\n    border-radius: 5px;\r\n    border: 3px solid rgb(204, 204, 204);\r\n    display: none;\r\n}\r\n\r\n#add-task-btn-alt:hover {\r\n    background-color: rgb(204, 204, 204);\r\n    cursor: pointer;\r\n}\r\n\r\n#add-task-btn-alt > p {\r\n    margin-left: 10px;\r\n}\r\n\r\n#add-task-btn-alt span {\r\n    margin-left: 10px;\r\n}\r\n\r\n.section-title-mobile {\r\n    display: none;\r\n}\r\n\r\n#all-tasks {\r\n    margin-top: 30px;\r\n}\r\n\r\n#add-project-btn {\r\n    min-height: 35px;\r\n    height: max-content;\r\n    width: 80%;\r\n    background-color: transparent;\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    font-size: 16px;\r\n    margin-left: 25px;\r\n    margin-top: 10px;\r\n    border-radius: 5px;\r\n    border: 3px solid rgb(204, 204, 204);\r\n}\r\n\r\n#add-project-btn > p {\r\n    margin-left: 10px;\r\n}\r\n\r\n#add-project-btn span {\r\n    margin-left: 10px;\r\n}\r\n\r\n#add-project-btn:hover {\r\n    background-color: rgb(204, 204, 204);\r\n    cursor: pointer;\r\n}\r\n\r\n#projects-section h2{\r\n    margin-left: 25px;\r\n    margin-top: 20px;\r\n    margin-bottom: 5px;\r\n}\r\n\r\n.content {\r\n    margin-top: 80px;\r\n    margin-left: 239px;\r\n    width: calc(100vw - 280px);\r\n    height: calc(100vh - 113px);\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\r\n    overflow-y: scroll;\r\n}\r\n\r\n#content-section-header {\r\n    margin-top: 30px;\r\n    margin-left: 50px;\r\n    margin-bottom: 5px;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    width: 50vw;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n#filter-name {\r\n    font-size: 30px;\r\n    width: max-content;\r\n}\r\n\r\n.content-section-header-btn {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    color: #6c757d;\r\n    padding: 5px 5px 5px 5px;\r\n    border-radius: 5px;\r\n    margin-top: 3px;\r\n}\r\n\r\n.content-section-header-btn:hover {\r\n    background-color: rgb(204, 204, 204);\r\n    cursor: pointer;\r\n}\r\n\r\n.content-section-header-btn-hovered {\r\n    background-color: rgb(204, 204, 204);\r\n    cursor: pointer;\r\n    color: black;\r\n}\r\n\r\n#edit-project-btn {\r\n    margin-left: 20px;\r\n}\r\n\r\n#edit-project-btn:hover {\r\n    color: #f49c18;\r\n}\r\n\r\n#delete-project-btn {\r\n    margin-left: 5px;\r\n}\r\n\r\n#delete-project-btn:hover {\r\n    color: red;\r\n}\r\n\r\n#sort-tasks-btn:hover {\r\n    color: black;\r\n}\r\n\r\n.content-section-header-btn p {\r\n    margin-left: 5px;\r\n}\r\n\r\n.task-entry {\r\n    margin-top: 15px;\r\n    margin-left: 50px;\r\n    min-height: 30px;\r\n    height: max-content;\r\n    width: 50vw;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    border-bottom: 1px solid #E4E4E4;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.task-entry:hover label {\r\n    cursor: pointer;\r\n}\r\n\r\n.task-entry:hover .task-mid-priority,\r\n.task-entry:hover .task-low-priority,\r\n.task-entry:hover .task-high-priority {\r\n    cursor: default;\r\n}\r\n\r\n.task-entry label {\r\n    margin-left: 5px;\r\n    font-weight: 600;\r\n}\r\n\r\n.task-high-priority {\r\n    color: red;\r\n}\r\n\r\n.task-medium-priority {\r\n    color: #f49c18;\r\n}\r\n\r\n.task-low-priority {\r\n    color: rgb(0, 202, 0);\r\n}\r\n\r\n.completedl {\r\n    text-decoration: line-through;\r\n    opacity: 70%;\r\n}\r\n\r\n.completedr {\r\n    opacity: 70%;\r\n}\r\n\r\n.delete-task-btn {\r\n    margin-left: 5px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.delete-task-btn:hover {\r\n    color: red;\r\n    cursor: pointer;\r\n}\r\n\r\n.edit-task-btn:hover {\r\n    cursor: pointer;\r\n    color: #f49c18;\r\n}\r\n\r\n.left-side,\r\n.right-side {\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n.modal-wrapper {\r\n    position: fixed;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100vw;\r\n    height: 100vh;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    z-index: 1;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.add-task-modal {\r\n    height: max-content;\r\n    width: 55vw;\r\n    background-color: white;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\r\n    border-radius: 5px;\r\n}\r\n\r\n.edit-task-modal {\r\n    height: max-content;\r\n    width: 55vw;\r\n    background-color: white;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\r\n    border-radius: 5px;\r\n}\r\n\r\n.modal-header h4 {\r\n    font-size: 20px;\r\n    padding: 16px;\r\n}\r\n\r\n.modal-header {\r\n    border-bottom: 1px solid #E4E4E4;\r\n}\r\n\r\n.inputs {\r\n    width: 100%;\r\n    height: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n}\r\n\r\n.form-input {\r\n    margin-top: 20px;\r\n    width: 100%;\r\n}\r\n\r\n.form-input input,\r\n.form-input select,\r\n.form-input textarea {\r\n    width: 100%;\r\n}\r\n\r\n.modal-left-panel,\r\n.modal-right-panel {\r\n    margin-left: 20px;\r\n    margin-right: 20px;\r\n    width: 50%;\r\n}\r\n\r\n#task-description-input {\r\n    height: 150px;\r\n    resize: none;\r\n}\r\n\r\n.modal-footer {\r\n    width: 100%;\r\n    height: 61.6px;\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    margin-top: 15px;\r\n}\r\n\r\n.grey-btn {\r\n    width: max-content;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n    height: 40px;\r\n    border: 2px solid #6c757d;\r\n    background-color: transparent;\r\n    border-radius: 5px;\r\n}\r\n\r\n.grey-btn:hover {\r\n    background-color: #6c757d;\r\n    color: white;\r\n    cursor: pointer;\r\n}\r\n\r\n.blue-btn {\r\n    width: max-content;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n    height: 40px;\r\n    background-color: #3445B4;\r\n    border: none;\r\n    border-radius: 5px;\r\n    color: white;\r\n    font-size: 16px;\r\n    font-weight: normal;\r\n}\r\n\r\n.blue-btn:hover {\r\n    cursor: pointer;\r\n    background-color: #2e3c97;\r\n}\r\n\r\n.red-btn {\r\n    width: max-content;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n    height: 40px;\r\n    background-color: #b02929;\r\n    border: none;\r\n    border-radius: 5px;\r\n    color: white;\r\n    font-size: 16px;\r\n    font-weight: normal;\r\n}\r\n\r\n.red-btn:hover {\r\n    cursor: pointer;\r\n    background-color: #7e2828;\r\n}\r\n\r\n#delete-data-btn {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    margin-right: 25px;\r\n}\r\n\r\n.add-project-modal {\r\n    min-width: 290px;\r\n    height: max-content;\r\n    width: 30vw;\r\n    background-color: white;\r\n    display: flex;\r\n    flex-direction: column;\r\n    border-radius: 5px;\r\n}\r\n\r\n.all-sides-20px-margin {\r\n    margin: 20px 20px 20px 20px;\r\n}\r\n\r\n.show-task-modal {\r\n    min-width: 480px;\r\n    height: max-content;\r\n    width: 45vw;\r\n    background-color: white;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\r\n    border-radius: 5px;\r\n}\r\n\r\n.property-name {\r\n    font-weight: 600;\r\n    margin-top: 20px;\r\n}\r\n\r\n.properties {\r\n    width: 100%;\r\n    height: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n}\r\n\r\n.show-task-modal-left-panel,\r\n.show-task-modal-right-panel {\r\n    margin-left: 20px;\r\n    margin-right: 20px;\r\n    width: 50%;\r\n}\r\n\r\nfooter {\r\n    position: absolute;\r\n    bottom: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 33px;\r\n    background-color: #3445B4;\r\n    color: white;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 18px;\r\n}\r\n\r\nfooter a {\r\n    color: white;\r\n}\r\n\r\n.bottom-modal-btn {\r\n    margin-bottom: 15px;\r\n    margin-right: 20px;\r\n}\r\n\r\n#remove-stored-data-btn {\r\n    color: blue;\r\n}\r\n\r\n.invalid-input {\r\n    border: 2px solid red;\r\n}\r\n\r\n.invalid-input-message {\r\n    color: red;\r\n    font-size: 14px;\r\n    margin-top: 5px;\r\n}\r\n\r\n.red-text {\r\n    color: red;\r\n}\r\n\r\n.delete-data-modal {\r\n    height: max-content;\r\n    width: max-content;\r\n    background-color: white;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\r\n    border-radius: 5px;\r\n}\r\n\r\n.modal-text {\r\n    text-align: left;\r\n    font-size: 16px;\r\n    margin-left: 16px;\r\n    margin-right: 16px;\r\n    margin-top: 20px;\r\n}\r\n\r\n.responsive-navbar-etension {\r\n    display: none;\r\n    height: max-content;\r\n    background-color: #3445B4;\r\n    align-items: center;\r\n    justify-content: center;\r\n    padding-bottom: 20px;\r\n}\r\n\r\n.dropdown-wrapper {\r\n    position: relative;\r\n    display: inline-block;\r\n}\r\n\r\n.dropdown-content {\r\n    width: max-content;\r\n    z-index: 1;\r\n    position: absolute;\r\n    display: inline-flex;\r\n    flex-direction: column;\r\n    align-items: flex-start;\r\n    justify-content: center;\r\n    background-color: #E4E4E4;\r\n    border-radius: 5px;\r\n    padding: 10px 10px 10px 10px;\r\n    gap: 5px;\r\n    display: none;\r\n}\r\n\r\n.dropdown-content-visible {\r\n    display: flex;\r\n}\r\n\r\n.dropdown-option {\r\n    cursor: pointer;\r\n    width: 100%;\r\n    border-radius: 5px;\r\n    padding: 7px 7px 7px 7px;\r\n}\r\n\r\n.dropdown-option:hover {\r\n    background-color: rgb(204, 204, 204);\r\n}\r\n\r\n/*Material Icons*/\r\n.fs-36 { \r\n    font-size: 36px; \r\n}\r\n\r\n.fs-22 { \r\n    font-size: 22px; \r\n}\r\n\r\n/*Media Queries*/\r\n@media (max-width: 750px) {\r\n    body {\r\n        flex-direction: column;\r\n        overflow-y: auto;\r\n    }\r\n\r\n    .content {\r\n        overflow: auto;\r\n    }\r\n\r\n    .burger-menu {\r\n        display: block;\r\n        align-self: center;\r\n        margin-right: 25px;\r\n        height: 40px;\r\n        width: 40px;\r\n        display: flex;\r\n        justify-content: center;\r\n    }\r\n\r\n    .burger-btn {\r\n        align-self: center;\r\n        height: 6px;\r\n        width: 40px;\r\n        background-color: white;\r\n    }\r\n\r\n    .burger-btn::after,\r\n    .burger-btn::before {\r\n        content: '';\r\n        position: absolute;\r\n        height: 6px;\r\n        width: 40px;\r\n        background-color: white;\r\n        transition: all 100ms ease-in-out;\r\n    }\r\n\r\n    .burger-btn::after {\r\n        transform: translateY(12px);\r\n    }\r\n\r\n    .burger-btn::before {\r\n        transform: translateY(-12px);\r\n    }\r\n\r\n    /* Burger-Menu Animation */\r\n    .mobile-menu.show-menu {\r\n        display: grid;\r\n        height: calc(100vh - 100px);\r\n        width: 100vw;\r\n        background-color: #3445b4;\r\n        display: grid;\r\n        justify-content: space-evenly;\r\n    }\r\n\r\n    .burger-menu.open .burger-btn {\r\n        background: transparent;\r\n    }\r\n\r\n    .burger-menu.open .burger-btn::before {\r\n        transform: rotate(45deg);\r\n        transition: all 100ms ease-in-out;\r\n    }\r\n\r\n    .burger-menu.open .burger-btn::after {\r\n        transform: rotate(-45deg);\r\n        transition: all 100ms ease-in-out;\r\n    }\r\n\r\n    .right-side-nav {\r\n        display: flex;\r\n        flex-direction: row;\r\n    }\r\n\r\n    #add-task-btn {\r\n        margin-right: 25px;\r\n    }\r\n\r\n    #sidebar {\r\n        position: relative;\r\n        width: 100%;\r\n        display: none;\r\n    }\r\n\r\n    #sidebar.visible-mobile-nav {\r\n        display: flex;\r\n    }\r\n\r\n    .task-filter {\r\n        width: calc(100% - 50px);\r\n    }\r\n\r\n    #add-project-btn {\r\n        width: calc(100% - 50px);\r\n        margin-bottom: 30px;\r\n    }\r\n\r\n    .content {\r\n        margin-left: 0;\r\n        width: 100%;\r\n    }\r\n\r\n    .task-entry {\r\n        width: calc(100vw - 100px);\r\n    }\r\n\r\n    #content-section-header {\r\n        width: calc(100vw - 100px);\r\n    }\r\n\r\n    footer {\r\n        position: relative;\r\n    }\r\n}\r\n\r\n@media (max-width: 730px) {\r\n    #user-acc-btn {\r\n        display: none;\r\n    }\r\n\r\n    #mobile-login-register-btns-container {\r\n        display: flex;\r\n    }\r\n\r\n    .navbar-btn {\r\n        margin: 0px;\r\n    }\r\n}\r\n\r\n@media (max-width: 700px) {\r\n    #delete-data-btn {\r\n        display: none;\r\n    }\r\n\r\n    #delete-data-btn-alt {\r\n        color: white;\r\n    }\r\n\r\n    .responsive-navbar-etension {\r\n        display: flex;\r\n    }\r\n}\r\n\r\n@media (max-width: 530px) {\r\n    #add-task-btn {\r\n        display: none;\r\n    }\r\n\r\n    #add-task-btn-alt {\r\n        display: flex;\r\n    }\r\n\r\n    .section-title-mobile {\r\n        display: block;\r\n        margin-left: 25px;\r\n        margin-top: 20px;\r\n        margin-bottom: 5px;\r\n    }\r\n\r\n    #all-tasks {\r\n        margin-top: 10px;\r\n    }\r\n}\r\n\r\n@media (max-width: 350px) {\r\n    .burger-menu {\r\n        height: 30px;\r\n        width: 30px;\r\n    }\r\n\r\n    .burger-btn {\r\n        width: 30px;\r\n    }\r\n\r\n    .burger-btn::after,\r\n    .burger-btn::before {\r\n        width: 30px;\r\n    }\r\n\r\n}\r\n\r\n@media (max-width: 610px) {\r\n    .add-task-modal {\r\n        margin-top: 10px;\r\n        margin-bottom: 10px;\r\n        min-width: 300px;\r\n        width: 90vw;\r\n    }\r\n\r\n    .add-project-modal {\r\n        margin-top: 10px;\r\n        margin-bottom: 10px;\r\n        min-width: 300px;\r\n        width: 90vw;\r\n    }\r\n\r\n    .show-task-modal {\r\n        margin-top: 10px;\r\n        margin-bottom: 10px;\r\n        min-width: 300px;\r\n        width: 90vw;\r\n    }\r\n\r\n    .edit-task-modal {\r\n        margin-top: 10px;\r\n        margin-bottom: 10px;\r\n        min-width: 300px;\r\n        width: 90vw;\r\n    }\r\n\r\n    .delete-data-modal {\r\n        margin-top: 10px;\r\n        margin-bottom: 10px;\r\n        min-width: 300px;\r\n        width: 90vw;\r\n    }\r\n\r\n    .inputs {\r\n        flex-direction: column;\r\n        width: 100%;\r\n    }\r\n\r\n    .modal-left-panel,\r\n    .modal-right-panel {\r\n        width: calc(100% - 40px);\r\n    }\r\n\r\n    .modal-right-panel {\r\n        margin-bottom: 20px;\r\n    }\r\n\r\n    #new-task-description {\r\n        height: auto;\r\n    }\r\n\r\n    .project-property {\r\n        width: auto;\r\n    }\r\n\r\n    .show-task-modal {\r\n        margin-top: 10px;\r\n        margin-bottom: 10px;\r\n        height: max-content;\r\n        min-width: 300px;\r\n        width: 90vw;\r\n    }\r\n\r\n    .properties {\r\n        flex-direction: column;\r\n        width: 100%;\r\n    }\r\n\r\n    .show-task-modal-left-panel,\r\n    .show-task-modal-right-panel {\r\n        width: calc(100% - 40px);\r\n    }\r\n\r\n    .show-task-modal-right-panel {\r\n        margin-bottom: 20px;\r\n    }\r\n}\r\n\r\n@media (max-width: 940px) {\r\n    .dropdown-wrapper {\r\n        float: right;\r\n    }\r\n\r\n    .dropdown-content {\r\n        right: 0;\r\n    }\r\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1807,12 +1807,6 @@ const kNOTWHITESPACEALONE = 'Whitespaces alone are not valid';
 const kDATEINVALID = 'The due date can\'t be before today';
 
 class UI {
-
-    
-    /*
-    **  Responsiveness related methods
-    */
-
     static #activateBurgerMenu = () => {
         const body = document.querySelector('body');
         const burgerMenuBtn = document.querySelector('.burger-menu');
@@ -1832,10 +1826,6 @@ class UI {
             burgerMenuBtn.classList.toggle('open');
         });
     }
-
-    /*
-    **  Modals
-    */
 
     static #showDeleteDataModal() {
         const body = document.querySelector('body');
@@ -2260,33 +2250,26 @@ class UI {
         taskPriority.classList.add(`task-${priority.toLowerCase()}-priority`);
     }
 
+    static #removeTaskFiltersEventListeners() {
+        const taskFilters = document.querySelectorAll('.task-filter');
+
+        taskFilters.forEach(filter => filter.removeEventListener('click', this.#handleFilterSelection));
+    }
+
     static #addNewProjectNameToSidebar(name, id) {
-        const projects = document.getElementsByClassName('project');
-        const projectContainer = document.querySelector('.projects');
+        const projectContainer = document.querySelector('#project-list-container');
 
-        if (projects.length == 0) {
-            const containerHeader = projectContainer.childNodes[1];
-
-            containerHeader.insertAdjacentHTML('afterend', `
-            <div class="task-filter project" data-projid="${id}" tabindex="0">
-                <span class="material-icons-outlined">description</span>
-                <p>${name}</p>
-            </div>
-            `);
-        }
-        else {
-            projects[projects.length - 1].insertAdjacentHTML('afterend', `
-            <div class="task-filter project" data-projid="${id}" tabindex="0">
-                <span class="material-icons-outlined">description</span>
-                <p>${name}</p>
-            </div>
-            `);
-        }
-
+        projectContainer.insertAdjacentHTML('beforeend', `
+        <div class="task-filter project" data-projid="${id}" tabindex="0">
+            <span class="material-icons-outlined">description</span>
+            <p>${name}</p>
+        </div>
+        `);
 
         const projectEntry = projectContainer.querySelector(`[data-projid='${id}']`);
         projectEntry.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
 
+        UI.#removeTaskFiltersEventListeners();
         UI.#setTaskFiltersEventListeners();
     }
 
@@ -2323,20 +2306,11 @@ class UI {
 
     static #removeProjectNameFromSidebar(id) {
         const project = document.querySelector(`[data-projid='${id}']`);
-        const projects = document.querySelector('.projects');
+        const projectList = document.querySelector('#project-list-container');
 
-        projects.removeChild(project);
+        projectList.removeChild(project);
     }
-
-    static #clearProjectNamesFromSidebar() {
-        const projectContainer = document.querySelector('.projects');
-        const projects = document.querySelectorAll('.project');
-
-        projects.forEach(proj => {
-            projectContainer.removeChild(proj);
-        })
-    }
-
+    
     static #handleEscapeKeyPress(e) {
         if (e.key === 'Escape') {
             UI.#removeModal();
@@ -2470,8 +2444,8 @@ class UI {
     static #updateProjectNameOnUI(projectId, newProjectName) {
         document.querySelector('#filter-name').innerText = newProjectName;
 
-        const sidebarProjects = document.querySelector('.projects');
-        const projectElement = sidebarProjects.querySelector(`[data-projid="${projectId}"]`);
+        const sidebarProjectList = document.querySelector('#project-list-container');
+        const projectElement = sidebarProjectList.querySelector(`[data-projid="${projectId}"]`);
         
         projectElement.children[1].innerText = newProjectName;
     }
@@ -2511,12 +2485,13 @@ class UI {
 
         if (!filterWithoutActions.includes(filter)) {
             const contentSectionHeader = document.querySelector('#content-section-header');
+            const leftSide = contentSectionHeader.querySelector('.left-side');
 
-            contentSectionHeader.insertAdjacentHTML('beforeend',`
-                <div class="project-action-btn" id="edit-project-btn" tabindex="0">
+            leftSide.insertAdjacentHTML('beforeend',`
+                <div class="content-section-header-btn" id="edit-project-btn" tabindex="0">
                     <span class="material-icons-outlined">edit</span>
                 </div>
-                <div class="project-action-btn" id="delete-project-btn" tabindex="0">
+                <div class="content-section-header-btn" id="delete-project-btn" tabindex="0">
                     <span class="material-icons-outlined">delete_outline</span>
                 </div>
             `);
@@ -2551,12 +2526,14 @@ class UI {
         }
     }
 
-    static #handleFilterSelection(selectedBtn, btnNodeList) {
+    static #handleFilterSelection(e) {
+        const btnNodeList = document.querySelectorAll('.task-filter');
+        const selectedBtn = e.currentTarget;
         const filterNameDisplay = document.querySelector('#filter-name');
         const currentFilterName = filterNameDisplay.innerText;
 
         // The paragraph element is the 3rd children of the btn pressed.
-        const filter = selectedBtn.childNodes[3].innerText;
+        const newFilter = selectedBtn.childNodes[3].innerText;
 
         for (let i = 0; i < btnNodeList.length; i++) {
             if (btnNodeList[i].classList.contains('selected') && btnNodeList[i] != selectedBtn) {
@@ -2564,17 +2541,39 @@ class UI {
             }
         }
 
-        this.#removeProjectActionButtons(currentFilterName);
+        UI.#removeProjectActionButtons(currentFilterName);
 
         if (!selectedBtn.classList.contains('selected')) {
-            this.#addProjectActionButtons(filter);
+            UI.#addProjectActionButtons(newFilter);
 
             selectedBtn.classList.add('selected');
 
-            filterNameDisplay.innerText = filter;
+            filterNameDisplay.innerText = newFilter;
 
-            this.#getTasksForFilter(filter);
+            // sort arg missing
+            UI.#displayTasks(UI.#getTasksForFilter(newFilter));
         }
+    }   
+
+    static #displayTasks(tasks, sort) {
+        if (sort === 'alphabeticallyasc') {
+            UI.#sortTasksAlphabeticallyAsc(tasks);
+        }
+        else if (sort === 'prioritydesc') {
+            UI.#sortTasksByPriorityDesc(tasks);
+        }
+        else {
+            console.log(tasks)
+            UI.#sortTasksByDueDateAsc(tasks);
+            console.log(tasks)
+        }
+
+        this.#clearTaskEntries();
+
+        tasks.forEach(task => {
+            this.#displayNewTask(task.getName(), task.getDueDate(), task.getPriority(),
+            task.getId(), task.getStatus());
+        });
     }
 
     static #getTasksForFilter(filter) {
@@ -2593,22 +2592,143 @@ class UI {
             tasks = _App__WEBPACK_IMPORTED_MODULE_2__.default.getTasksByProject(filter);
         }
 
-        this.#clearTaskEntries();        
-
-        if (tasks) {
-            tasks.forEach(task => {
-                this.#displayNewTask(task.getName(), task.getDueDate(), task.getPriority(),
-                task.getId(), task.getStatus());
-            });
-        }
+        return tasks;
     }
 
     static #setTaskFiltersEventListeners() {
         const taskFilters = document.querySelectorAll('.task-filter');
 
-        taskFilters.forEach(filter => filter.addEventListener('click', (e) => {
-            UI.#handleFilterSelection(e.currentTarget, taskFilters);
-        }));
+        taskFilters.forEach(filter => filter.addEventListener('click', UI.#handleFilterSelection));
+    }
+
+    static #showSortTasksDropdownMenu() {
+        const sortingOptions = document.querySelector('#sort-tasks-options');
+        const sortTasksBtn = document.querySelector('#sort-tasks-btn')
+
+        if (!sortingOptions.classList.contains('dropdown-content-visible')) {
+            sortingOptions.classList.add('dropdown-content-visible');
+            sortTasksBtn.classList.add('content-section-header-btn-hovered');
+
+            window.addEventListener('click', UI.#removeTaskSortDropdownOnOusideClick);
+        }
+        else {
+            sortingOptions.classList.remove('dropdown-content-visible');
+            sortTasksBtn.classList.remove('content-section-header-btn-hovered');
+
+            window.removeEventListener('click', UI.#removeTaskSortDropdownOnOusideClick);
+        }
+    }
+
+    static #removeTaskSortDropdownOnOusideClick(e) {
+        const sortTasksBtn = document.querySelector('#sort-tasks-btn');
+
+        // Check if the target is the button that opens the dropdown menu.
+        const isTargetSortTasksBtn = e.target.matches('#sort-tasks-btn');
+        
+        // Check if the target is either the text or the icon of the button.
+        const isTargetSortTasksBtnIcon = e.target === sortTasksBtn.children[0];
+        const isTargetSortTasksBtnText = e.target === sortTasksBtn.children[1];
+
+        // Check if the target is an option of the menu.
+        const isTargetDropdownContent = e.target.matches('#sort-tasks-options') || 
+                                        e.target.parentNode.matches('#sort-tasks-options');
+
+
+        if (!isTargetSortTasksBtn && !isTargetSortTasksBtnIcon && 
+            !isTargetSortTasksBtnText && !isTargetDropdownContent) {
+            const sortingOptions = document.querySelector('#sort-tasks-options');
+
+            if (sortingOptions.classList.contains('dropdown-content-visible') &&
+                sortTasksBtn.classList.contains('content-section-header-btn-hovered')
+            ) {
+                sortingOptions.classList.remove('dropdown-content-visible');
+                sortTasksBtn.classList.remove('content-section-header-btn-hovered');
+
+                window.removeEventListener('click', UI.#removeTaskSortDropdownOnOusideClick);
+            }
+        }
+    }
+
+    static #sortTasksByDueDateAsc(tasks) {
+        tasks.sort((a, b) => {
+            let duedateA = a.getDueDate();
+            let duedateB = b.getDueDate();
+
+            if (duedateA === duedateB) {
+                return 0;
+            }
+            else if (duedateA === '') {
+                return 1;
+            }
+            else if (duedateB === '') {
+                return -1;
+            }
+            else {
+                return new Date(duedateA) - new Date(duedateB);
+            }
+        });
+    }
+
+    static #sortTasksAlphabeticallyAsc(tasks) {
+        tasks.sort((a, b) => {
+            let nameA = a.getName().toLowerCase();
+            let nameB = b.getName().toLowerCase();
+            
+            if (nameA === nameB) {
+                return 0;
+            }
+            else if (nameA < nameB) {
+                return -1;
+            }
+            else {
+                return 1;
+            }
+        });
+    }
+
+    static #sortTasksByPriorityDesc(tasks) {
+        tasks.sort((a, b) => {
+            let pA = a.getPriority().toLowerCase();
+            let pB = b.getPriority().toLowerCase();
+            
+            if (pA === pB) {
+                return 0;
+            }
+            else if (pA === 'low' && (pB === 'medium' || pB === 'high')) {
+                return 1;
+            }
+            else if (pA === 'medium' && pB === 'high') {
+                return 1;
+            }
+            else {
+                return -1;
+            }
+        });
+    }
+
+    static #handleTaskSortOptionSelection(e) {
+        const filter = document.querySelector('#filter-name').innerText;
+        const sortingOptions = document.querySelectorAll('.task-sort-option');
+
+        for (let i = 0; i < sortingOptions.length; i++) {
+            if (sortingOptions[i].classList.contains('selected') && sortingOptions[i] != e.currentTarget) {
+                sortingOptions[i].classList.remove('selected');
+            }
+        }
+
+        if (!e.currentTarget.classList.contains('selected')) {
+            e.currentTarget.classList.add('selected');
+
+            UI.#displayTasks(UI.#getTasksForFilter(filter), e.currentTarget.dataset.value);
+        }
+    }
+
+    static #setTaskSortingOptionsEventListeners() {
+        const sortingOptions = document.querySelectorAll('.task-sort-option');
+
+        sortingOptions.forEach(option => {
+            option.addEventListener('click', UI.#handleTaskSortOptionSelection);
+        });
     }
 
     static #addUIEventListeners() {
@@ -2617,6 +2737,7 @@ class UI {
         const addProjectBtn = document.querySelector('#add-project-btn');
         const deleteDataBtn = document.querySelector('#delete-data-btn');
         const deleteDataBtnAlt = document.querySelector('#delete-data-btn-alt');
+        const sortTasksBtn = document.querySelector('#sort-tasks-btn');
 
         const body = document.querySelector('body');
 
@@ -2647,9 +2768,16 @@ class UI {
             UI.#showDeleteDataModal();
         });
 
+        sortTasksBtn.addEventListener('click', (e) => {
+            UI.#showSortTasksDropdownMenu();
+        });
+
         addProjectBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
         addTaskBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
         deleteDataBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
+        sortTasksBtn.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
+
+        UI.#setTaskSortingOptionsEventListeners();
 
         UI.#activateBurgerMenu();
     }
@@ -2771,7 +2899,13 @@ class UI {
         });
 
         const showAllTasks = document.querySelector('#all-tasks');
-        showAllTasks.click();
+        showAllTasks.classList.add('selected');
+
+        // sort by duedate
+        this.#displayTasks(this.#getTasksForFilter('All tasks'), 'duedateasc');
+        
+        const duedateascSortOption = document.querySelector('[data-value="duedateasc"]');
+        duedateascSortOption.classList.add('selected');
     }
 }
 
