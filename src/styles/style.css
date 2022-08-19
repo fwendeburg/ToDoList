@@ -217,6 +217,7 @@ nav h1 {
     flex-direction: column;
     justify-content: flex-start;
     overflow-y: auto;
+    padding-bottom: 30px;
 }
 
 #content-section-header {
