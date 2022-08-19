@@ -1722,16 +1722,16 @@ class UI {
     }
 
     static #addNewProjectNameToSidebar(name, id) {
-        const projectContainer = document.querySelector('#project-list-container');
+        const projectList = document.querySelector('#projects-section');
 
-        projectContainer.insertAdjacentHTML('beforeend', `
+        projectList.insertAdjacentHTML('beforeend', `
         <div class="task-filter project" data-projid="${id}" tabindex="0">
             <span class="material-icons-outlined">description</span>
             <p>${name}</p>
         </div>
         `);
 
-        const projectEntry = projectContainer.querySelector(`[data-projid='${id}']`);
+        const projectEntry = projectList.querySelector(`[data-projid='${id}']`);
         projectEntry.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
 
         UI.#removeTaskFiltersEventListeners();
@@ -1771,7 +1771,7 @@ class UI {
 
     static #removeProjectNameFromSidebar(id) {
         const project = document.querySelector(`[data-projid='${id}']`);
-        const projectList = document.querySelector('#project-list-container');
+        const projectList = document.querySelector('#projects-section');
 
         projectList.removeChild(project);
     }
@@ -1909,7 +1909,7 @@ class UI {
     static #updateProjectNameOnUI(projectId, newProjectName) {
         document.querySelector('#filter-name').innerText = newProjectName;
 
-        const sidebarProjectList = document.querySelector('#project-list-container');
+        const sidebarProjectList = document.querySelector('#projects-section');
         const projectElement = sidebarProjectList.querySelector(`[data-projid="${projectId}"]`);
         
         projectElement.children[1].innerText = newProjectName;
@@ -2028,9 +2028,7 @@ class UI {
             UI.#sortTasksByPriorityDesc(tasks);
         }
         else {
-            console.log(tasks)
             UI.#sortTasksByDueDateAsc(tasks);
-            console.log(tasks)
         }
 
         this.#clearTaskEntries();
