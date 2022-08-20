@@ -1,9 +1,7 @@
 # ToDoList
-
 A simple todo app to manage projects and tasks.  
 
 ## Features
-
 - All projects and tasks are stored locally.
 - Keyboard navigation support. 
 - Simple and intuitive design.
@@ -12,11 +10,9 @@ A simple todo app to manage projects and tasks.
 - Sort tasks alphabetically, by duedate or by priority.
 
 ## Tech Stack
-
 HTML, CSS, JavaScript.
 
 ## Run Locally
-
 :warning: **Node 14.20.0 is needed to run the app.**
 
 ```bash
@@ -41,8 +37,5 @@ Start the server
   npm run start
 ```
 
-
 ## Authors
-
 - [@fwendeburg](https://www.github.com/fwendeburg)
-
