@@ -1,4 +1,5 @@
 # ToDoList
+
 A simple todo app to manage projects and tasks.  
 
 ## Features
@@ -11,10 +12,13 @@ A simple todo app to manage projects and tasks.
 - Sort tasks alphabetically, by duedate or by priority.
 
 ## Tech Stack
+
 HTML, CSS, JavaScript.
 
 ## Run Locally
+
 :warning: **Node 14.20.0 is needed to run the app.**
+
 ```bash
   git clone https://github.com/fwendeburg/ToDoList.git
 ```
