@@ -328,7 +328,7 @@ export default class UI {
         return null;
     }
 
-    static #displayNewTask = (name, dueDate, priority, id, taskStatus) => {
+    static #displayNewTask(name, dueDate, priority, id, taskStatus) {
         const content = document.querySelector('.content');
 
         content.insertAdjacentHTML('beforeend', `
@@ -541,15 +541,24 @@ export default class UI {
             const taskProjectInput = document.querySelector('#task-project-input');
             const taskProjectName = taskProjectInput.options[taskProjectInput.selectedIndex].value;
             
-            const taskProject = (taskProjectName === 'No project'? null : 
-            App.getProjectByName(taskProjectName).getId());
+            const taskProject = App.getProjectByName(taskProjectName);
 
-            const newTask = new Task(newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority, taskProject);
-    
+            const taskProjectId = (taskProjectName === 'No project'? null : 
+            taskProject.getId());
+            
+            const newTask = new Task(newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority, taskProjectId);
+
             App.addNewTask(newTask);
-    
-            UI.#displayNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(),
-            newTask.getId(), newTask.getStatus());
+
+            const currentFilter = document.querySelector('#filter-name').innerText;
+
+            if ((taskProjectName === 'No project' && currentFilter === 'All tasks') ||
+                (taskProjectName === currentFilter) || 
+                newTask.isDuedateToday() && currentFilter === 'Today' ||
+                newTask.isDuedateThisWeek() && currentFilter === 'This week') {
+                UI.#displayNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(),
+                newTask.getId(), newTask.getStatus());
+            }
     
             UI.#removeModal();
         }
@@ -982,11 +991,12 @@ export default class UI {
 
     static #addOptionsToProjectSelector() {
         const taskProjectInput = document.querySelector('#task-project-input');
-        let projectNames = App.getProjectNames();
+        const projectNames = App.getProjectNames();
+        const currentFilter = document.querySelector('#filter-name').innerText;
 
         for (let i = 0; i < projectNames.length; i++) {
             taskProjectInput.insertAdjacentHTML('beforeend', `
-            <option>${projectNames[i]}</option>
+            <option ${projectNames[i] === currentFilter? 'selected' : ''}>${projectNames[i]}</option>
             `);
         }
     }
