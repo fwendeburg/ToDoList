@@ -1,7 +1,6 @@
 import Project from './Project.js';
 import Task from './Task.js';
 import app from './App';
-import { isToday, startOfToday, compareAsc, addDays, parseISO} from 'date-fns';
 
 export default class ToDo {
     #projects;
@@ -150,11 +149,7 @@ export default class ToDo {
         let tasks = [];
 
         for (let i = 0; i < this.#tasks.length; i++) {
-            if (this.#tasks[i].getDueDate() === '') {
-                continue;
-            }
-
-            if (isToday(parseISO(this.#tasks[i].getDueDate()))) {
+            if (this.#tasks[i].isDuedateToday()) {
                 tasks.push(this.#tasks[i]);
             }
         }
@@ -164,14 +159,9 @@ export default class ToDo {
 
     getDueThisWeekTasks = () => {
         let tasks = [];
-        let nextWeek = addDays(startOfToday(), 7);
 
         for (let i = 0; i < this.#tasks.length; i++) {
-            if (this.#tasks[i].getDueDate() === '') {
-                continue;
-            }
-
-            if (compareAsc(parseISO(this.#tasks[i].getDueDate()), nextWeek) != 1) {
+            if (this.#tasks[i].isDuedateThisWeek()) {
                 tasks.push(this.#tasks[i]);
             }
         }
