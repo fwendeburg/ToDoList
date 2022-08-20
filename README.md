@@ -12,7 +12,7 @@ Made with HTML, CSS and Vanilla JS.
 - Sort tasks alphabetically, by duedate or by priority.
 
 ## Run Locally
-⚠️ **Node 14.20.0 is needed to run the app.**
+:warning: **Node 14.20.0 is needed to run the app.**
 ```bash
   git clone https://github.com/fwendeburg/ToDoList.git
 ```
