@@ -1,20 +1,28 @@
+import { isToday, startOfToday, compareAsc, addDays, parseISO} from 'date-fns';
+
 export default class Task {
     static #nextId = 0;
 
-    constructor(name, description, dueDate, priority, project) {
+    constructor(name, description, duedate, priority, project) {
         this.name = name;
         this.description = description;
-        this.dueDate = dueDate;
+        this.duedate = duedate;
         this.priority = priority;
         this.id = Task.#nextId++;
         this.isCompleted = false;
-        this.project = null;
+
+        if (project === undefined) {
+            this.project = null;
+        }
+        else {
+            this.project = project;
+        }
     }
 
     setProperties(name, description, dueDate, priority, project) {
         this.name = name;
         this.description = description;
-        this.dueDate = dueDate;
+        this.duedate = dueDate;
         this.priority = priority;
         this.project = project;
     }
@@ -36,7 +44,7 @@ export default class Task {
     }
 
     getDueDate() {
-        return this.dueDate;
+        return this.duedate;
     }
 
     getPriority() {
@@ -49,5 +57,23 @@ export default class Task {
 
     getProject() {
         return this.project;
+    }
+
+    isDuedateToday() {
+        if (this.duedate === '') {
+            return false;
+        }
+
+        return isToday(parseISO(this.duedate));
+    }
+
+    isDuedateThisWeek() {
+        if (this.duedate === '') {
+            return false;
+        }
+
+        let nextWeek = addDays(startOfToday(), 7);
+
+        return compareAsc(parseISO(this.duedate), nextWeek) != 1
     }
 }
