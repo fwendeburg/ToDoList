@@ -1,7 +1,6 @@
 # ToDoList
-
 A simple todo app to manage projects and tasks.  
-Made with HTML, CSS and Vanilla JS.
+
 ## Features
 
 - All projects and tasks are stored locally.
