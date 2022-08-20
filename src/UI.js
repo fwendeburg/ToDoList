@@ -479,7 +479,7 @@ export default class UI {
 
         body.style = "";
 
-        document.removeEventListener('keydown', UI.#handleTabKeyPressOnModal);
+        document.removeEventListener('keydown', UI.#handleTabKeyPressOnFocusTrappedHTMLElement);
 
         if (modal) {
             body.removeChild(modal);
@@ -564,7 +564,7 @@ export default class UI {
         }
     }
 
-    static #handleTabKeyPressOnModal(firstFocusableElement, lastFocusableElement, e) {
+    static #handleTabKeyPressOnFocusTrappedHTMLElement(firstFocusableElement, lastFocusableElement, e) {
         let isTabPressed = e.key === 'Tab' || e.keyCode === 9;
 
         if (!isTabPressed) {
@@ -584,11 +584,11 @@ export default class UI {
         }
     }
 
-    static #trapFocusOnModal(modal) {
+    static #trapFocusOnHTMLElement(element) {
         const  focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-        const focusableContent = modal.querySelectorAll(focusableElements);
+        const focusableContent = element.querySelectorAll(focusableElements);
 
-        document.addEventListener('keydown', UI.#handleTabKeyPressOnModal.bind(null, focusableContent[0], focusableContent[focusableContent.length - 1]));
+        document.addEventListener('keydown', UI.#handleTabKeyPressOnFocusTrappedHTMLElement.bind(null, focusableContent[0], focusableContent[focusableContent.length - 1]));
     
         focusableContent[0].focus();
     }
@@ -647,7 +647,7 @@ export default class UI {
 
         cancelBtn.addEventListener('click', UI.#removeModal);
     
-        this.#trapFocusOnModal(modal);
+        this.#trapFocusOnHTMLElement(modal);
     }
 
     static #updateProjectNameOnUI(projectId, newProjectName) {
@@ -817,12 +817,14 @@ export default class UI {
             sortTasksBtn.classList.add('content-section-header-btn-hovered');
 
             window.addEventListener('click', UI.#removeTaskSortDropdownOnOusideClick);
+            this.#trapFocusOnHTMLElement(document.querySelector('#sort-tasks-dropdown-menu'));
         }
         else {
             sortingOptions.classList.remove('dropdown-content-visible');
             sortTasksBtn.classList.remove('content-section-header-btn-hovered');
 
             window.removeEventListener('click', UI.#removeTaskSortDropdownOnOusideClick);
+            document.removeEventListener('keydown', UI.#handleTabKeyPressOnFocusTrappedHTMLElement);
         }
     }
 
@@ -852,6 +854,7 @@ export default class UI {
                 sortTasksBtn.classList.remove('content-section-header-btn-hovered');
 
                 window.removeEventListener('click', UI.#removeTaskSortDropdownOnOusideClick);
+                document.removeEventListener('keydown', UI.#handleTabKeyPressOnFocusTrappedHTMLElement);
             }
         }
     }
@@ -935,6 +938,7 @@ export default class UI {
 
         sortingOptions.forEach(option => {
             option.addEventListener('click', UI.#handleTaskSortOptionSelection);
+            option.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
         });
     }
 
