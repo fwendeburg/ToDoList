@@ -11,6 +11,9 @@ Made with HTML, CSS and Vanilla JS.
 - Create, edit and delete tasks and projects.
 - Sort tasks alphabetically, by duedate or by priority.
 
+## Tech Stack
+HTML, CSS, JavaScript.
+
 ## Run Locally
 :warning: **Node 14.20.0 is needed to run the app.**
 ```bash
