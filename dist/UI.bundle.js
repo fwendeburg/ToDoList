@@ -921,23 +921,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Task)
 /* harmony export */ });
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/isToday/index.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/parseISO/index.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/addDays/index.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/startOfToday/index.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/compareAsc/index.js");
+
+
 class Task {
     static #nextId = 0;
 
-    constructor(name, description, dueDate, priority, project) {
+    constructor(name, description, duedate, priority, project) {
         this.name = name;
         this.description = description;
-        this.dueDate = dueDate;
+        this.duedate = duedate;
         this.priority = priority;
         this.id = Task.#nextId++;
         this.isCompleted = false;
-        this.project = null;
+
+        if (project === undefined) {
+            this.project = null;
+        }
+        else {
+            this.project = project;
+        }
     }
 
     setProperties(name, description, dueDate, priority, project) {
         this.name = name;
         this.description = description;
-        this.dueDate = dueDate;
+        this.duedate = dueDate;
         this.priority = priority;
         this.project = project;
     }
@@ -959,7 +972,7 @@ class Task {
     }
 
     getDueDate() {
-        return this.dueDate;
+        return this.duedate;
     }
 
     getPriority() {
@@ -972,6 +985,24 @@ class Task {
 
     getProject() {
         return this.project;
+    }
+
+    isDuedateToday() {
+        if (this.duedate === '') {
+            return false;
+        }
+
+        return (0,date_fns__WEBPACK_IMPORTED_MODULE_0__.default)((0,date_fns__WEBPACK_IMPORTED_MODULE_1__.default)(this.duedate));
+    }
+
+    isDuedateThisWeek() {
+        if (this.duedate === '') {
+            return false;
+        }
+
+        let nextWeek = (0,date_fns__WEBPACK_IMPORTED_MODULE_2__.default)((0,date_fns__WEBPACK_IMPORTED_MODULE_3__.default)(), 7);
+
+        return (0,date_fns__WEBPACK_IMPORTED_MODULE_4__.default)((0,date_fns__WEBPACK_IMPORTED_MODULE_1__.default)(this.duedate), nextWeek) != 1
     }
 }
 
@@ -990,12 +1021,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Project_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Project.js */ "./src/Project.js");
 /* harmony import */ var _Task_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Task.js */ "./src/Task.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App */ "./src/App.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/isToday/index.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/parseISO/index.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/addDays/index.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/startOfToday/index.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/compareAsc/index.js");
-
 
 
 
@@ -1147,11 +1172,7 @@ class ToDo {
         let tasks = [];
 
         for (let i = 0; i < this.#tasks.length; i++) {
-            if (this.#tasks[i].getDueDate() === '') {
-                continue;
-            }
-
-            if ((0,date_fns__WEBPACK_IMPORTED_MODULE_3__.default)((0,date_fns__WEBPACK_IMPORTED_MODULE_4__.default)(this.#tasks[i].getDueDate()))) {
+            if (this.#tasks[i].isDuedateToday()) {
                 tasks.push(this.#tasks[i]);
             }
         }
@@ -1161,14 +1182,9 @@ class ToDo {
 
     getDueThisWeekTasks = () => {
         let tasks = [];
-        let nextWeek = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__.default)((0,date_fns__WEBPACK_IMPORTED_MODULE_6__.default)(), 7);
 
         for (let i = 0; i < this.#tasks.length; i++) {
-            if (this.#tasks[i].getDueDate() === '') {
-                continue;
-            }
-
-            if ((0,date_fns__WEBPACK_IMPORTED_MODULE_7__.default)((0,date_fns__WEBPACK_IMPORTED_MODULE_4__.default)(this.#tasks[i].getDueDate()), nextWeek) != 1) {
+            if (this.#tasks[i].isDuedateThisWeek()) {
                 tasks.push(this.#tasks[i]);
             }
         }
@@ -1593,7 +1609,7 @@ class UI {
         return null;
     }
 
-    static #displayNewTask = (name, dueDate, priority, id, taskStatus) => {
+    static #displayNewTask(name, dueDate, priority, id, taskStatus) {
         const content = document.querySelector('.content');
 
         content.insertAdjacentHTML('beforeend', `
@@ -1744,7 +1760,7 @@ class UI {
 
         body.style = "";
 
-        document.removeEventListener('keydown', UI.#handleTabKeyPressOnModal);
+        document.removeEventListener('keydown', UI.#handleTabKeyPressOnFocusTrappedHTMLElement);
 
         if (modal) {
             body.removeChild(modal);
@@ -1806,21 +1822,30 @@ class UI {
             const taskProjectInput = document.querySelector('#task-project-input');
             const taskProjectName = taskProjectInput.options[taskProjectInput.selectedIndex].value;
             
-            const taskProject = (taskProjectName === 'No project'? null : 
-            _App__WEBPACK_IMPORTED_MODULE_2__.default.getProjectByName(taskProjectName).getId());
+            const taskProject = _App__WEBPACK_IMPORTED_MODULE_2__.default.getProjectByName(taskProjectName);
 
-            const newTask = new _Task_js__WEBPACK_IMPORTED_MODULE_0__.default(newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority, taskProject);
-    
+            const taskProjectId = (taskProjectName === 'No project'? null : 
+            taskProject.getId());
+            
+            const newTask = new _Task_js__WEBPACK_IMPORTED_MODULE_0__.default(newTaskName, newTaskDesc, newTaskDueDate, newTaskPriority, taskProjectId);
+
             _App__WEBPACK_IMPORTED_MODULE_2__.default.addNewTask(newTask);
-    
-            UI.#displayNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(),
-            newTask.getId(), newTask.getStatus());
+
+            const currentFilter = document.querySelector('#filter-name').innerText;
+
+            if ((taskProjectName === 'No project' && currentFilter === 'All tasks') ||
+                (taskProjectName === currentFilter) || 
+                newTask.isDuedateToday() && currentFilter === 'Today' ||
+                newTask.isDuedateThisWeek() && currentFilter === 'This week') {
+                UI.#displayNewTask(newTask.getName(), newTask.getDueDate(), newTask.getPriority(),
+                newTask.getId(), newTask.getStatus());
+            }
     
             UI.#removeModal();
         }
     }
 
-    static #handleTabKeyPressOnModal(firstFocusableElement, lastFocusableElement, e) {
+    static #handleTabKeyPressOnFocusTrappedHTMLElement(firstFocusableElement, lastFocusableElement, e) {
         let isTabPressed = e.key === 'Tab' || e.keyCode === 9;
 
         if (!isTabPressed) {
@@ -1840,11 +1865,11 @@ class UI {
         }
     }
 
-    static #trapFocusOnModal(modal) {
+    static #trapFocusOnHTMLElement(element) {
         const  focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-        const focusableContent = modal.querySelectorAll(focusableElements);
+        const focusableContent = element.querySelectorAll(focusableElements);
 
-        document.addEventListener('keydown', UI.#handleTabKeyPressOnModal.bind(null, focusableContent[0], focusableContent[focusableContent.length - 1]));
+        document.addEventListener('keydown', UI.#handleTabKeyPressOnFocusTrappedHTMLElement.bind(null, focusableContent[0], focusableContent[focusableContent.length - 1]));
     
         focusableContent[0].focus();
     }
@@ -1903,7 +1928,7 @@ class UI {
 
         cancelBtn.addEventListener('click', UI.#removeModal);
     
-        this.#trapFocusOnModal(modal);
+        this.#trapFocusOnHTMLElement(modal);
     }
 
     static #updateProjectNameOnUI(projectId, newProjectName) {
@@ -2073,12 +2098,14 @@ class UI {
             sortTasksBtn.classList.add('content-section-header-btn-hovered');
 
             window.addEventListener('click', UI.#removeTaskSortDropdownOnOusideClick);
+            this.#trapFocusOnHTMLElement(document.querySelector('#sort-tasks-dropdown-menu'));
         }
         else {
             sortingOptions.classList.remove('dropdown-content-visible');
             sortTasksBtn.classList.remove('content-section-header-btn-hovered');
 
             window.removeEventListener('click', UI.#removeTaskSortDropdownOnOusideClick);
+            document.removeEventListener('keydown', UI.#handleTabKeyPressOnFocusTrappedHTMLElement);
         }
     }
 
@@ -2108,6 +2135,7 @@ class UI {
                 sortTasksBtn.classList.remove('content-section-header-btn-hovered');
 
                 window.removeEventListener('click', UI.#removeTaskSortDropdownOnOusideClick);
+                document.removeEventListener('keydown', UI.#handleTabKeyPressOnFocusTrappedHTMLElement);
             }
         }
     }
@@ -2191,6 +2219,7 @@ class UI {
 
         sortingOptions.forEach(option => {
             option.addEventListener('click', UI.#handleTaskSortOptionSelection);
+            option.addEventListener('keydown', UI.#handleEnterOnFocusedHTMLElement);
         });
     }
 
@@ -2247,11 +2276,12 @@ class UI {
 
     static #addOptionsToProjectSelector() {
         const taskProjectInput = document.querySelector('#task-project-input');
-        let projectNames = _App__WEBPACK_IMPORTED_MODULE_2__.default.getProjectNames();
+        const projectNames = _App__WEBPACK_IMPORTED_MODULE_2__.default.getProjectNames();
+        const currentFilter = document.querySelector('#filter-name').innerText;
 
         for (let i = 0; i < projectNames.length; i++) {
             taskProjectInput.insertAdjacentHTML('beforeend', `
-            <option>${projectNames[i]}</option>
+            <option ${projectNames[i] === currentFilter? 'selected' : ''}>${projectNames[i]}</option>
             `);
         }
     }
