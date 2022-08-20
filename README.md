@@ -7,7 +7,7 @@ A simple todo app to manage projects and tasks.
 - All projects and tasks are stored locally.
 - Keyboard navigation support. 
 - Simple and intuitive design.
-- Respnsive design.
+- Responsive design.
 - Create, edit and delete tasks and projects.
 - Sort tasks alphabetically, by duedate or by priority.
 
